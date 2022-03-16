@@ -1,0 +1,164 @@
+<template>
+  <div class="single-item shadow d-flex">
+    <div class="single-item__image">
+      <img src="/public/assets/img/Landing-page-bg.jpg" class="shadow" alt="" />
+      <span class="single-item-image-floading-text">Wynajem</span>
+    </div>
+    <div class="single-item__info">
+      <div class="single-item__info-title">
+        <p class="single-item__info-title-bold m-0">Modern Home</p>
+        <p class="single-item__info-title-muted m-0">By Real Agency</p>
+      </div>
+      <div
+        class="
+          single-item__info-descriptions
+          d-flex
+          justify-content-start
+          align-items-center
+        "
+      >
+        <div class="single-item__info-description-item">
+          <font-awesome-icon :icon="['fas', 'location-pin']" />
+          <p class="single-item__info-description-item-text">
+            4517 Washington Ave, Poland
+          </p>
+        </div>
+
+        <div class="single-item__info-description-item">
+          <font-awesome-icon :icon="['fas', 'calendar']" />
+          <p class="single-item__info-description-item-text">Jan 14</p>
+        </div>
+
+        <div class="single-item__info-description-item">
+          <font-awesome-icon :icon="['fas', 'clock']" />
+          <p class="single-item__info-description-item-text">23H : 00M : 00S</p>
+        </div>
+      </div>
+      <div
+        class="
+          single-item__info-actions
+          d-flex
+          justify-content-between
+          align-items-end
+        "
+      >
+        <div class="action-discription">
+          <div class="mr-3">
+            <img src="/public/assets/icon/Chart.svg" alt="" />
+          </div>
+          <p class="m-0">
+            Aktualna cena <span class="text-blue">240,000 zl</span>
+          </p>
+        </div>
+        <div class="action-btn">
+          <div class="btn btn-primary shadow auction-btn">Licytuj</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+</script>
+
+
+<style >
+.single-item__image img {
+  height: 200px;
+  object-fit: cover;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 25px;
+  position: relative;
+}
+.single-item {
+  border-radius: 25px;
+  padding: 15px;
+}
+
+.single-item {
+  background: #fff !important;
+  box-sizing: border-box;
+  border-radius: 25px;
+  margin-bottom: 40px;
+  border: 2px solid #dfdcdc;
+  transition-duration: 0.2s;
+}
+
+.single-item:hover {
+  border: 2px solid #fff;
+}
+span.single-item-image-floading-text {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background: #fff;
+  padding: 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: var(--blue);
+  font-weight: bold;
+}
+
+.single-item__image {
+  position: relative;
+  margin-right: 20px;
+}
+.single-item__info-title-bold {
+  font-size: 1.55rem;
+  font-weight: bold;
+}
+
+.single-item__info-title-muted {
+  font-size: 1rem;
+  color: var(--grey);
+}
+
+.single-item__info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.single-item__info-descriptions {
+  margin-top: 0.75rem;
+  width: 100%;
+}
+.single-item__info-description-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--grey);
+  margin-right: 30px;
+  font-size: 1rem;
+}
+.single-item__info-description-item svg {
+  margin-right: 10px;
+}
+.single-item__info-description-item p {
+  margin: 0;
+}
+.action-discription {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 25px;
+}
+.mr-3 {
+  margin-right: 10px;
+}
+
+.text-blue {
+  color: var(--blue);
+}
+
+.auction-btn {
+  width: 250px;
+  height: 45px;
+  border-radius: 10px !important;
+}
+</style>>
+ 

@@ -1,0 +1,42 @@
+<template>
+  <div class="auth-page">
+    <div class="fullscreen-bg">
+      <video loop muted autoplay class="fullscreen-bg__video">
+        <source src="/assets/home-bg-video.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="center-area">
+      <div class="site-logo-area">
+        <img class="logo" src="/assets/logo/logo.png" alt="" />
+      </div>
+      <div @click="openLoginModal()" class="site-button">WEJDZ NA STRONĘ</div>
+    </div>
+  </div>
+  <Login></Login>
+  <Register></Register>
+</template>
+ <script>
+import "/src/styles/auth.css";
+import Login from "./Login.vue";
+import Register from "./Register.vue";
+
+import { useStore } from "vuex";
+
+export default {
+  setup() {
+    const store = useStore();
+
+    function openLoginModal() {
+      store.dispatch("User/setLoginModal", true);
+    }
+    return {
+      openLoginModal,
+    };
+  },
+  components: {
+    Login,
+    Register,
+  },
+  mounted() {},
+};
+</script> 

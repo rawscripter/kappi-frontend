@@ -1,30 +1,38 @@
 <template>
   <div class="home-page">
-    <div class="fullscreen-bg">
-      <video loop muted autoplay class="fullscreen-bg__video">
-        <source src="/assets/home-bg-video.mp4" type="video/mp4" />
-      </video>
-    </div>
-    <div class="center-area">
-      <div class="site-logo-area">
-        <img class="logo" src="/assets/logo/logo.png" alt="" />
+    <div class="category-filter-area">
+      <div class="category-filter-area__title">
+        <p><strong>Kategoria</strong></p>
       </div>
-      <div class="site-button">WEJDZ NA STRONĘ</div>
+      <CustomCategoryDropdown />
+    </div>
+
+    <div class="item-list mt-5">
+      <div class="item-list__items">
+        <SingleItem v-for="(item, index) in 5" :key="index" :item="item" />
+      </div>
+
+      <Pagination />
     </div>
   </div>
-  <Login></Login>
 </template>
  <script>
-import "/src/styles/home.css";
-import Login from "../auth/Login.vue";
-
+import CustomCategoryDropdown from "./utility/CustomCategoryDropdown.vue";
+import Pagination from "./utility/Pagination.vue";
+import SingleItem from "./item/SingleItem.vue";
 export default {
-  setup() {
-    return {};
-  },
   components: {
-    Login,
+    CustomCategoryDropdown,
+    SingleItem,
+    Pagination,
   },
-  mounted() {},
 };
-</script> 
+</script>  
+
+<style>
+.home-page {
+  padding: 50px 0;
+  min-height: 50vh;
+  text-align: left;
+}
+</style>

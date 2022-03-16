@@ -1,7 +1,10 @@
 import { createApp } from 'vue'
 import BootstrapVue3 from 'bootstrap-vue-3'
 import App from './App.vue'
-
+import router from "./router";
+import store from "./store";
+import axios from "axios";
+import VueAxios from "vue-axios";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -15,5 +18,8 @@ import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 
 createApp(App)
     .use(BootstrapVue3)
+    .use(store)
+    .use(router)
     .component("font-awesome-icon", FontAwesomeIcon)
+    .use(VueAxios, axios)
     .mount('#app')

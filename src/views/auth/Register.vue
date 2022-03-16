@@ -1,5 +1,5 @@
 <template>
-  <div class="loginModal">
+  <div class="registerModal">
     <div
       class="modal"
       :class="showModal ? 'show' : ''"
@@ -8,19 +8,23 @@
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content shadow-sm">
-          <div @click="closeLoginModal()" class="modal-close-button shadow">
+          <div
+            @click="closeRegistrationModal()"
+            class="modal-close-button shadow"
+          >
             <font-awesome-icon :icon="['fas', 'times']" />
           </div>
           <div class="modal-body">
-            <div class="login-modal-title">
-              <span class="text-blue">Witmy w </span> K A P P I
+            <div class="register-modal-title">
+              <span class="text-blue">Zarejestruj się w </span> K A P P I
             </div>
-            <div class="login-modal-description">
-              <p class="m-0">Dziękujemy, że z nami jesteś.</p>
-              <p>Zaloguj się na swoje konto</p>
+            <div class="register-modal-description">
+              <p class="m-0">
+                Utwórz nowe konto i zdobądź wymarzoną nieruchomość
+              </p>
             </div>
 
-            <form class="login-form" action="">
+            <form class="register-form" action="">
               <div class="input-group custom-input-box">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -40,6 +44,21 @@
                   <font-awesome-icon :icon="['far', 'eye']" />
                 </div>
               </div>
+              <div class="input-group custom-input-box">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <font-awesome-icon :icon="['fas', 'lock']" />
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Potwierdz haslo"
+                />
+                <div class="input-group-append">
+                  <font-awesome-icon :icon="['far', 'eye']" />
+                </div>
+              </div>
 
               <div class="form-group">
                 <div class="remember-me-area d-flex justify-content-between">
@@ -50,25 +69,22 @@
                       id="customCheck1"
                     />
                     <label class="custom-control-label" for="customCheck1">
-                      Zapamiętaj mnie
+                      Akceptuję <u>Regulamin</u> i<u> Politykę prywatności</u>
                     </label>
-                  </div>
-                  <div class="forgot-password-area">
-                    <a href="#" class="text-dark">Nie pamiętasz hasła?</a>
                   </div>
                 </div>
               </div>
 
               <div class="form-group">
-                <button class="btn btn-primary btn-block shadow login-btn">
-                  Zaloguj
+                <button class="btn btn-primary btn-block shadow register-btn">
+                  Zarejestruj się
                 </button>
               </div>
 
               <div class="form-bottom-content">
-                <p class="m-0">Nie masz jeszcze konta?</p>
-                <p @click="openRegistrationModal()" class="text-blue">
-                  <u><strong>Zarejestruj się</strong></u>
+                <p class="m-0">Masz już konto?</p>
+                <p @click="openLoginModal" class="text-blue">
+                  <u><strong>Zaloguj się</strong></u>
                 </p>
               </div>
             </form>
@@ -80,7 +96,7 @@
 </template>
 
 <script>
-import "/src/styles/login.css";
+import "/src/styles/register.css";
 
 import { computed } from "vue";
 import { useStore } from "vuex";
@@ -88,23 +104,23 @@ import { useStore } from "vuex";
 export default {
   setup() {
     const store = useStore();
-    const showModal = computed(() => store.state.User.showLoginModal);
+    const showModal = computed(() => store.state.User.showRegistrationModal);
 
-    function closeLoginModal() {
-      store.dispatch("User/setLoginModal", false);
+    function closeRegistrationModal() {
+      store.dispatch("User/setRegistrationModal", false);
     }
 
-    function openRegistrationModal() {
-      closeLoginModal();
-      store.dispatch("User/setRegistrationModal", true);
+    function openLoginModal() {
+      closeRegistrationModal();
+      store.dispatch("User/setLoginModal", true);
     }
+
     return {
       showModal,
-      closeLoginModal,
-      openRegistrationModal,
+      closeRegistrationModal,
+      openLoginModal,
     };
   },
 };
 </script>
-
  
