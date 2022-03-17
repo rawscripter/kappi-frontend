@@ -5,6 +5,7 @@
       <router-view> </router-view>
     </div>
     <Footer />
+    <PasswordReset />
   </div>
 </template>
 
@@ -12,11 +13,12 @@
 import Footer from "./Footer.vue";
 import Header from "./Header.vue";
 import "../../styles/layout.css";
-
+import PasswordReset from "../../views/auth/PasswordReset.vue";
 export default {
   components: {
     Footer,
     Header,
+    PasswordReset,
   },
 };
 </script>

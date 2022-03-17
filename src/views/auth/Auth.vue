@@ -9,14 +9,15 @@
       <div class="site-logo-area">
         <img class="logo" src="/assets/logo/logo.png" alt="" />
       </div>
-      <div @click="openLoginModal()" class="site-button">WEJDZ NA STRONĘ</div>
+      <div @click="openLoginModal()" class="site-button text-center">
+        WEJDZ NA STRONĘ
+      </div>
     </div>
   </div>
   <Login></Login>
   <Register></Register>
 </template>
  <script>
-import "/src/styles/auth.css";
 import Login from "./Login.vue";
 import Register from "./Register.vue";
 
@@ -40,3 +41,10 @@ export default {
   mounted() {},
 };
 </script> 
+
+<style scoped>
+@import url("/src/styles/auth.css");
+.logo {
+  filter: invert(1);
+}
+</style>

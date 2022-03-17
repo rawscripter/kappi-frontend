@@ -10,8 +10,16 @@
       </div>
       <div class="col-md-4">
         <ul class="middle-footer-content">
-          <li>Regulamin</li>
-          <li>Polityka prywatności</li>
+          <li class="cp" @click="openTermsModal()">Regulamin</li>
+          <li for="">
+            <router-link
+              :to="{
+                name: 'privacy-policy',
+              }"
+              class="text-dark"
+              >Polityka prywatności</router-link
+            >
+          </li>
           <li>Informacje</li>
         </ul>
       </div>
@@ -37,5 +45,19 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
+
+export default {
+  setup() {
+    const store = useStore();
+    function openTermsModal() {
+      store.dispatch("User/setTermsModal", true);
+    }
+
+    return {
+      openTermsModal,
+    };
+  },
+};
 </script>
  

@@ -150,11 +150,6 @@ span.single-item-image-floading-text {
 .mr-3 {
   margin-right: 10px;
 }
-
-.text-blue {
-  color: var(--blue);
-}
-
 .auction-btn {
   width: 250px;
   height: 45px;

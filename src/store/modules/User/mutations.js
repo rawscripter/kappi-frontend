@@ -23,6 +23,12 @@ export default {
   },
   set_showRegistrationModal(state, payload) {
     state.showRegistrationModal = payload;
+  },
+  set_showPasswordResetModal(state, payload) {
+    state.showPasswordResetModal = payload;
+  },
+  set_showTermsModal(state, payload) {
+    state.showTermsModal = payload;
   }
 
 };

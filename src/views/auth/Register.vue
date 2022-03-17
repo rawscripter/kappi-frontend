@@ -69,7 +69,14 @@
                       id="customCheck1"
                     />
                     <label class="custom-control-label" for="customCheck1">
-                      Akceptuję <u>Regulamin</u> i<u> Politykę prywatności</u>
+                      Akceptuję
+                      <span class="cp" @click="openTermsModal()">
+                        <u>Regulamin</u></span
+                      >
+                      i
+                      <span class="cp" @click="gotoPrivacyPage()">
+                        <u>Politykę prywatności</u>
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -83,7 +90,7 @@
 
               <div class="form-bottom-content">
                 <p class="m-0">Masz już konto?</p>
-                <p @click="openLoginModal" class="text-blue">
+                <p @click="openLoginModal" class="text-blue cp">
                   <u><strong>Zaloguj się</strong></u>
                 </p>
               </div>
@@ -96,16 +103,14 @@
 </template>
 
 <script>
-import "/src/styles/register.css";
-
 import { computed } from "vue";
 import { useStore } from "vuex";
-
+import { useRouter } from "vue-router";
 export default {
   setup() {
     const store = useStore();
     const showModal = computed(() => store.state.User.showRegistrationModal);
-
+    const router = useRouter();
     function closeRegistrationModal() {
       store.dispatch("User/setRegistrationModal", false);
     }
@@ -114,13 +119,25 @@ export default {
       closeRegistrationModal();
       store.dispatch("User/setLoginModal", true);
     }
+    function openTermsModal() {
+      store.dispatch("User/setTermsModal", true);
+    }
+
+    function gotoPrivacyPage() {
+      router.push({ name: "privacy-policy" });
+    }
 
     return {
       showModal,
       closeRegistrationModal,
       openLoginModal,
+      openTermsModal,
+      gotoPrivacyPage,
     };
   },
 };
 </script>
  
+ <style>
+@import url("/src/styles/register.css");
+</style>

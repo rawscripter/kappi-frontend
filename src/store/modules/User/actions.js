@@ -121,5 +121,11 @@ export default {
   },
   setRegistrationModal({ commit }, payload) {
     commit("set_showRegistrationModal", payload);
+  },
+  setPasswordResetModal({ commit }, payload) {
+    commit("set_showPasswordResetModal", payload);
+  },
+  setTermsModal({ commit }, payload) {
+    commit("set_showTermsModal", payload);
   }
 };

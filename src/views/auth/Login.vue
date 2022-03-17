@@ -20,7 +20,7 @@
               <p>Zaloguj się na swoje konto</p>
             </div>
 
-            <form class="login-form" action="">
+            <form @submit.prevent="login" class="login-form" action="">
               <div class="input-group custom-input-box">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -67,7 +67,7 @@
 
               <div class="form-bottom-content">
                 <p class="m-0">Nie masz jeszcze konta?</p>
-                <p @click="openRegistrationModal()" class="text-blue">
+                <p @click="openRegistrationModal()" class="text-blue cp">
                   <u><strong>Zarejestruj się</strong></u>
                 </p>
               </div>
@@ -80,16 +80,14 @@
 </template>
 
 <script>
-import "/src/styles/login.css";
-
 import { computed } from "vue";
 import { useStore } from "vuex";
-
+import { useRouter } from "vue-router";
 export default {
-  setup() {
+  setup(_, { root }) {
     const store = useStore();
     const showModal = computed(() => store.state.User.showLoginModal);
-
+    const router = useRouter();
     function closeLoginModal() {
       store.dispatch("User/setLoginModal", false);
     }
@@ -98,13 +96,20 @@ export default {
       closeLoginModal();
       store.dispatch("User/setRegistrationModal", true);
     }
+    function login() {
+      // push to home page
+      router.push("/home");
+    }
     return {
       showModal,
       closeLoginModal,
       openRegistrationModal,
+      login,
     };
   },
 };
 </script>
 
- 
+<style scoped>
+@import url("/src/styles/login.css");
+</style>> 

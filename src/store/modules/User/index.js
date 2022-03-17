@@ -13,7 +13,9 @@ const state = {
     is_verified: false,
   },
   showLoginModal: false,
-  showRegistrationModal: true,
+  showRegistrationModal: false,
+  showPasswordResetModal: false,
+  showTermsModal: false,
 };
 
 export default {

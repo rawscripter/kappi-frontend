@@ -22,8 +22,7 @@
   object-fit: cover;
 }
 .logo {
-  filter: invert(1);
-  max-width: 100%;
+   max-width: 100%;
 }
 .site-button {
   font-size: 1.4rem;
