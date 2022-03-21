@@ -54,7 +54,7 @@
       </div>
       <img
         class="select-box__icon"
-        src="/public/assets/icon/down-arrow.svg"
+        src="/assets/icon/down-arrow.svg"
         alt="Arrow Icon"
         aria-hidden="true"
       />

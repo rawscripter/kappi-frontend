@@ -5,5 +5,5 @@ export default {
   showRegistrationModal: (state) => state.showRegistrationModal,
   showPasswordResetModal: (state) => state.showPasswordResetModal,
   showTermsModal: (state) => state.showTermsModal,
-
+  showPrivacyModal: (state) => state.showPrivacyModal,
 };

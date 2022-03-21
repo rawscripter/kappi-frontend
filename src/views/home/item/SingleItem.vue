@@ -1,7 +1,7 @@
 <template>
   <div class="single-item shadow d-flex">
     <div class="single-item__image">
-      <img src="/public/assets/img/Landing-page-bg.jpg" class="shadow" alt="" />
+      <img src="/assets/img/Landing-page-bg.jpg" class="shadow" alt="" />
       <span class="single-item-image-floading-text">Wynajem</span>
     </div>
     <div class="single-item__info">
@@ -44,14 +44,23 @@
       >
         <div class="action-discription">
           <div class="mr-3">
-            <img src="/public/assets/icon/Chart.svg" alt="" />
+            <img src="/assets/icon/Chart.svg" alt="" />
           </div>
           <p class="m-0">
             Aktualna cena <span class="text-blue">240,000 zl</span>
           </p>
         </div>
         <div class="action-btn">
-          <div class="btn btn-primary shadow auction-btn">Licytuj</div>
+          <router-link
+            :to="{
+              name: 'auction-details',
+              params: {
+                id: '1',
+              },
+            }"
+            class="btn btn-primary shadow auction-btn"
+            >Licytuj</router-link
+          >
         </div>
       </div>
     </div>
@@ -154,6 +163,9 @@ span.single-item-image-floading-text {
   width: 250px;
   height: 45px;
   border-radius: 10px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 </style>>
  

@@ -127,5 +127,9 @@ export default {
   },
   setTermsModal({ commit }, payload) {
     commit("set_showTermsModal", payload);
+  },
+  setPrivacyModal({ commit }, payload) {
+    commit("set_showPrivacyModal", payload);
   }
+
 };

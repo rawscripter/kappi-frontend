@@ -9,6 +9,9 @@
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content shadow-sm">
+          <div @click="closeModal()" class="modal-close-button shadow">
+            <font-awesome-icon :icon="['fas', 'times']" />
+          </div>
           <div class="modal-body">
             <div class="logo text-center">
               <img
@@ -20,23 +23,7 @@
             </div>
 
             <div class="terms-contents mt-5">
-              <Terms />
-              <div class="terms-buttons d-flex justify-content-start">
-                <button
-                  @click="closeModal()"
-                  type="button"
-                  class="btn btn-outline-black mr-3"
-                >
-                  Rezygnuję z rejestracji
-                </button>
-                <button
-                  @click="closeModal()"
-                  type="button"
-                  class="btn btn-primary shadow"
-                >
-                  Akceptuję regulamin
-                </button>
-              </div>
+              <PrivacyPolicy />
             </div>
           </div>
         </div>
@@ -48,16 +35,16 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
-import Terms from "./Terms.vue";
+import PrivacyPolicy from "./PrivacyPolicy.vue";
 export default {
   components: {
-    Terms,
+    PrivacyPolicy,
   },
   setup() {
     const store = useStore();
-    const showModal = computed(() => store.state.User.showTermsModal);
+    const showModal = computed(() => store.state.User.showPrivacyModal);
     function closeModal() {
-      store.dispatch("User/setTermsModal", false);
+      store.dispatch("User/setPrivacyModal", false);
     }
     return {
       showModal,

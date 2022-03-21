@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainLayout from "../components/layout/MainLayout.vue"
 import Home from '../views/home/Home.vue'
+import Details from '../views/home/Details.vue'
 import PrivacyPolicy from '../views/privacy-policy/PrivacyPolicy.vue'
+import Terms from '../views/terms/Terms.vue'
 const routes = [
     {
         path: "/",
@@ -13,11 +15,6 @@ const routes = [
 
     },
     {
-        path: "/privacy-policy",
-        name: "privacy-policy",
-        component: PrivacyPolicy,
-    },
-    {
         path: "/home",
         name: "home",
         component: MainLayout,
@@ -27,9 +24,19 @@ const routes = [
                 component: Home
             },
             {
+                path: '/auction/:id/details',
+                name: 'auction-details',
+                component: Details
+            },
+            {
                 path: '/privacy-policy',
                 component: PrivacyPolicy,
                 name: "privacy-policy",
+            },
+            {
+                path: '/regulamin',
+                component: Terms,
+                name: "terms",
             },
         ]
 

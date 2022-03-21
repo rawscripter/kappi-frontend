@@ -29,6 +29,9 @@ export default {
   },
   set_showTermsModal(state, payload) {
     state.showTermsModal = payload;
+  },
+  set_showPrivacyModal(state, payload) {
+    state.showPrivacyModal = payload;
   }
 
 };

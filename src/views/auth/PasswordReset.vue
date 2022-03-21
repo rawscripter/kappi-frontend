@@ -13,7 +13,7 @@
               <img
                 class="logo"
                 width="180"
-                src="/public/assets/logo/logo.png"
+                src="/assets/logo/logo.png"
                 alt=""
               />
             </div>

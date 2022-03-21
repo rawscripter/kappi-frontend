@@ -74,7 +74,7 @@
                         <u>Regulamin</u></span
                       >
                       i
-                      <span class="cp" @click="gotoPrivacyPage()">
+                      <span class="cp" @click="openPrivacyModal()">
                         <u>Politykę prywatności</u>
                       </span>
                     </label>
@@ -123,8 +123,8 @@ export default {
       store.dispatch("User/setTermsModal", true);
     }
 
-    function gotoPrivacyPage() {
-      router.push({ name: "privacy-policy" });
+    function openPrivacyModal() {
+      store.dispatch("User/setPrivacyModal", true);
     }
 
     return {
@@ -132,7 +132,7 @@ export default {
       closeRegistrationModal,
       openLoginModal,
       openTermsModal,
-      gotoPrivacyPage,
+      openPrivacyModal,
     };
   },
 };

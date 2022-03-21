@@ -15,6 +15,7 @@ const state = {
   showLoginModal: false,
   showRegistrationModal: false,
   showPasswordResetModal: false,
+  showPrivacyModal: false,
   showTermsModal: false,
 };
 
