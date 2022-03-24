@@ -200,7 +200,7 @@
                 </td>
               </tr>
 
-              <tr>
+              <!-- <tr>
                 <td class="text-right">
                   <span class="text-green"> <strong>Zwycięzca :</strong></span>
                 </td>
@@ -212,7 +212,7 @@
                     </strong>
                   </p>
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="text-right">
                   <span class="text-green"> <strong>Zwycięzca :</strong></span>
