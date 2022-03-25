@@ -24,39 +24,95 @@
               </p>
             </div>
 
-            <form class="register-form" action="">
-              <div class="input-group custom-input-box">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <font-awesome-icon :icon="['fas', 'envelope']" />
-                  </span>
+            <form
+              class="register-form"
+              @submit.prevent="registerUser()"
+              action=""
+            >
+              <div class="form-group mb-4 mt-4">
+                <div class="input-group custom-input-box">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <font-awesome-icon :icon="['fas', 'envelope']" />
+                    </span>
+                  </div>
+                  <input
+                    type="email"
+                    class="form-control"
+                    v-model="email"
+                    placeholder="E-mail"
+                    required
+                  />
                 </div>
-                <input type="text" class="form-control" placeholder="E-mail" />
+                <span v-if="errors.email" class="error-message"
+                  >{{ errors.email ? errors.email[0] : "" }}
+                </span>
               </div>
-              <div class="input-group custom-input-box">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <font-awesome-icon :icon="['fas', 'lock']" />
-                  </span>
+              <div class="form-group mt-4 mb-4">
+                <div class="input-group custom-input-box">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <font-awesome-icon :icon="['fas', 'lock']" />
+                    </span>
+                  </div>
+                  <input
+                    :type="showPassword ? 'text' : 'password'"
+                    class="form-control"
+                    v-model="password"
+                    placeholder="Haslo"
+                    required
+                  />
+                  <div
+                    class="input-group-append"
+                    @click="showPassword = !showPassword"
+                  >
+                    <font-awesome-icon
+                      v-if="!showPassword"
+                      :icon="['far', 'eye']"
+                      class="text-muted"
+                    />
+                    <font-awesome-icon
+                      class="text-muted"
+                      v-else
+                      :icon="['far', 'eye-slash']"
+                    />
+                  </div>
                 </div>
-                <input type="text" class="form-control" placeholder="Haslo" />
-                <div class="input-group-append">
-                  <font-awesome-icon :icon="['far', 'eye']" />
-                </div>
+                <span v-if="errors.password" class="error-message"
+                  >{{ errors.password ? errors.password[0] : "" }}
+                </span>
               </div>
-              <div class="input-group custom-input-box">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <font-awesome-icon :icon="['fas', 'lock']" />
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Potwierdz haslo"
-                />
-                <div class="input-group-append">
-                  <font-awesome-icon :icon="['far', 'eye']" />
+              <div class="form-group mb-4 mt-4">
+                <div class="input-group custom-input-box">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <font-awesome-icon :icon="['fas', 'lock']" />
+                    </span>
+                  </div>
+                  <input
+                    :type="showConfirmationPassword ? 'text' : 'password'"
+                    class="form-control"
+                    placeholder="Potwierdz haslo"
+                    v-model="confirm_password"
+                    required
+                  />
+                  <div
+                    class="input-group-append"
+                    @click="
+                      showConfirmationPassword = !showConfirmationPassword
+                    "
+                  >
+                    <font-awesome-icon
+                      class="text-muted"
+                      v-if="!showConfirmationPassword"
+                      :icon="['far', 'eye']"
+                    />
+                    <font-awesome-icon
+                      class="text-muted"
+                      v-else
+                      :icon="['far', 'eye-slash']"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -67,6 +123,7 @@
                       type="checkbox"
                       class="custom-control-input"
                       id="customCheck1"
+                      required
                     />
                     <label class="custom-control-label" for="customCheck1">
                       Akceptuję
@@ -103,7 +160,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default {
@@ -126,6 +183,29 @@ export default {
     function openPrivacyModal() {
       store.dispatch("User/setPrivacyModal", true);
     }
+    const email = ref("");
+    const password = ref("");
+    const confirm_password = ref("");
+    const errors = ref({});
+
+    function registerUser() {
+      const payload = {
+        email: email.value,
+        password: password.value,
+        password_confirmation: confirm_password.value,
+      };
+      store
+        .dispatch("User/register", payload)
+        .then(() => {
+          router.push("/home");
+        })
+        .catch((err) => {
+          errors.value = err.response.data.errors;
+        });
+    }
+
+    const showPassword = ref(false);
+    const showConfirmationPassword = ref(false);
 
     return {
       showModal,
@@ -133,6 +213,13 @@ export default {
       openLoginModal,
       openTermsModal,
       openPrivacyModal,
+      registerUser,
+      email,
+      password,
+      confirm_password,
+      errors,
+      showPassword,
+      showConfirmationPassword,
     };
   },
 };

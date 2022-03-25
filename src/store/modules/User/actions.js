@@ -3,7 +3,7 @@ export default {
   login({ commit }, user) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${import.meta.env.VUE_APP_URL}/api/login`,
+        url: `http://127.0.0.1:8000/api/login`,
         data: user,
         method: "POST",
       })
@@ -28,7 +28,7 @@ export default {
   register({ commit }, user) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${import.meta.env.VUE_APP_URL}/api/create-account`,
+        url: `http://127.0.0.1:8000/api/create-account`,
         data: user,
         method: "POST",
       })

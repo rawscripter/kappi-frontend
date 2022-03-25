@@ -21,24 +21,59 @@
             </div>
 
             <form @submit.prevent="login" class="login-form" action="">
-              <div class="input-group custom-input-box">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <font-awesome-icon :icon="['fas', 'envelope']" />
-                  </span>
+              <div class="form-group mt-4 mb-4">
+                <div class="input-group custom-input-box">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <font-awesome-icon :icon="['fas', 'envelope']" />
+                    </span>
+                  </div>
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="E-mail"
+                    v-model="email"
+                    required
+                  />
                 </div>
-                <input type="text" class="form-control" placeholder="E-mail" />
+
+                <span v-if="errors.email" class="error-message"
+                  >{{ errors.email ? errors.email[0] : "" }}
+                </span>
               </div>
-              <div class="input-group custom-input-box">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <font-awesome-icon :icon="['fas', 'lock']" />
-                  </span>
+              <div class="form-group mt-4 mb-4">
+                <div class="input-group custom-input-box">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <font-awesome-icon :icon="['fas', 'lock']" />
+                    </span>
+                  </div>
+                  <input
+                    required
+                    v-model="password"
+                    :type="showPassword ? 'text' : 'password'"
+                    class="form-control"
+                    placeholder="Haslo"
+                  />
+                  <div
+                    class="input-group-append"
+                    @click="showPassword = !showPassword"
+                  >
+                    <font-awesome-icon
+                      v-if="!showPassword"
+                      :icon="['far', 'eye']"
+                      class="text-muted"
+                    />
+                    <font-awesome-icon
+                      v-else
+                      class="text-muted"
+                      :icon="['far', 'eye-slash']"
+                    />
+                  </div>
                 </div>
-                <input type="text" class="form-control" placeholder="Haslo" />
-                <div class="input-group-append">
-                  <font-awesome-icon :icon="['far', 'eye']" />
-                </div>
+                <span v-if="errors.password" class="error-message"
+                  >{{ errors.password ? errors.password[0] : "" }}
+                </span>
               </div>
 
               <div class="form-group">
@@ -80,7 +115,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default {
@@ -96,15 +131,35 @@ export default {
       closeLoginModal();
       store.dispatch("User/setRegistrationModal", true);
     }
+    const email = ref("");
+    const password = ref("");
+    const errors = ref({});
+
     function login() {
       // push to home page
-      router.push("/home");
+      const payload = { email: email.value, password: password.value };
+
+      store
+        .dispatch("User/login", payload)
+        .then(() => {
+          router.push("/home");
+        })
+        .catch((err) => {
+          errors.value = err.response.data.errors;
+        });
     }
+
+    const showPassword = ref(false);
+
     return {
       showModal,
       closeLoginModal,
       openRegistrationModal,
       login,
+      email,
+      password,
+      errors,
+      showPassword,
     };
   },
 };

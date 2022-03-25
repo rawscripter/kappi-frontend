@@ -20,18 +20,24 @@
         <div class="single-item__info-description-item">
           <font-awesome-icon :icon="['fas', 'location-pin']" />
           <p class="single-item__info-description-item-text">
-            4517 Washington Ave, Poland
+            Titly na 45, Poland
           </p>
         </div>
 
-        <div class="single-item__info-description-item">
-          <font-awesome-icon :icon="['fas', 'calendar']" />
-          <p class="single-item__info-description-item-text">Jan 14</p>
-        </div>
+        <div
+          class="d-flex flex-column-sm justify-content-start align-items-center"
+        >
+          <div class="single-item__info-description-item">
+            <font-awesome-icon :icon="['fas', 'calendar']" />
+            <p class="single-item__info-description-item-text">Jan 14</p>
+          </div>
 
-        <div class="single-item__info-description-item">
-          <font-awesome-icon :icon="['fas', 'clock']" />
-          <p class="single-item__info-description-item-text">23H : 00M : 00S</p>
+          <div class="single-item__info-description-item">
+            <font-awesome-icon :icon="['fas', 'clock']" />
+            <p class="single-item__info-description-item-text">
+              23H : 00M : 00S
+            </p>
+          </div>
         </div>
       </div>
       <div
@@ -40,6 +46,7 @@
           d-flex
           justify-content-between
           align-items-end
+          flex-column-sm
         "
       >
         <div class="action-discription">
@@ -166,6 +173,49 @@ span.single-item-image-floading-text {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
+}
+
+@media (max-width: 768px) {
+  .single-item {
+    flex-direction: column;
+  }
+  .single-item__image {
+    margin-right: 0px !important;
+    margin-bottom: 10px !important;
+  }
+  .single-item__image img {
+    width: 100%;
+    height: 240px;
+  }
+  .flex-column-sm {
+    flex-direction: column !important;
+    align-items: start !important;
+  }
+  .flex-column-sm.align-items-center {
+    flex-direction: column !important;
+    align-items: start !important;
+  }
+  .single-item__info-description-item p {
+    margin: 0;
+    font-size: 13px;
+  }
+  .single-item__info-description-item {
+    justify-content: start !important;
+    margin-bottom: 10px;
+  }
+
+  .single-item__info-actions.align-items-end {
+    justify-content: start !important;
+    align-items: start !important;
+  }
+  .action-discription {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .action-btn,
+  .auction-btn {
+    width: 100%;
+  }
 }
 </style>>
  

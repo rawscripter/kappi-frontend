@@ -1,6 +1,6 @@
  <template>
   <header class="app-header text-center">
-    <router-link to="/">
+    <router-link to="/home">
       <img class="logo" src="/assets/logo/logo.png" alt=""
     /></router-link>
   </header>

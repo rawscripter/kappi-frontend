@@ -4,6 +4,9 @@ import Home from '../views/home/Home.vue'
 import Details from '../views/home/Details.vue'
 import PrivacyPolicy from '../views/privacy-policy/PrivacyPolicy.vue'
 import Terms from '../views/terms/Terms.vue'
+import store from "../store";
+
+
 const routes = [
     {
         path: "/",
@@ -12,12 +15,15 @@ const routes = [
         meta: {
             requiresAuth: false,
         },
-
     },
+
     {
         path: "/home",
         name: "home",
         component: MainLayout,
+        meta: {
+            requiresAuth: true,
+        },
         children: [
             {
                 path: '/home',
@@ -60,15 +66,15 @@ const router = createRouter({
 
 
 // TODO: check if user is authenticated
-// router.beforeEach((to, from, next) => {
-//     if (to.matched.some((record) => record.meta.requiresAuth)) {
-//         if (store.getters["User/isLoggedIn"]) {
-//             next();
-//         }
-//         next("/login");
-//     } else {
-//         next();
-//     }
-// });
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        if (store.getters["User/isLoggedIn"]) {
+            next();
+        }
+        next("/");
+    } else {
+        next();
+    }
+});
 
 export default router;

@@ -38,7 +38,11 @@ export default {
     Login,
     Register,
   },
-  mounted() {},
+  mounted() {
+    if (this.$store.state.User.token) {
+      this.$router.push("/home");
+    }
+  },
 };
 </script> 
 
