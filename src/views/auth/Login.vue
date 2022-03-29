@@ -118,6 +118,8 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
+
 export default {
   setup(_, { root }) {
     const store = useStore();
@@ -134,7 +136,7 @@ export default {
     const email = ref("");
     const password = ref("");
     const errors = ref({});
-
+    const toast = useToast();
     function login() {
       // push to home page
       const payload = { email: email.value, password: password.value };
@@ -142,6 +144,7 @@ export default {
       store
         .dispatch("User/login", payload)
         .then(() => {
+          toast.success("Zalogowano pomyślnie");
           router.push("/home");
         })
         .catch((err) => {

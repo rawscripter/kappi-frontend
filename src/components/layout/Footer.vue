@@ -11,6 +11,11 @@
       <div class="col-md-4">
         <ul class="middle-footer-content">
           <li for="">
+            <div @click="openPasswordResetModal()" class="text-dark">
+              Reset Password
+            </div>
+          </li>
+          <li for="">
             <router-link
               :to="{
                 name: 'terms',
@@ -61,9 +66,13 @@ export default {
     function openTermsModal() {
       store.dispatch("User/setTermsModal", true);
     }
+    function openPasswordResetModal() {
+      store.dispatch("User/setPasswordResetModal", true);
+    }
 
     return {
       openTermsModal,
+      openPasswordResetModal,
     };
   },
 };

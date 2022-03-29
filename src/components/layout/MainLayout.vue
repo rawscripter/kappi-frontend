@@ -2,7 +2,11 @@
   <div class="container">
     <Header />
     <div class="main-view">
-      <router-view> </router-view>
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" :key="$route.fullPath"></component>
+        </keep-alive>
+      </router-view>
     </div>
     <Footer />
     <PasswordReset />

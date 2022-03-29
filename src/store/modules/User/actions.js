@@ -1,9 +1,10 @@
 import axios from "axios";
+const BASE_URL = "http://127.0.0.1:8000/api/v1/client";
 export default {
   login({ commit }, user) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `http://127.0.0.1:8000/api/login`,
+        url: `${BASE_URL}/login`,
         data: user,
         method: "POST",
       })
@@ -28,7 +29,7 @@ export default {
   register({ commit }, user) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `http://127.0.0.1:8000/api/create-account`,
+        url: `${BASE_URL}/create-account`,
         data: user,
         method: "POST",
       })
@@ -51,12 +52,20 @@ export default {
 
   resetPassword({ commit }, payload) {
     return new Promise((resolve, reject) => {
+      let token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
       axios({
-        url: `${import.meta.env.VUE_APP_URL}/api/reset-password`,
+        url: `${BASE_URL}/reset-password`,
         data: payload,
         method: "POST",
       })
         .then((resp) => {
+          const token = resp.data.data.token;
+          const user = resp.data.data.user;
+
+          localStorage.setItem("token", token);
+          axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+          commit("auth_success", { token: token, user: user });
           resolve(resp);
         })
         .catch((err) => {
@@ -68,7 +77,7 @@ export default {
   resendVarificationMail({ commit }) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${import.meta.env.VUE_APP_URL}/api/resend-verification-mail`,
+        url: `${BASE_URL}/api/resend-verification-mail`,
         method: "POST",
       })
         .then((resp) => {
@@ -82,7 +91,7 @@ export default {
   forgotPassword({ commit }, payload) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${import.meta.env.VUE_APP_URL}/api/forgot-password`,
+        url: `${BASE_URL}/api/forgot-password`,
         data: payload,
         method: "POST",
       })
@@ -107,7 +116,7 @@ export default {
       let token = localStorage.getItem("token");
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
       return axios
-        .get(`${import.meta.env.VUE_APP_URL}/api/me`)
+        .get(`${BASE_URL}/api/me`)
         .then((response) => {
           commit("set_user", response.data);
         })

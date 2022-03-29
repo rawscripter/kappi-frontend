@@ -21,7 +21,11 @@
               <strong>Zmień hasło</strong>
             </div>
 
-            <form class="passwordReset-form" action="">
+            <form
+              @submit.prevent="resetPassword"
+              class="passwordReset-form"
+              action=""
+            >
               <div>
                 <label for="">Obecne hasło</label>
                 <div class="input-group custom-input-box">
@@ -31,14 +35,33 @@
                     </span>
                   </div>
                   <input
-                    type="text"
+                    v-model="currentPassword"
+                    :type="showPassword1 ? 'text' : 'password'"
                     class="form-control"
                     placeholder="Obecne hasło"
+                    required
                   />
-                  <div class="input-group-append">
-                    <font-awesome-icon :icon="['far', 'eye']" />
+                  <div
+                    class="input-group-append"
+                    @click="showPassword1 = !showPassword1"
+                  >
+                    <font-awesome-icon
+                      v-if="!showPassword1"
+                      :icon="['far', 'eye']"
+                      class="text-muted"
+                    />
+                    <font-awesome-icon
+                      v-else
+                      class="text-muted"
+                      :icon="['far', 'eye-slash']"
+                    />
                   </div>
                 </div>
+                <span v-if="errors.current_password" class="error-message"
+                  >{{
+                    errors.current_password ? errors.current_password[0] : ""
+                  }}
+                </span>
               </div>
 
               <div class="mt-4">
@@ -50,14 +73,31 @@
                     </span>
                   </div>
                   <input
-                    type="text"
+                    v-model="newPassword"
+                    :type="showPassword2 ? 'text' : 'password'"
                     class="form-control"
                     placeholder="Nowe hasło"
+                    required
                   />
-                  <div class="input-group-append">
-                    <font-awesome-icon :icon="['far', 'eye']" />
+                  <div
+                    class="input-group-append"
+                    @click="showPassword2 = !showPassword2"
+                  >
+                    <font-awesome-icon
+                      v-if="!showPassword2"
+                      :icon="['far', 'eye']"
+                      class="text-muted"
+                    />
+                    <font-awesome-icon
+                      v-else
+                      class="text-muted"
+                      :icon="['far', 'eye-slash']"
+                    />
                   </div>
                 </div>
+                <span v-if="errors.new_password" class="error-message"
+                  >{{ errors.new_password ? errors.new_password[0] : "" }}
+                </span>
               </div>
 
               <div class="mt-4">
@@ -69,12 +109,26 @@
                     </span>
                   </div>
                   <input
-                    type="text"
+                    v-model="confirmPassword"
+                    required
+                    :type="showPassword3 ? 'text' : 'password'"
                     class="form-control"
                     placeholder="Powtórz nowe hasło"
                   />
-                  <div class="input-group-append">
-                    <font-awesome-icon :icon="['far', 'eye']" />
+                  <div
+                    class="input-group-append"
+                    @click="showPassword3 = !showPassword3"
+                  >
+                    <font-awesome-icon
+                      v-if="!showPassword3"
+                      :icon="['far', 'eye']"
+                      class="text-muted"
+                    />
+                    <font-awesome-icon
+                      v-else
+                      class="text-muted"
+                      :icon="['far', 'eye-slash']"
+                    />
                   </div>
                 </div>
               </div>
@@ -105,8 +159,9 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import { useToast } from "vue-toastification";
 
 export default {
   setup() {
@@ -115,9 +170,45 @@ export default {
     function closeRegistrationModal() {
       store.dispatch("User/setPasswordResetModal", false);
     }
+    const showPassword1 = ref(false);
+    const showPassword2 = ref(false);
+    const showPassword3 = ref(false);
+
+    const currentPassword = ref("");
+    const newPassword = ref("");
+    const confirmPassword = ref("");
+    const errors = ref({});
+    const toast = useToast();
+
+    function resetPassword() {
+      const payload = {
+        current_password: currentPassword.value,
+        new_password: newPassword.value,
+        password_confirmation: confirmPassword.value,
+      };
+      store
+        .dispatch("User/resetPassword", payload)
+        .then(() => {
+          // show alert
+          toast.success("Hasło zostało zmienione");
+          closeRegistrationModal();
+        })
+        .catch((err) => {
+          errors.value = err.response.data.errors;
+        });
+    }
+
     return {
       showModal,
       closeRegistrationModal,
+      showPassword1,
+      showPassword2,
+      showPassword3,
+      resetPassword,
+      currentPassword,
+      newPassword,
+      confirmPassword,
+      errors,
     };
   },
 };

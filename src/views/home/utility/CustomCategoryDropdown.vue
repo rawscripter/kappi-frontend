@@ -5,209 +5,66 @@
         <input
           class="select-box__input"
           type="radio"
-          id="0"
           value="1"
           name="Ben"
           checked="checked"
         />
-        <p class="select-box__input-text">Cream</p>
-      </div>
-      <div class="select-box__value">
-        <input
-          class="select-box__input"
-          type="radio"
-          id="1"
-          value="2"
-          name="Ben"
-        />
-        <p class="select-box__input-text">Cheese</p>
-      </div>
-      <div class="select-box__value">
-        <input
-          class="select-box__input"
-          type="radio"
-          id="2"
-          value="3"
-          name="Ben"
-        />
-        <p class="select-box__input-text">Milk</p>
-      </div>
-      <div class="select-box__value">
-        <input
-          class="select-box__input"
-          type="radio"
-          id="3"
-          value="4"
-          name="Ben"
-        />
-        <p class="select-box__input-text">Honey</p>
-      </div>
-      <div class="select-box__value">
-        <input
-          class="select-box__input"
-          type="radio"
-          id="4"
-          value="5"
-          name="Ben"
-        />
-        <p class="select-box__input-text">Toast</p>
+        <p class="select-box__input-text">
+          {{ isCategoryLoading ? "Kategoria" : currentCategory.name }}
+        </p>
       </div>
       <img
         class="select-box__icon"
-        src="/assets/icon/down-arrow.svg"
+        :src="`/public/assets/icon/down-arrow.svg`"
         alt="Arrow Icon"
         aria-hidden="true"
       />
     </div>
     <ul class="select-box__list">
-      <li>
-        <label class="select-box__option" for="0" aria-hidden="aria-hidden"
-          >Cream</label
-        >
-      </li>
-      <li>
-        <label class="select-box__option" for="1" aria-hidden="aria-hidden"
-          >Cheese</label
-        >
-      </li>
-      <li>
-        <label class="select-box__option" for="2" aria-hidden="aria-hidden"
-          >Milk</label
-        >
-      </li>
-      <li>
-        <label class="select-box__option" for="3" aria-hidden="aria-hidden"
-          >Honey</label
-        >
-      </li>
-      <li>
-        <label class="select-box__option" for="4" aria-hidden="aria-hidden"
-          >Toast</label
+      <li v-for="(category, index) in categories" :key="index">
+        <label
+          @click="setCurrentCategory(category)"
+          class="select-box__option"
+          :for="category.id"
+          aria-hidden="aria-hidden"
+          >{{ category.name }}</label
         >
       </li>
     </ul>
   </div>
 </template>
 
+
+<script>
+import { useStore } from "vuex";
+import { computed } from "vue";
+export default {
+  setup() {
+    const store = useStore();
+    const categories = computed(() => store.getters["Offer/categories"]);
+    const currentCategory = computed(
+      () => store.getters["Offer/currentCategory"]
+    );
+    const isCategoryLoading = computed(
+      () => store.getters["Offer/isCategoryLoading"]
+    );
+    function setCurrentCategory(category) {
+      store.dispatch("Offer/changeCategoryAndFetchOffers", {
+        category: category,
+        page: 1,
+      });
+    }
+
+    return {
+      categories,
+      currentCategory,
+      isCategoryLoading,
+      setCurrentCategory,
+    };
+  },
+};
+</script>
+
 <style>
-.select-box {
-  position: relative;
-  display: block;
-  width: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Segoe UI", "Calibri", "Arial",
-    sans-serif;
-  font-size: 18px;
-  color: #60666d;
-}
-@media (min-width: 768px) {
-  .select-box {
-    width: 70%;
-  }
-}
-@media (min-width: 992px) {
-  .select-box {
-    width: 50%;
-  }
-}
-@media (min-width: 1200px) {
-  .select-box {
-    width: 30%;
-  }
-}
-.select-box__current {
-  position: relative;
-  box-shadow: 0px 6px 11px 0px rgb(0 0 0 / 22%);
-  cursor: pointer;
-  outline: none;
-  border-radius: 18px;
-  overflow: hidden;
-}
-.select-box__current:focus + .select-box__list {
-  opacity: 1;
-  -webkit-animation-name: none;
-  animation-name: none;
-  margin-top: 5px;
-}
-.select-box__current:focus + .select-box__list .select-box__option {
-  cursor: pointer;
-}
-.select-box__current:focus .select-box__icon {
-  transform: translateY(-50%) rotate(180deg);
-}
-.select-box__icon {
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  width: 24px;
-  opacity: 1;
-  transition: 0.2s ease;
-  box-shadow: 0px 1px 6px 2px #bcbcbc;
-  padding: 4px;
-  border-radius: 44px;
-  height: 24px;
-}
-.select-box__value {
-  display: flex;
-}
-.select-box__input {
-  display: none;
-}
-.select-box__input:checked + .select-box__input-text {
-  display: block;
-}
-.select-box__input-text {
-  display: none;
-  width: 100%;
-  margin: 0;
-  padding: 12px;
-  background-color: #fff;
-}
-.select-box__list {
-  position: absolute;
-  width: 100%;
-  padding: 0;
-  list-style: none;
-  opacity: 0;
-  -webkit-animation-name: HideList;
-  animation-name: HideList;
-  -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
-  -webkit-animation-delay: 0.5s;
-  animation-delay: 0.5s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: step-start;
-  animation-timing-function: step-start;
-  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
-  z-index: 999999;
-}
-.select-box__option {
-  display: block;
-  padding: 15px;
-  background-color: #fff;
-}
-.select-box__option:hover,
-.select-box__option:focus {
-  color: #546c84;
-  background-color: #fbfbfb;
-}
-
-@-webkit-keyframes HideList {
-  from {
-    transform: scaleY(1);
-  }
-  to {
-    transform: scaleY(0);
-  }
-}
-
-@keyframes HideList {
-  from {
-    transform: scaleY(1);
-  }
-  to {
-    transform: scaleY(0);
-  }
-}
+@import url("/src/styles/categoryDropdown.css");
 </style>

@@ -1,0 +1,142 @@
+
+.auction-details-page {
+  padding: 150px 0;
+}
+img {
+  max-width: 100%;
+}
+.main-image {
+  height: 400px;
+  object-fit: cover;
+}
+.item-heading {
+  font-weight: bold;
+}
+.item-description {
+  margin-top: 10px;
+  color: var(--grey);
+  font-size: 14px;
+}
+
+td.text-right {
+  width: 40%;
+  /* width: 300px; */
+  text-align: right;
+}
+td.text-left {
+  width: 60%;
+  text-align: left;
+  padding-left: 10px;
+}
+.fs-18 {
+  font-size: 20px;
+}
+
+img.shadow.slide-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+div.swiper-area-border {
+  border: 2px solid #407ff0;
+  padding: 10px 38px;
+  border-radius: 10px;
+  margin-top: 20px;
+  position: relative;
+}
+.swiper-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #407ff0;
+  font-size: 25px;
+  transition: all 0.3s ease-in-out;
+}
+.prev-arrow {
+  left: 20px;
+}
+.next-arrow {
+  right: 20px;
+}
+.image-and-timer-area {
+  position: relative;
+}
+
+.auction-timer {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  background-color: var(--blue);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+.timer-text.bg-white.text-dark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  margin: 0 5px;
+  box-shadow: 0px 0px 10px rgba(131, 131, 131, 0.5);
+  border-radius: 10px;
+}
+.timer-text .time {
+  font-weight: 700;
+}
+.timer-text .text {
+  font-size: 11px;
+  font-weight: bold;
+}
+.refresh-btn {
+  font-size: 13px;
+  width: 160px;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  margin-left: 10px;
+}
+.refresh-btn img {
+  width: 18px;
+  margin-left: 10px;
+}
+
+.aution-running-sta {
+  padding: 8px 20px;
+  border: 2px solid #0080007d;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: var(--green);
+  font-weight: bold;
+}
+.aution-finish-sta {
+  padding: 8px 20px;
+  border: 2px solid #d8282575;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: red;
+  font-weight: bold;
+}
+table {
+  width: 100% !important;
+}
+
+.large-spinner {
+  font-size: 30px;
+}
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+}

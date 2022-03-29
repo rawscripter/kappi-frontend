@@ -2,12 +2,16 @@
   <div class="single-item shadow d-flex">
     <div class="single-item__image">
       <img src="/assets/img/Landing-page-bg.jpg" class="shadow" alt="" />
-      <span class="single-item-image-floading-text">Wynajem</span>
+      <span class="single-item-image-floading-text">{{
+        offer.offer_category_name
+      }}</span>
     </div>
     <div class="single-item__info">
       <div class="single-item__info-title">
-        <p class="single-item__info-title-bold m-0">Modern Home</p>
-        <p class="single-item__info-title-muted m-0">By Real Agency</p>
+        <p class="single-item__info-title-bold m-0">{{ offer.name }}</p>
+        <p class="single-item__info-title-muted m-0">
+          By {{ offer.agency_name }}
+        </p>
       </div>
       <div
         class="
@@ -20,7 +24,7 @@
         <div class="single-item__info-description-item">
           <font-awesome-icon :icon="['fas', 'location-pin']" />
           <p class="single-item__info-description-item-text">
-            Titly na 45, Poland
+            {{ offer.address }}
           </p>
         </div>
 
@@ -29,13 +33,19 @@
         >
           <div class="single-item__info-description-item">
             <font-awesome-icon :icon="['fas', 'calendar']" />
-            <p class="single-item__info-description-item-text">Jan 14</p>
+            <p class="single-item__info-description-item-text">
+              {{ moment(date_start).format("ddd DD") }}
+            </p>
           </div>
 
           <div class="single-item__info-description-item">
             <font-awesome-icon :icon="['fas', 'clock']" />
             <p class="single-item__info-description-item-text">
-              23H : 00M : 00S
+              <CountDown :endDate="new Date(offer.date_end)">
+                <template v-slot="{ day, hour, min, sec }">
+                  {{ day }}D, {{ hour }}H : {{ min }}M : {{ sec }}S
+                </template>
+              </CountDown>
             </p>
           </div>
         </div>
@@ -51,10 +61,11 @@
       >
         <div class="action-discription">
           <div class="mr-3">
-            <img src="/assets/icon/Chart.svg" alt="" />
+            <img src="/public/assets/icon/Chart.svg" alt="" />
           </div>
           <p class="m-0">
-            Aktualna cena <span class="text-blue">240,000 zl</span>
+            Aktualna cena
+            <span class="text-blue"> {{ currentPrice }} zł</span>
           </p>
         </div>
         <div class="action-btn">
@@ -62,7 +73,7 @@
             :to="{
               name: 'auction-details',
               params: {
-                id: '1',
+                id: offer.id,
               },
             }"
             class="btn btn-primary shadow auction-btn"
@@ -75,6 +86,30 @@
 </template>
 
 <script>
+import moment from "moment";
+import CountDown from "./CountDown.vue";
+export default {
+  components: {
+    CountDown,
+  },
+  props: {
+    offer: {
+      type: Object,
+      required: true,
+    },
+  },
+  created: function () {
+    this.moment = moment;
+  },
+  computed: {
+    currentPrice: function () {
+      // add , and space  to price
+      return this.offer.current_price
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
+};
 </script>
 
 

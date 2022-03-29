@@ -163,6 +163,8 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
+
 export default {
   setup() {
     const store = useStore();
@@ -187,7 +189,7 @@ export default {
     const password = ref("");
     const confirm_password = ref("");
     const errors = ref({});
-
+    const toast = useToast();
     function registerUser() {
       const payload = {
         email: email.value,
@@ -197,6 +199,7 @@ export default {
       store
         .dispatch("User/register", payload)
         .then(() => {
+          toast.success("Rejestracja przebiegła pomyślnie");
           router.push("/home");
         })
         .catch((err) => {

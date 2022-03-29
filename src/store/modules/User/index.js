@@ -12,7 +12,7 @@ const state = {
     is_admin: false,
     is_verified: false,
   },
-  showLoginModal: true,
+  showLoginModal: false,
   showRegistrationModal: false,
   showPasswordResetModal: false,
   showPrivacyModal: false,

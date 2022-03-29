@@ -8,11 +8,19 @@
     </div>
 
     <div class="item-list mt-5">
-      <div class="item-list__items">
-        <SingleItem v-for="(item, index) in 5" :key="index" :item="item" />
+      <div class="item-list__items" v-if="!isOffersLoading">
+        <SingleItem
+          v-for="(offer, index) in offers"
+          :key="index"
+          :offer="offer"
+        />
       </div>
-
-      <Pagination />
+      <div class="spinner" v-else>
+        <easy-spinner class="large-spinner" />
+      </div>
+      <div v-if="offersPagination.last_page > 1">
+        <Pagination :offersPagination="offersPagination" />
+      </div>
     </div>
   </div>
 </template>
@@ -20,11 +28,36 @@
 import CustomCategoryDropdown from "./utility/CustomCategoryDropdown.vue";
 import Pagination from "./utility/Pagination.vue";
 import SingleItem from "./item/SingleItem.vue";
+import { useStore } from "vuex";
+import { onMounted, ref, computed } from "vue";
+
 export default {
+  name: "Home",
   components: {
     CustomCategoryDropdown,
     SingleItem,
     Pagination,
+  },
+  setup() {
+    const store = useStore();
+    onMounted(() => {
+      store.dispatch("Offer/getCategories");
+    });
+
+    // offers
+    const isOffersLoading = computed(
+      () => store.getters["Offer/isOffersLoading"]
+    );
+    const offers = computed(() => store.getters["Offer/offers"]);
+    const offersPagination = computed(
+      () => store.getters["Offer/offersPagination"]
+    );
+
+    return {
+      offers,
+      isOffersLoading,
+      offersPagination,
+    };
   },
 };
 </script>  
@@ -34,5 +67,14 @@ export default {
   padding: 50px 0;
   min-height: 50vh;
   text-align: left;
+}
+.large-spinner {
+  font-size: 30px;
+}
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
 }
 </style>

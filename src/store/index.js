@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import User from "./modules/User";
+import Offer from "./modules/Offer";
 
 export default createStore({
   state: {},
@@ -7,5 +8,6 @@ export default createStore({
   actions: {},
   modules: {
     User,
+    Offer,
   },
 });
