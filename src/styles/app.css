@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+:root {
+  --grey: #818181;
+  --blue: #407ff0;
+  --red: #f00;
+  --green: #178817;
+}
+.text-red{
+  color: var(--red);
+}
+.text-blue{
+  color: var(--blue);
+}
+.text-grey{
+  color: var(--grey);
+}
+.text-green{
+  color: var(--green);
+}
+
+*{
+font-family: "Poppins", sans-serif;
+}
+
+
+.cp{
+cursor: pointer;
+}
+.btn-primary{
+    background: #407ff0 !important;
+    border-color: #407ff0  !important;
+}
+
+.text-blue{
+color: var(--blue);
+}
+.swiper-slide {
+    background: white !important;
+    width: 85px !important;
+    box-shadow: 1px 1px 1px rgba(190, 190, 190, 0.1);
+}
+.swiper-button-next {
+  background: white !important;
+  top: 0 !important;
+  right: 0px !important;
+  height: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: 0 !important;
+  padding: 13px   !important;
+  width: 40px !important;
+}
+.swiper-button-prev {
+  background: white !important;
+  top: 0 !important;
+  left: 0px !important;
+  height: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: 0 !important;
+  padding: 13px  !important;
+  width: 40px !important;
+}
+.swiper-button-next:after, .swiper-button-prev:after{
+  font-size: 20px !important ;
+  font-weight: bold;
+}
+
+.swiper-slide {
+  background: white !important;
+}
+
+.swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {
+    opacity: 1 !important;
+    cursor: auto !important;
+    pointer-events: unset !important;
+    cursor: pointer !important;
+}
+.swiper-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-input-box {
+  box-shadow: 0px 0rem 1rem 1px rgb(0 0 0 / 15%) !important;
+  border-radius: 10px;
+  overflow: hidden;
+ }
+.form-control {
+  border: none !important;
+  outline: none !important;
+ }
+.form-control:focus {
+  box-shadow: none !important;
+}
+.form-control::placeholder {
+  font-size: 16px !important;
+}
+.form-control:focus {
+  box-shadow: none;
+}
+.form-control::placeholder {
+  font-size: 16px;
+}
+
+.btn-block{
+width: 100%;
+}

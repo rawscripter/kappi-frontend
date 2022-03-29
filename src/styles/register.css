@@ -1,0 +1,144 @@
+
+/* Override default value of 'none' */
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: block !important;
+  transform: translateY(100vh);
+  transition-duration: 0.5s;
+  padding-top: 50px;
+}
+.show {
+  transform: translate(0);
+}
+.modal-dialog {
+  position: relative;
+}
+.modal-content {
+  border: none;
+  padding: 2.5rem;
+  border-radius: 15px;
+  width: 500px;
+  padding-top: 4rem;
+}
+.modal-close-button {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 25px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.modal-body {
+  text-align: left;
+  padding: 0;
+}
+ 
+.register-modal-title {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+}
+.register-modal-description {
+  color: #606060;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+.register-form {
+  margin: 50px 0 0px 0;
+}
+
+.input-group-text {
+  background: #fff !important;
+  border: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 18px;
+}
+
+.input-group-prepend,
+.input-group-append {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #fff;
+  z-index: 99;
+}
+.input-group-append {
+  padding-right: 10px !important;
+  font-size: 14px !important;
+}
+.form-control {
+  border: none !important;
+  outline: none !important;
+  height: 45px !important;
+}
+.form-control:focus {
+  box-shadow: none !important;
+}
+.form-control::placeholder {
+  font-size: 16px !important;
+}
+.custom-input-box {
+  box-shadow: 0px 0rem 1rem 1px rgb(0 0 0 / 15%) !important;
+  border-radius: 10px;
+  overflow: hidden;
+ }
+.btn-block {
+  width: 100%;
+}
+.register-btn {
+  margin-top: 50px;
+  box-shadow: 0px 0rem 1rem 1px rgb(13 110 253 / 54%) !important;
+  height: 45px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.remember-me-area.d-flex.justify-content-between {
+  font-size: 14px;
+}
+input#customCheck1 {
+  margin-right: 10px;
+}
+
+.text-dark {
+  color: #000;
+  font-weight: 600;
+}
+
+.form-bottom-content {
+  margin-top: 80px;
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 98%;
+    margin: 0 auto;
+  }
+  .register-modal-title {
+    font-size: 1.2rem;
+  }
+
+  .remember-me-area.d-flex.justify-content-between {
+    font-size: 12px;
+  }
+}
+
+span.error-message {
+    font-size: 13px;
+    margin-top: 5px !important;
+    display: block;
+    color: #f21616;
+    font-weight: bold;
+    text-transform: capitalize;
+}
