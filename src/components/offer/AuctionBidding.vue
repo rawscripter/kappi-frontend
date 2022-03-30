@@ -71,6 +71,7 @@
       :biddingPrice="biddingAmount"
       :showModal="showErrorBiddingModal"
       @closeModal="closeErrorBiddingModal"
+      @refreshOffer="refreshOffer"
       :offer="offer"
     ></ErrorBidModal>
   </div>
@@ -115,10 +116,7 @@ export default {
     const offerID = route.params.id;
     const lastRefreshedTime = ref(new Date());
     const toast = useToast();
-    function refreshOffer() {
-      lastRefreshedTime.value = new Date();
-      store.dispatch("Offer/getOfferDetails", offerID);
-    }
+
     const biddingAmount = ref("");
     const showConfirmBiddingModal = ref(false);
     const showErrorBiddingModal = ref(false);
@@ -131,7 +129,7 @@ export default {
     };
 
     const minimumBidPrice = computed(() => {
-      return offer.price_min + offer.min_raise_amount;
+      return offer.current_price + offer.min_raise_amount;
     });
 
     async function checkBid() {
@@ -176,7 +174,19 @@ export default {
         }
       } catch (e) {
         toast.error("Coś poszło nie tak. Proszę spróbować za jakiś czas");
+      } finally {
+        isBidding.value = false;
       }
+    }
+
+    function refreshOffer() {
+      lastRefreshedTime.value = new Date();
+      store.dispatch("Offer/getOfferDetails", offerID);
+    }
+
+    function refreshOffer() {
+      lastRefreshedTime.value = new Date();
+      store.dispatch("Offer/getOfferDetails", offerID);
     }
 
     return {
@@ -189,6 +199,7 @@ export default {
       isBidding,
       closeErrorBiddingModal,
       showErrorBiddingModal,
+      refreshOffer,
     };
   },
 };

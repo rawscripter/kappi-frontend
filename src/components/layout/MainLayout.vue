@@ -18,11 +18,19 @@ import Footer from "./Footer.vue";
 import Header from "./Header.vue";
 import "../../styles/layout.css";
 import PasswordReset from "../../views/auth/PasswordReset.vue";
+import { useStore } from "vuex";
+import { onMounted } from "vue";
 export default {
   components: {
     Footer,
     Header,
     PasswordReset,
+  },
+  setup() {
+    const store = useStore();
+    onMounted(() => {
+      store.dispatch("User/me");
+    });
   },
 };
 </script>

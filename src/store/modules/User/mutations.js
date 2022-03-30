@@ -13,6 +13,7 @@ export default {
   logout(state) {
     state.status = "";
     state.token = "";
+    localStorage.removeItem("token");
   },
 
   set_user(state, payload) {

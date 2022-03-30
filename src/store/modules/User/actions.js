@@ -116,12 +116,13 @@ export default {
       let token = localStorage.getItem("token");
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
       return axios
-        .get(`${BASE_URL}/api/me`)
+        .get(`${BASE_URL}/me`)
         .then((response) => {
-          commit("set_user", response.data);
+          commit("set_user", response.data.data);
         })
         .catch(() => {
           commit("set_user", null);
+          commit("logout");
         });
     });
   },

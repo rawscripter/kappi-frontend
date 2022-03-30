@@ -69,7 +69,7 @@
 
               <div>
                 <button
-                  @click="closeModal()"
+                  @click="refreshOffer()"
                   type="submit"
                   style="min-width: 150px"
                   class="btn btn-primary"
@@ -119,6 +119,9 @@ export default {
   methods: {
     closeModal() {
       this.$emit("closeModal");
+    },
+    refreshOffer() {
+      this.$emit("refreshOffer");
     },
     confrimAuctionBid() {
       this.$emit("confrimAuctionBid");

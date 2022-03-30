@@ -137,6 +137,10 @@
             :offer="offer"
             v-if="isAuctionRunning"
           ></AuctionBidding>
+          <AuctionFinish
+            :offer="offer"
+            v-if="isAuctionFinished"
+          ></AuctionFinish>
         </div>
       </div>
     </div>
@@ -155,12 +159,14 @@ import { useStore } from "vuex";
 import CountDown from "./item/CountDown.vue";
 import moment from "moment";
 import AuctionBidding from "../../components/offer/AuctionBidding.vue";
+import AuctionFinish from "../../components/offer/AuctionFinish.vue";
 export default {
   components: {
     Swiper,
     SwiperSlide,
     CountDown,
     AuctionBidding,
+    AuctionFinish,
   },
   created: function () {
     this.moment = moment;
@@ -198,10 +204,9 @@ export default {
     });
 
     const offerMinPrice = computed(() => {
-      if (offer.value.price_min) {
-        return offer.value.price_min
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (offer.value.current_price) {
+        let minPrice = offer.value.current_price + offer.value.min_raise_amount;
+        return minPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
     });
     const offerStartPrice = computed(() => {

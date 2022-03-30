@@ -1,5 +1,5 @@
 <template>
-  <div class="item-pricing-area mt-3" v-if="isAuctionFinished">
+  <div class="item-pricing-area mt-3">
     <table
       v-if="isAutionHasWinner"
       class="item-details-table table table-borderless"
@@ -19,30 +19,32 @@
         </td>
         <td class="text-left">
           <h5 class="text-blue m-0">
-            <strong>{{ startPrice }} zł</strong>
+            <strong> {{ offerCurrentPrice }} zł</strong>
           </h5>
         </td>
       </tr>
 
-      <!-- <tr>
-                <td class="text-right">
-                  <span class="text-green"> <strong>Zwycięzca :</strong></span>
-                </td>
-                <td class="text-left">
-                  <p class="text-blue m-0">
-                    <strong
-                      >Gratulujemy! <br />
-                      Wygrałeś aukcję.
-                    </strong>
-                  </p>
-                </td>
-              </tr> -->
-      <tr>
+      <tr v-if="isUserWinner">
         <td class="text-right">
           <span class="text-green"> <strong>Zwycięzca :</strong></span>
         </td>
         <td class="text-left">
-          <p class="text-blue m-0"><strong>a....s</strong></p>
+          <p class="text-blue m-0">
+            <strong
+              >Gratulujemy! <br />
+              Wygrałeś aukcję.
+            </strong>
+          </p>
+        </td>
+      </tr>
+      <tr v-else>
+        <td class="text-right">
+          <span class="text-green"> <strong>Zwycięzca :</strong></span>
+        </td>
+        <td class="text-left">
+          <p class="text-blue m-0">
+            <strong>{{ offer.winner_email }}</strong>
+          </p>
         </td>
       </tr>
     </table>
@@ -64,7 +66,7 @@
         </td>
         <td class="text-left text-red">
           <h4 class="p-0 mt-3 mb-2">
-            <strong>{{ offerMinPrice }} zł</strong>
+            <strong>{{ offerMinimumPrice }} zł</strong>
           </h4>
 
           <p class="m-0 p-0">Cena minimalna nie</p>
@@ -74,3 +76,58 @@
     </table>
   </div>
 </template>
+
+<script>
+import moment from "moment";
+import { computed } from "vue";
+import { useStore } from "vuex";
+export default {
+  created: function () {
+    this.moment = moment;
+  },
+  props: {
+    isAuctionFinished: {
+      type: Boolean,
+      required: false,
+    },
+    offer: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup(props) {
+    const { offer } = props;
+    const store = useStore();
+    const user = computed(() => store.getters["User/user"]);
+    const offerMinimumPrice = computed(() => {
+      return offer.price_min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    });
+
+    const offerCurrentPrice = computed(() => {
+      return offer.current_price
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    });
+
+    const isAutionHasWinner = computed(() => {
+      return offer.winner_id !== null;
+    });
+    const isUserWinner = computed(() => {
+      return offer.winner_id === user.value.id;
+    });
+
+    return {
+      offerMinimumPrice,
+      isAutionHasWinner,
+      isUserWinner,
+      offerCurrentPrice,
+    };
+  },
+};
+</script>
+
+
+<style scoped>
+@import url("/src/styles/auctionDetails.css");
+</style>
