@@ -19,8 +19,8 @@ export default {
           }
           resolve(response);
         })
-        .catch(() => {
-          reject("error");
+        .catch((error) => {
+          reject(error);
         })
         .finally(() => {
           commit('setIsCategoryLoading', false);
@@ -42,8 +42,8 @@ export default {
           commit("setOffersPagination", response.data.data.pagination);
           resolve(response);
         })
-        .catch(() => {
-          reject("error");
+        .catch((error) => {
+          reject(error);
         })
         .finally(() => {
           commit('setIsOffersLoading', false);
@@ -60,11 +60,17 @@ export default {
       return axios
         .get(`${BASE_URL}/offers/${offerId}`)
         .then((response) => {
-          commit("setCurrentOffer", response.data.data);
+          const { status } = response.data;
+          if (status === "success") {
+            commit("setCurrentOffer", response.data.data);
+          }
+          if (status === "error") {
+            commit("setCurrentOffer", {});
+          }
           resolve(response);
         })
-        .catch(() => {
-          reject("error");
+        .catch((error) => {
+          reject(error);
         })
         .finally(() => {
           commit('setIsOffersLoading', false);
@@ -82,8 +88,8 @@ export default {
         .then((response) => {
           resolve(response);
         })
-        .catch(() => {
-          reject("error");
+        .catch((error) => {
+          reject(error);
         });
     });
   },
@@ -96,8 +102,8 @@ export default {
         .then((response) => {
           resolve(response);
         })
-        .catch(() => {
-          reject("error");
+        .catch((error) => {
+          reject(error);
         });
     });
   }

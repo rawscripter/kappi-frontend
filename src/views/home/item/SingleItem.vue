@@ -38,7 +38,10 @@
             </p>
           </div>
 
-          <div class="single-item__info-description-item">
+          <div
+            class="single-item__info-description-item"
+            v-if="offer.has_access"
+          >
             <font-awesome-icon :icon="['fas', 'clock']" />
             <p class="single-item__info-description-item-text">
               <CountDown :endDate="new Date(offer.date_end)">
@@ -70,6 +73,7 @@
         </div>
         <div class="action-btn">
           <router-link
+            v-if="offer.has_access"
             :to="{
               name: 'auction-details',
               params: {
@@ -80,8 +84,15 @@
               },
             }"
             class="btn btn-primary shadow auction-btn"
-            >Licytuj</router-link
+            >Licytuj
+          </router-link>
+
+          <div
+            v-if="!offer.has_access"
+            class="btn btn-secondary shadow auction-btn text-white"
           >
+            Poproś o dostęp
+          </div>
         </div>
       </div>
     </div>

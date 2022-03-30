@@ -154,12 +154,13 @@ import { ref, onMounted, computed } from "vue";
 import "swiper/css";
 import "swiper/css/navigation";
 import { FreeMode, Navigation, Thumbs } from "swiper";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import CountDown from "./item/CountDown.vue";
 import moment from "moment";
 import AuctionBidding from "../../components/offer/AuctionBidding.vue";
 import AuctionFinish from "../../components/offer/AuctionFinish.vue";
+import { useToast } from "vue-toastification";
 export default {
   components: {
     Swiper,
@@ -182,17 +183,24 @@ export default {
     };
 
     const route = useRoute();
-
+    const router = useRouter();
     const offerID = route.params.id;
     const store = useStore();
     const offer = computed(() => store.getters["Offer/currentOffer"]);
+    const toast = useToast();
 
     const isOffersLoading = computed(
       () => store.getters["Offer/isOffersLoading"]
     );
 
     onMounted(() => {
-      store.dispatch("Offer/getOfferDetails", offerID);
+      store.dispatch("Offer/getOfferDetails", offerID).then((res) => {
+        const { status, message } = res.data;
+        if (status === "error") {
+          toast.error(message);
+          router.push("/home");
+        }
+      });
     });
 
     const currentPrice = computed(() => {
