@@ -28,18 +28,22 @@ export default {
   },
   computed: {
     day() {
+      if (this.now.getTime() > this.endDate) return 0;
       let d = Math.trunc((this.endDate - this.now) / (1000 * 60 * 60 * 24));
       return d;
     },
     hour() {
+      if (this.now.getTime() > this.endDate) return 0;
       let h = Math.trunc((this.endDate - this.now) / 1000 / 3600) % 24;
       return h > 9 ? h : "0" + h;
     },
     min() {
+      if (this.now.getTime() > this.endDate) return 0;
       let m = Math.trunc((this.endDate - this.now) / 1000 / 60) % 60;
       return m > 9 ? m : "0" + m;
     },
     sec() {
+      if (this.now.getTime() > this.endDate) return 0;
       let s = Math.trunc((this.endDate - this.now) / 1000) % 60;
       return s > 9 ? s : "0" + s;
     },

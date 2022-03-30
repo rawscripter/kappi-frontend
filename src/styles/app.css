@@ -109,3 +109,10 @@ color: var(--blue);
 .btn-block{
 width: 100%;
 }
+
+.btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus{
+  box-shadow: none !important;
+}
+.btn-check:focus + .btn-primary, .btn-primary:focus{
+ box-shadow: none !important;
+ }

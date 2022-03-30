@@ -29,13 +29,9 @@ export default {
     });
   },
   changeCategoryAndFetchOffers({ commit }, payload) {
-
-    console.log(payload)
     const { category, page } = payload;
-
     commit('setIsOffersLoading', true);
     commit('setCurrentCategory', category);
-
     return new Promise((resolve, reject) => {
       let token = localStorage.getItem("token");
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
@@ -74,6 +70,35 @@ export default {
           commit('setIsOffersLoading', false);
         }
         );
+    });
+  },
+
+  checkActionBid({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      let token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      return axios
+        .post(`${BASE_URL}/offers/bid/check`, payload)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch(() => {
+          reject("error");
+        });
+    });
+  },
+  confrimAuctionBid({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      let token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      return axios
+        .post(`${BASE_URL}/offers/bid/confirm`, payload)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch(() => {
+          reject("error");
+        });
     });
   }
 

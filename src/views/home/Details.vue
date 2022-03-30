@@ -15,39 +15,39 @@
 
             <div class="auction-timer bg-blue">
               <p>
-                {{ isAuctionRunning ? "Aukcja trwa" : "Czas dobiegł końca" }}
+                {{
+                  isAuctionRunning
+                    ? "Aukcja kończy się za:"
+                    : isAuctionFinished
+                    ? "Aukcja zakończona:"
+                    : "Aukcja kończy się za:"
+                }}
               </p>
 
               <CountDown :endDate="new Date(offer.date_end)">
                 <template v-slot="{ day, hour, min, sec }">
-                  <!-- {{ day }}D, {{ hour }}H : {{ min }}M : {{ sec }}S -->
-
                   <div
                     class="d-flex justify-content-between align-items-center"
                   >
                     <div class="timer-text bg-white text-dark">
                       <span class="time">
                         {{ day }}
-                        <!-- {{ isAuctionRunning ? "01" : "00" }} -->
                       </span>
                       <span class="text">Day's</span>
                     </div>
                     <div class="timer-text bg-white text-dark">
                       <span class="time">
                         {{ hour }}
-                        <!-- {{ isAuctionRunning ? "01" : "00" }} -->
                       </span>
                       <span class="text">Hour</span>
                     </div>
                     <div class="timer-text bg-white text-dark">
                       <span class="time"> {{ min }}</span>
-                      <!--  {{ isAuctionRunning ? "01" : "00" }} -->
                       <span class="text">Minute</span>
                     </div>
                     <div class="timer-text bg-white text-dark">
                       <span class="time">
                         {{ sec }}
-                        <!-- {{ isAuctionRunning ? "01" : "00" }}-->
                       </span>
                       <span class="text">Second</span>
                     </div>
@@ -130,154 +130,13 @@
               </tr>
             </table>
           </div>
-          <div class="item-pricing-area mt-3" v-if="isAuctionRunning">
-            <table class="item-details-table table table-borderless">
-              <tr>
-                <td class="text-right"><strong>Aktualna cena:</strong></td>
-                <td class="text-left">
-                  <div class="d-flex justify-content-start align-items-center">
-                    <h5 class="text-blue m-0">
-                      <strong>{{ currentPrice }} zł</strong>
-                    </h5>
-                    <div
-                      @click="refreshOffer()"
-                      class="
-                        btn btn-sm btn-default
-                        bg-white
-                        shadow
-                        refresh-btn
-                        d-flex
-                      "
-                    >
-                      Aktualizuj cenę
-                      <img
-                        width="24px"
-                        src="/public/assets/icon/refresh.svg"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-right">
-                  <strong>Ostatnia aktualizacja ceny:</strong>
-                </td>
-                <td class="text-left">
-                  <div class="mt-3">
-                    <p class="m-0 text-muted">
-                      {{ moment(lastRefreshedTime).format("h:mm:ss A") }}
-                    </p>
-                  </div>
-                </td>
-              </tr>
 
-              <tr>
-                <td class="text-right"></td>
-                <td class="text-left">
-                  <div class="mt-3">
-                    <div class="from-group">
-                      <label for="" class="mb-2"
-                        >Minimalna wartość oferty:
-                        <strong>{{ offerMinPrice }} zł</strong></label
-                      >
-                      <input
-                        type="text"
-                        placeholder="Twoja oferta"
-                        class="form-control custom-input-box"
-                      />
-                    </div>
-                    <div class="from-group mt-3">
-                      <div class="btn btn-block btn-primary sha">Licytuj</div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </div>
-
-          <div class="item-pricing-area mt-3" v-if="isAuctionFinished">
-            <table
-              v-if="isAutionHasWinner"
-              class="item-details-table table table-borderless"
-            >
-              <tr>
-                <td class="text-right"><strong>Aukcja zakończona:</strong></td>
-                <td class="text-left">
-                  <span class="text-muted">
-                    {{
-                      moment(offer.date_end).format("ddd DD, YYYY, h:mm:ss A")
-                    }}
-                  </span>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="text-right">
-                  <span class="text-green">
-                    <strong>Cena końcowa:</strong></span
-                  >
-                </td>
-                <td class="text-left">
-                  <h5 class="text-blue m-0">
-                    <strong>{{ startPrice }} zł</strong>
-                  </h5>
-                </td>
-              </tr>
-
-              <!-- <tr>
-                <td class="text-right">
-                  <span class="text-green"> <strong>Zwycięzca :</strong></span>
-                </td>
-                <td class="text-left">
-                  <p class="text-blue m-0">
-                    <strong
-                      >Gratulujemy! <br />
-                      Wygrałeś aukcję.
-                    </strong>
-                  </p>
-                </td>
-              </tr> -->
-              <tr>
-                <td class="text-right">
-                  <span class="text-green"> <strong>Zwycięzca :</strong></span>
-                </td>
-                <td class="text-left">
-                  <p class="text-blue m-0"><strong>a....s</strong></p>
-                </td>
-              </tr>
-            </table>
-
-            <table v-else class="item-details-table table table-borderless">
-              <tr>
-                <td class="text-right">
-                  <span class="text-red">
-                    <strong>ukcja zakończonaA:</strong></span
-                  >
-                </td>
-                <td class="text-left">
-                  <span class="text-muted">
-                    {{
-                      moment(offer.date_end).format("ddd DD, YYYY, h:mm:ss A")
-                    }}
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-right">
-                  <span class="text-red"> <strong>Ostatnia cena:</strong></span>
-                </td>
-                <td class="text-left text-red">
-                  <h4 class="p-0 mt-3 mb-2">
-                    <strong>{{ offerMinPrice }} zł</strong>
-                  </h4>
-
-                  <p class="m-0 p-0">Cena minimalna nie</p>
-                  <p class="m-0 p-0">Zastala asiagnieta</p>
-                </td>
-              </tr>
-            </table>
-          </div>
+          <AuctionBidding
+            :currentPrice="currentPrice"
+            :offerMinPrice="offerMinPrice"
+            :offer="offer"
+            v-if="isAuctionRunning"
+          ></AuctionBidding>
         </div>
       </div>
     </div>
@@ -295,12 +154,13 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import CountDown from "./item/CountDown.vue";
 import moment from "moment";
-
+import AuctionBidding from "../../components/offer/AuctionBidding.vue";
 export default {
   components: {
     Swiper,
     SwiperSlide,
     CountDown,
+    AuctionBidding,
   },
   created: function () {
     this.moment = moment;
@@ -360,13 +220,6 @@ export default {
     });
     const isAutionHasWinner = ref(false);
 
-    const lastRefreshedTime = ref(new Date());
-
-    function refreshOffer() {
-      lastRefreshedTime.value = new Date();
-      store.dispatch("Offer/getOfferDetails", offerID);
-    }
-
     return {
       onSwiper,
       onSlideChange,
@@ -380,8 +233,6 @@ export default {
       offerMinPrice,
       offerStartPrice,
       isOffersLoading,
-      lastRefreshedTime,
-      refreshOffer,
     };
   },
 };

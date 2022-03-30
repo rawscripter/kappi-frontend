@@ -157,6 +157,8 @@ span.single-item-image-floading-text {
 .single-item__image {
   position: relative;
   margin-right: 20px;
+  min-height: 200px !important;
+  min-width: 240px !important;
 }
 .single-item__info-title-bold {
   font-size: 1.55rem;
