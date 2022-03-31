@@ -1,7 +1,7 @@
 <template>
   <div class="single-item shadow d-flex">
     <div class="single-item__image">
-      <img src="/assets/img/Landing-page-bg.jpg" class="shadow" alt="" />
+      <img :src="offerFeatureImage" class="shadow" alt="" />
       <span class="single-item-image-floading-text">{{
         offer.offer_category_name
       }}</span>
@@ -34,7 +34,7 @@
           <div class="single-item__info-description-item">
             <font-awesome-icon :icon="['fas', 'calendar']" />
             <p class="single-item__info-description-item-text">
-              {{ moment(date_start).format("ddd DD") }}
+              {{ moment(date_start).lang("fr").format("ddd DD") }}
             </p>
           </div>
 
@@ -64,7 +64,7 @@
       >
         <div class="action-discription">
           <div class="mr-3">
-            <img src="/public/assets/icon/Chart.svg" alt="" />
+            <img width="35" src="/assets/icon/Chart.png" alt="" />
           </div>
           <p class="m-0">
             Aktualna cena
@@ -84,14 +84,15 @@
               },
             }"
             class="btn btn-primary shadow auction-btn"
-            >Licytuj
+          >
+            <strong>Licytuj</strong>
           </router-link>
 
           <div
             v-if="!offer.has_access"
             class="btn btn-secondary shadow auction-btn text-white"
           >
-            Poproś o dostęp
+            <strong> Poproś o dostęp</strong>
           </div>
         </div>
       </div>
@@ -101,7 +102,11 @@
 
 <script>
 import moment from "moment";
+import "moment/locale/fr";
+import "moment/locale/es";
+
 import CountDown from "./CountDown.vue";
+
 export default {
   components: {
     CountDown,
@@ -120,7 +125,12 @@ export default {
       // add , and space  to price
       return this.offer.current_price
         .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    offerFeatureImage: function () {
+      if (this.offer.images.length > 0 && this.offer.images[0].path)
+        return this.offer.images[0].path;
+      else return "/assets/img/no_image.png";
     },
   },
 };
@@ -135,6 +145,7 @@ export default {
   object-fit: cover;
   border-radius: 25px;
   position: relative;
+  width: 270px;
 }
 .single-item {
   border-radius: 25px;
@@ -169,7 +180,7 @@ span.single-item-image-floading-text {
   position: relative;
   margin-right: 20px;
   min-height: 200px !important;
-  min-width: 240px !important;
+  min-width: 270px !important;
 }
 .single-item__info-title-bold {
   font-size: 1.55rem;
@@ -236,7 +247,7 @@ span.single-item-image-floading-text {
   }
   .single-item__image img {
     width: 100%;
-    height: 240px;
+    height: 270px;
   }
   .flex-column-sm {
     flex-direction: column !important;

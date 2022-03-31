@@ -11,11 +11,6 @@
       <div class="col-md-4">
         <ul class="middle-footer-content">
           <li for="">
-            <div @click="openPasswordResetModal()" class="text-dark">
-              Reset Password
-            </div>
-          </li>
-          <li for="">
             <router-link
               :to="{
                 name: 'terms',
@@ -34,6 +29,11 @@
             >
           </li>
           <li>Informacje</li>
+          <li for="" class="cp">
+            <div @click="openPasswordResetModal()" class="text-dark">
+              Zmień hasło
+            </div>
+          </li>
         </ul>
       </div>
       <div class="col-md-4">

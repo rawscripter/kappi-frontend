@@ -13,7 +13,7 @@
               class="btn btn-sm btn-default bg-white shadow refresh-btn d-flex"
             >
               Aktualizuj cenę
-              <img width="24px" src="/public/assets/icon/refresh.svg" alt="" />
+              <img width="24px" src="/assets/icon/refresh.png" alt="" />
             </div>
           </div>
         </td>
@@ -37,7 +37,7 @@
           <div class="mt-3">
             <form @submit.prevent="checkBid()" action="">
               <div class="from-group">
-                <label for="" class="mb-2"
+                <label for="" class="mb-2 fs-13"
                   >Minimalna wartość oferty:
                   <strong>{{ offerMinPrice }} zł</strong></label
                 >

@@ -14,6 +14,7 @@ export default {
     state.status = "";
     state.token = "";
     localStorage.removeItem("token");
+    window.location.href = "/";
   },
 
   set_user(state, payload) {

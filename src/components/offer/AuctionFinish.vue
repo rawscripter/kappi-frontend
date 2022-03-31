@@ -52,11 +52,11 @@
     <table v-else class="item-details-table table table-borderless">
       <tr>
         <td class="text-right">
-          <span class="text-red"> <strong>ukcja zakończonaA:</strong></span>
+          <span class="text-red"> <strong>Aukcja zakończona:</strong></span>
         </td>
         <td class="text-left">
           <span class="text-muted">
-            {{ moment(offer.date_end).format("ddd DD, YYYY, h:mm:ss A") }}
+            {{ moment(offer.date_end).format("MMM DD, YYYY, h:mm:ss A") }}
           </span>
         </td>
       </tr>
@@ -69,8 +69,8 @@
             <strong>{{ offerMinimumPrice }} zł</strong>
           </h4>
 
-          <p class="m-0 p-0">Cena minimalna nie</p>
-          <p class="m-0 p-0">Zastala asiagnieta</p>
+          <p class="m-0 p-0"><strong>Cena minimalna nie</strong></p>
+          <p class="m-0 p-0"><strong>Zastala asiagnieta</strong></p>
         </td>
       </tr>
     </table>
@@ -101,13 +101,13 @@ export default {
     const store = useStore();
     const user = computed(() => store.getters["User/user"]);
     const offerMinimumPrice = computed(() => {
-      return offer.price_min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return offer.price_min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     });
 
     const offerCurrentPrice = computed(() => {
       return offer.current_price
         .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     });
 
     const isAutionHasWinner = computed(() => {

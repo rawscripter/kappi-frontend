@@ -1,5 +1,5 @@
  <template>
-  <div>
+  <div class="overflow-hidden">
     <router-view></router-view>
     <TermsModal />
     <PrivacyModal />

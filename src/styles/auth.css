@@ -50,3 +50,11 @@
     width: 80%;
   }
 }
+
+.logo {
+  filter: invert(1);
+}
+
+body{
+  overflow: hidden !important;
+}

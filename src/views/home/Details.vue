@@ -8,19 +8,19 @@
         <div class="carosel-area">
           <div class="image-and-timer-area">
             <img
-              src="/assets/img/Landing-page-bg.jpg"
+              :src="activeOfferImage"
               class="shadow main-image"
-              alt=""
+              :alt="offer.name"
             />
 
             <div class="auction-timer bg-blue">
               <p>
                 {{
                   isAuctionRunning
-                    ? "Aukcja kończy się za:"
+                    ? "Aukcja kończy się za"
                     : isAuctionFinished
-                    ? "Aukcja zakończona:"
-                    : "Aukcja kończy się za:"
+                    ? "Aukcja zakończona"
+                    : "Aukcja kończy się za"
                 }}
               </p>
 
@@ -33,23 +33,23 @@
                       <span class="time">
                         {{ day }}
                       </span>
-                      <span class="text">Day's</span>
+                      <span class="text">Dni</span>
                     </div>
                     <div class="timer-text bg-white text-dark">
                       <span class="time">
                         {{ hour }}
                       </span>
-                      <span class="text">Hour</span>
+                      <span class="text">Godzin</span>
                     </div>
                     <div class="timer-text bg-white text-dark">
                       <span class="time"> {{ min }}</span>
-                      <span class="text">Minute</span>
+                      <span class="text">Minut</span>
                     </div>
                     <div class="timer-text bg-white text-dark">
                       <span class="time">
                         {{ sec }}
                       </span>
-                      <span class="text">Second</span>
+                      <span class="text">Sekund</span>
                     </div>
                   </div>
                 </template>
@@ -57,26 +57,28 @@
             </div>
           </div>
 
-          <div class="">
-            <swiper
-              class="swiper-area swiper-area-border"
-              :modules="modules"
-              :slides-per-view="4"
-              :space-between="15"
-              :navigation="true"
-              :pagination="{ clickable: true }"
-              :scrollbar="{ draggable: true }"
-              @swiper="onSwiper"
-              @slideChange="onSlideChange"
+          <div
+            class="swiper-area swiper-area-border"
+            v-if="offer.images && offer.images.length > 1"
+          >
+            <carousel
+              :mouseDrag="false"
+              :touchDrag="false"
+              v-model="activeOfferImageIndex"
+              ref="slider"
+              :snapAlign="'center'"
+              :itemsToShow="4"
+              :wrapAround="true"
             >
-              <swiper-slide v-for="(x, index) in 4" :key="index">
-                <img
-                  src="/assets/img/Landing-page-bg.jpg"
-                  class="shadow slide-image"
-                  alt=""
-                />
-              </swiper-slide>
-            </swiper>
+              <slide v-for="(image, index) in offer.images" :key="index">
+                <img :src="image.path" class="slide-image" alt="" />
+              </slide>
+
+              <template #addons>
+                <navigation />
+                <pagination />
+              </template>
+            </carousel>
           </div>
         </div>
       </div>
@@ -148,12 +150,7 @@
 </template>
 
  <script>
-// Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from "swiper/vue";
 import { ref, onMounted, computed } from "vue";
-import "swiper/css";
-import "swiper/css/navigation";
-import { FreeMode, Navigation, Thumbs } from "swiper";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import CountDown from "./item/CountDown.vue";
@@ -161,10 +158,16 @@ import moment from "moment";
 import AuctionBidding from "../../components/offer/AuctionBidding.vue";
 import AuctionFinish from "../../components/offer/AuctionFinish.vue";
 import { useToast } from "vue-toastification";
+
+import "vue3-carousel/dist/carousel.css";
+import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+
 export default {
   components: {
-    Swiper,
-    SwiperSlide,
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
     CountDown,
     AuctionBidding,
     AuctionFinish,
@@ -173,21 +176,30 @@ export default {
     this.moment = moment;
   },
   setup() {
-    let thumbsSwiper = null;
-    const onSwiper = (swiper) => {
-      // console.log("Swiper instance", swiper);
-    };
-    const onSlideChange = (swiper) => {
-      console.log("slide change", swiper.activeIndex);
-      thumbsSwiper = swiper;
-    };
-
     const route = useRoute();
     const router = useRouter();
     const offerID = route.params.id;
     const store = useStore();
     const offer = computed(() => store.getters["Offer/currentOffer"]);
     const toast = useToast();
+
+    const slider = ref(null);
+
+    const activeSlider = computed(() => {
+      console.log(slider);
+    });
+
+    const activeOfferImageIndex = ref(0);
+    const activeOfferImage = computed(() => {
+      if (
+        offer.value.images &&
+        offer.value.images[activeOfferImageIndex.value]
+      ) {
+        return offer.value.images[activeOfferImageIndex.value].path;
+      } else {
+        return "/assets/img/no_image.png";
+      }
+    });
 
     const isOffersLoading = computed(
       () => store.getters["Offer/isOffersLoading"]
@@ -207,21 +219,21 @@ export default {
       if (offer.value.current_price) {
         return offer.value.current_price
           .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       }
     });
 
     const offerMinPrice = computed(() => {
       if (offer.value.current_price) {
         let minPrice = offer.value.current_price + offer.value.min_raise_amount;
-        return minPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return minPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       }
     });
     const offerStartPrice = computed(() => {
       if (offer.value.price_start) {
         return offer.value.price_start
           .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       }
     });
 
@@ -234,10 +246,6 @@ export default {
     const isAutionHasWinner = ref(false);
 
     return {
-      onSwiper,
-      onSlideChange,
-      thumbsSwiper,
-      modules: [FreeMode, Navigation, Thumbs],
       isAuctionRunning,
       isAuctionFinished,
       isAutionHasWinner,
@@ -246,6 +254,10 @@ export default {
       offerMinPrice,
       offerStartPrice,
       isOffersLoading,
+      activeOfferImage,
+
+      slider,
+      activeOfferImageIndex,
     };
   },
 };

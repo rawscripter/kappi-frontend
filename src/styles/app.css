@@ -2,7 +2,7 @@
 :root {
   --grey: #818181;
   --blue: #407ff0;
-  --red: #f00;
+  --red: rgb(243, 18, 18);
   --green: #178817;
 }
 .text-red{
@@ -116,3 +116,46 @@ width: 100%;
 .btn-check:focus + .btn-primary, .btn-primary:focus{
  box-shadow: none !important;
  }
+
+  
+.carousel__slide > .carousel__item {
+  transform: scale(1);
+  opacity: 0.5;
+  transition: 0.5s;
+}
+.carousel__slide--visible > .carousel__item {
+  opacity: 1;
+  transform: rotateY(0);
+}
+.carousel__slide--next > .carousel__item {
+  transform: scale(0.9) translate(-10px);
+}
+.carousel__slide--prev > .carousel__item {
+  transform: scale(0.9) translate(10px);
+}
+.carousel__slide--active > .carousel__item {
+  transform: scale(1.1);
+}
+
+ol.carousel__pagination {
+    display: none;
+}
+.carousel__prev, .carousel__next{
+  background-color: #fff !important;
+      color: #407ff0 !important;
+      width: 24px !important;
+}
+.carousel__icon{
+transform: scale(1.5);
+}
+
+
+ol.carousel__track {
+transform: translate(0) !important;
+}
+
+ol.carousel__track {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

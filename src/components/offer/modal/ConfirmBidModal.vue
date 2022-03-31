@@ -35,9 +35,15 @@
                 align-items-center
               "
             >
-              <p class="mb-0 text-muted mr-3 fs-13">
-                Aukcja kończy się za:
-                {{ moment(offer.date_end).format("ddd DD, YYYY, h:mm:ss A") }}
+              <p class="mb-0 text-muted mr-3 fs-13 d-flex">
+                Aukcja kończy się za: &nbsp;
+                <CountDown :endDate="new Date(offer.date_end)">
+                  <template v-slot="{ day, hour, min, sec }">
+                    <span class="text-dark"
+                      >{{ day }} dni, {{ hour }}:{{ min }}:{{ sec }}</span
+                    >
+                  </template>
+                </CountDown>
               </p>
               <p class="mb-0 mr-3 fs-13"><strong>|</strong></p>
               <p class="mb-0 ml-3 fs-13">{{ offer.total_offers }} Ofert</p>
@@ -66,7 +72,7 @@
                 <button
                   @click="confrimAuctionBid"
                   type="submit"
-                  class="btn btn-primary"
+                  class="btn btn-primary shadow"
                 >
                   <span v-if="isBidding"
                     ><easy-spinner class="small-spinner" /> Przetwarzanie</span
@@ -90,11 +96,12 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
-import { ref, computed } from "vue";
-
 import moment from "moment";
+import CountDown from "../../../views/home/item/CountDown.vue";
 export default {
+  components: {
+    CountDown,
+  },
   created: function () {
     this.moment = moment;
   },

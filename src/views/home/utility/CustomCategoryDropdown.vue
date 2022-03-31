@@ -13,11 +13,10 @@
           {{ isCategoryLoading ? "Kategoria" : currentCategory.name }}
         </p>
       </div>
-      <img
+
+      <font-awesome-icon
         class="select-box__icon"
-        :src="`/public/assets/icon/down-arrow.svg`"
-        alt="Arrow Icon"
-        aria-hidden="true"
+        :icon="['fas', 'angle-down']"
       />
     </div>
     <ul class="select-box__list">

@@ -29,11 +29,6 @@
               <div>
                 <label for="">Obecne hasło</label>
                 <div class="input-group custom-input-box">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <font-awesome-icon :icon="['fas', 'lock']" />
-                    </span>
-                  </div>
                   <input
                     v-model="currentPassword"
                     :type="showPassword1 ? 'text' : 'password'"
@@ -67,11 +62,6 @@
               <div class="mt-4">
                 <label for="">Nowe hasło</label>
                 <div class="input-group custom-input-box">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <font-awesome-icon :icon="['fas', 'lock']" />
-                    </span>
-                  </div>
                   <input
                     v-model="newPassword"
                     :type="showPassword2 ? 'text' : 'password'"
@@ -103,11 +93,6 @@
               <div class="mt-4">
                 <label for="">Powtórz nowe hasło</label>
                 <div class="input-group custom-input-box">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <font-awesome-icon :icon="['fas', 'lock']" />
-                    </span>
-                  </div>
                   <input
                     v-model="confirmPassword"
                     required

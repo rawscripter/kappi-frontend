@@ -141,5 +141,4 @@ export default {
   setPrivacyModal({ commit }, payload) {
     commit("set_showPrivacyModal", payload);
   }
-
 };

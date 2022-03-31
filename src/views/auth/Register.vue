@@ -92,7 +92,7 @@
                   <input
                     :type="showConfirmationPassword ? 'text' : 'password'"
                     class="form-control"
-                    placeholder="Potwierdz haslo"
+                    placeholder="Potwierdź hasło"
                     v-model="confirm_password"
                     required
                   />
@@ -125,7 +125,10 @@
                       id="customCheck1"
                       required
                     />
-                    <label class="custom-control-label" for="customCheck1">
+                    <label
+                      class="custom-control-label fs-13 text-muted"
+                      for="customCheck1"
+                    >
                       Akceptuję
                       <span class="cp" @click="openTermsModal()">
                         <u>Regulamin</u></span
@@ -146,8 +149,8 @@
               </div>
 
               <div class="form-bottom-content">
-                <p class="m-0">Masz już konto?</p>
-                <p @click="openLoginModal" class="text-blue cp">
+                <p class="m-0 text-muted fs-13">Masz już konto?</p>
+                <p @click="openLoginModal" class="text-blue fs-13 cp">
                   <u><strong>Zaloguj się</strong></u>
                 </p>
               </div>

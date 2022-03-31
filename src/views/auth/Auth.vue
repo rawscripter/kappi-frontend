@@ -48,7 +48,4 @@ export default {
 
 <style scoped>
 @import url("/src/styles/auth.css");
-.logo {
-  filter: invert(1);
-}
 </style>

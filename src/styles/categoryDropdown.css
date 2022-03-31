@@ -119,3 +119,10 @@
     transform: scaleY(0);
   }
 }
+.select-box__icon{
+    color: var(--blue);
+    font-weight: bold;
+    font-size: 10px;
+    width: 22px;
+    height: 22px;
+}
