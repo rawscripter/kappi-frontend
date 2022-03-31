@@ -29,7 +29,7 @@ export default {
   register({ commit }, user) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${BASE_URL}/create-account`,
+        url: `${BASE_URL}/register`,
         data: user,
         method: "POST",
       })
