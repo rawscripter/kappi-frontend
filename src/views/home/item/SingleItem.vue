@@ -90,7 +90,7 @@
 
           <div
             v-if="!offer.has_access"
-            class="btn btn-secondary shadow auction-btn text-white"
+            class="btn btn-primary shadow auction-btn"
           >
             <strong> Poproś o dostęp</strong>
           </div>
@@ -169,11 +169,12 @@ span.single-item-image-floading-text {
   left: 10px;
   top: 10px;
   background: #fff;
-  padding: 8px;
+  padding: 10px 15px;
   border-radius: 12px;
   font-size: 12px;
   color: var(--blue);
   font-weight: bold;
+  border: 1px solid #f5f5f5;
 }
 
 .single-item__image {

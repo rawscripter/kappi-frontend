@@ -6,4 +6,5 @@ export default {
   showPasswordResetModal: (state) => state.showPasswordResetModal,
   showTermsModal: (state) => state.showTermsModal,
   showPrivacyModal: (state) => state.showPrivacyModal,
+  isAuthReqLoading: (state) => state.isAuthReqLoading,
 };

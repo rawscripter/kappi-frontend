@@ -96,7 +96,10 @@
 
               <div class="form-group">
                 <button class="btn btn-primary btn-block shadow login-btn">
-                  Zaloguj
+                  <span v-if="isAuthReqLoading"
+                    ><easy-spinner class="small-spinner" /> Przetwarzanie</span
+                  >
+                  <span v-else>Zaloguj</span>
                 </button>
               </div>
 
@@ -124,6 +127,7 @@ export default {
   setup(_, { root }) {
     const store = useStore();
     const showModal = computed(() => store.state.User.showLoginModal);
+    const isAuthReqLoading = computed(() => store.state.User.isAuthReqLoading);
     const router = useRouter();
     function closeLoginModal() {
       store.dispatch("User/setLoginModal", false);
@@ -163,6 +167,7 @@ export default {
       password,
       errors,
       showPassword,
+      isAuthReqLoading,
     };
   },
 };

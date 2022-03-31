@@ -103,17 +103,23 @@
             <table class="item-details-table table table-borderless">
               <tr>
                 <td class="text-right"><strong>Agencja :</strong></td>
-                <td class="text-left text-muted">{{ offer.agency_name }}</td>
+                <td class="text-left text-muted">
+                  <div>{{ offer.agency_name }}</div>
+                </td>
               </tr>
               <tr>
                 <td class="text-right"><strong>Kategoria :</strong></td>
                 <td class="text-left text-muted">
-                  {{ offer.offer_category_name }}
+                  <div>
+                    {{ offer.offer_category_name }}
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td class="text-right"><strong>Adres :</strong></td>
-                <td class="text-left text-muted">{{ offer.address }}</td>
+                <td class="text-left text-muted">
+                  <div>{{ offer.address }}</div>
+                </td>
               </tr>
             </table>
           </div>

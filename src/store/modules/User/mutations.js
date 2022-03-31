@@ -34,6 +34,9 @@ export default {
   },
   set_showPrivacyModal(state, payload) {
     state.showPrivacyModal = payload;
+  },
+  set_isAuthReqLoading(state, payload) {
+    state.isAuthReqLoading = payload;
   }
 
 };

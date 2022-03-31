@@ -1,20 +1,21 @@
-
 /* Override default value of 'none' */
 .modal {
-  display: flex;
   align-items: center;
   justify-content: center;
-  display: block !important;
-  transform: translateY(100vh);
+  display: none;
   transition-duration: 0.5s;
-  padding-top: 50px;
+  background-color: rgba(0, 0, 0, 40%);
+  transition-duration: 200ms;
 }
+
 .show {
-  transform: translate(0);
+  display: flex;
 }
+
 .modal-dialog {
   position: relative;
 }
+
 .modal-content {
   border: none;
   padding: 2.5rem;
@@ -22,6 +23,7 @@
   width: 500px;
   padding-top: 4rem;
 }
+
 .modal-close-button {
   position: absolute;
   right: 20px;
@@ -42,16 +44,18 @@
   padding: 0;
 }
 
- 
+
 .login-modal-title {
   font-size: 2rem;
   margin-bottom: 1.25rem;
 }
+
 .login-modal-description {
   color: #606060;
   font-weight: 400;
   font-size: 0.9rem;
 }
+
 .login-form {
   margin: 50px 0 0px 0;
 }
@@ -74,35 +78,44 @@
   background: #fff;
   z-index: 99;
 }
+
 .input-group-append {
   padding-right: 10px !important;
   font-size: 14px !important;
 }
+
 .form-control {
   border: none !important;
   outline: none !important;
   height: 45px !important;
 }
+
 .form-control:focus {
   box-shadow: none !important;
 }
+
 .form-control::placeholder {
   font-size: 16px !important;
 }
+
 .form-control:focus {
   box-shadow: none;
 }
+
 .form-control::placeholder {
   font-size: 16px;
 }
+
 .custom-input-box {
   box-shadow: 0px 0rem 1rem 1px rgb(0 0 0 / 15%) !important;
   border-radius: 10px;
   overflow: hidden;
- }
+}
+
 .btn-block {
   width: 100%;
 }
+
 .login-btn {
   margin-top: 50px;
   box-shadow: 0px 0rem 1rem 1px rgb(13 110 253 / 54%) !important;
@@ -114,6 +127,7 @@
 .remember-me-area.d-flex.justify-content-between {
   font-size: 14px;
 }
+
 input#customCheck1 {
   margin-right: 10px;
 }
@@ -133,6 +147,7 @@ input#customCheck1 {
     width: 98%;
     margin: 0 auto;
   }
+
   .login-modal-title {
     font-size: 1.7rem;
   }

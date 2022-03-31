@@ -17,6 +17,7 @@ const state = {
   showPasswordResetModal: false,
   showPrivacyModal: false,
   showTermsModal: false,
+  isAuthReqLoading: false,
 };
 
 export default {

@@ -144,7 +144,10 @@
 
               <div class="form-group">
                 <button class="btn btn-primary btn-block shadow register-btn">
-                  Zarejestruj się
+                  <span v-if="isAuthReqLoading"
+                    ><easy-spinner class="small-spinner" /> Przetwarzanie</span
+                  >
+                  <span v-else>Zarejestruj się</span>
                 </button>
               </div>
 
@@ -172,6 +175,7 @@ export default {
   setup() {
     const store = useStore();
     const showModal = computed(() => store.state.User.showRegistrationModal);
+    const isAuthReqLoading = computed(() => store.state.User.isAuthReqLoading);
     const router = useRouter();
     function closeRegistrationModal() {
       store.dispatch("User/setRegistrationModal", false);
@@ -226,6 +230,7 @@ export default {
       errors,
       showPassword,
       showConfirmationPassword,
+      isAuthReqLoading,
     };
   },
 };

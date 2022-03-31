@@ -2,6 +2,7 @@ import axios from "axios";
 const BASE_URL = "http://127.0.0.1:8000/api/v1/client";
 export default {
   login({ commit }, user) {
+    commit("set_isAuthReqLoading", true);
     return new Promise((resolve, reject) => {
       axios({
         url: `${BASE_URL}/login`,
@@ -22,11 +23,14 @@ export default {
           commit("auth_error");
           localStorage.removeItem("token");
           reject(err);
+        }).finally(() => {
+          commit("set_isAuthReqLoading", false);
         });
     });
   },
 
   register({ commit }, user) {
+    commit("set_isAuthReqLoading", true);
     return new Promise((resolve, reject) => {
       axios({
         url: `${BASE_URL}/register`,
@@ -46,6 +50,9 @@ export default {
           commit("auth_error", err);
           localStorage.removeItem("token");
           reject(err);
+        })
+        .finally(() => {
+          commit("set_isAuthReqLoading", false);
         });
     });
   },

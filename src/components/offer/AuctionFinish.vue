@@ -55,8 +55,8 @@
           <span class="text-red"> <strong>Aukcja zakończona:</strong></span>
         </td>
         <td class="text-left">
-          <span class="text-muted">
-            {{ moment(offer.date_end).format("MMM DD, YYYY, h:mm:ss A") }}
+          <span class="text-muted"
+            >{{ moment(offer.date_end).format("MMM DD, YYYY, h:mm:ss A") }}
           </span>
         </td>
       </tr>
@@ -65,12 +65,12 @@
           <span class="text-red"> <strong>Ostatnia cena:</strong></span>
         </td>
         <td class="text-left text-red">
-          <h4 class="p-0 mt-3 mb-2">
+          <h4 class="mt-3 mb-2">
             <strong>{{ offerMinimumPrice }} zł</strong>
           </h4>
 
-          <p class="m-0 p-0"><strong>Cena minimalna nie</strong></p>
-          <p class="m-0 p-0"><strong>Zastala asiagnieta</strong></p>
+          <p class="m-0"><strong>Cena minimalna nie</strong></p>
+          <p class="m-0"><strong>Zastala asiagnieta</strong></p>
         </td>
       </tr>
     </table>
