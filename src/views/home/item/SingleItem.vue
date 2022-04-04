@@ -7,18 +7,18 @@
       }}</span>
     </div>
     <div class="single-item__info">
-      <div class="single-item__info-title">
+      <div class="single-item__info-title" v-if="offer.has_access">
         <p class="single-item__info-title-bold m-0">{{ offer.name }}</p>
         <p class="single-item__info-title-muted m-0">
           By {{ offer.agency_name }}
         </p>
       </div>
       <div
-        class="
-          single-item__info-descriptions
-          d-flex
-          justify-content-start
-          align-items-center
+        class="single-item__info-descriptions"
+        :class="
+          offer.has_access
+            ? 'flex-row justify-content-start d-flex align-items-center'
+            : 'flex-column justify-content-start d-flex align-items-start'
         "
       >
         <div class="single-item__info-description-item">
@@ -27,8 +27,18 @@
             {{ offer.address }}
           </p>
         </div>
+        <div
+          class="single-item__info-description-item mt-3"
+          v-if="!offer.has_access"
+        >
+          <font-awesome-icon :icon="['fas', 'phone']" />
+          <p class="single-item__info-description-item-text">
+            {{ offer.agent_phone || "" }}
+          </p>
+        </div>
 
         <div
+          v-if="offer.has_access"
           class="d-flex flex-column-sm justify-content-start align-items-center"
         >
           <div class="single-item__info-description-item">
@@ -54,15 +64,12 @@
         </div>
       </div>
       <div
-        class="
-          single-item__info-actions
-          d-flex
-          justify-content-between
-          align-items-end
-          flex-column-sm
+        class="single-item__info-actions d-flex align-items-end flex-column-sm"
+        :class="
+          offer.has_access ? ' justify-content-between' : ' justify-content-end'
         "
       >
-        <div class="action-discription">
+        <div class="action-discription" v-if="offer.has_access">
           <div class="mr-3">
             <img width="35" src="/assets/icon/Chart.png" alt="" />
           </div>

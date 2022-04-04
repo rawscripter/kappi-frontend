@@ -74,6 +74,12 @@
         </td>
       </tr>
     </table>
+    <br />
+    <div class="form-group d-flex m-auto justify-content-center">
+      <router-link to="/home" class="btn btn-primary">
+        Inne oferty, które mogą Cię zainteresować:
+      </router-link>
+    </div>
   </div>
 </template>
 

@@ -3,6 +3,7 @@ import MainLayout from "../components/layout/MainLayout.vue"
 import Home from '../views/home/Home.vue'
 import Details from '../views/home/Details.vue'
 import PrivacyPolicy from '../views/privacy-policy/PrivacyPolicy.vue'
+import Information from '../views/information/Information.vue'
 import Terms from '../views/terms/Terms.vue'
 import store from "../store";
 
@@ -38,6 +39,11 @@ const routes = [
                 path: '/privacy-policy',
                 component: PrivacyPolicy,
                 name: "privacy-policy",
+            },
+            {
+                path: '/informacje',
+                component: Information,
+                name: "information",
             },
             {
                 path: '/regulamin',

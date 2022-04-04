@@ -28,7 +28,15 @@
               >Polityka prywatności</router-link
             >
           </li>
-          <li>Informacje</li>
+          <li for="">
+            <router-link
+              :to="{
+                name: 'information',
+              }"
+              class="text-dark"
+              >Informacje</router-link
+            >
+          </li>
           <li for="" class="cp">
             <div @click="openPasswordResetModal()" class="text-dark">
               Zmień hasło
