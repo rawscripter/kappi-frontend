@@ -19,6 +19,7 @@
 <script>
 import { useStore } from "vuex";
 import { computed } from "vue";
+import { useRoute } from "vue-router";
 export default {
   name: "Pagination",
   props: {
@@ -29,15 +30,17 @@ export default {
   },
 
   setup() {
-    const currentCategory = computed(
-      () => store.getters["Offer/currentCategory"]
-    );
-
+    const route = useRoute();
     function changePage(page) {
-      store.dispatch("Offer/changeCategoryAndFetchOffers", {
-        category: currentCategory.value,
-        page: page,
-      });
+      if (route.name == "special-offers") {
+        store.dispatch("Offer/fetchSpecialOffers", {
+          page: page,
+          offer: route.params.offer,
+        });
+      } else {
+        store.dispatch("Offer/fetchOffers", page);
+      }
+
       window.scrollTo(0, 0);
     }
 

@@ -37,9 +37,11 @@
 <script>
 import { useStore } from "vuex";
 import { computed } from "vue";
+import { useRoute } from "vue-router";
 export default {
   setup() {
     const store = useStore();
+    const route = useRoute();
     const categories = computed(() => store.getters["Offer/categories"]);
     const currentCategory = computed(
       () => store.getters["Offer/currentCategory"]
@@ -48,9 +50,15 @@ export default {
       () => store.getters["Offer/isCategoryLoading"]
     );
     function setCurrentCategory(category) {
-      store.dispatch("Offer/changeCategoryAndFetchOffers", {
-        category: category,
-        page: 1,
+      store.dispatch("Offer/setCurrentCategory", category).then(() => {
+        if (route.name == "special-offers") {
+          store.dispatch("Offer/fetchSpecialOffers", {
+            page: 1,
+            offer: route.params.offer,
+          });
+        } else {
+          store.dispatch("Offer/fetchOffers");
+        }
       });
     }
 

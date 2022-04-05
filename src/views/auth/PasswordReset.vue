@@ -13,7 +13,7 @@
               <img
                 class="logo"
                 width="180"
-                src="/assets/logo/logo.png"
+                src="/assets/kappi.png"
                 alt=""
               />
             </div>

@@ -2,7 +2,7 @@
   <footer class="app-footer">
     <div class="row">
       <div class="col-md-4">
-        <img class="footer-logo" src="/assets/logo/logo.png" alt="" />
+        <img class="footer-logo" src="/assets/kappi.png" alt="" />
         <div class="footer-desc">
           KAPPI to nowatorska platforma umożliwiająca zawieranie transakcji na
           rynku nieruchomości.

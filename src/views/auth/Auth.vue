@@ -7,7 +7,7 @@
     </div>
     <div class="center-area">
       <div class="site-logo-area">
-        <img class="logo" src="/assets/logo/logo.png" alt="" />
+        <img class="logo" src="/assets/kappi.png" alt="" />
       </div>
       <div @click="openLoginModal()" class="site-button text-center">
         WEJDZ NA STRONĘ

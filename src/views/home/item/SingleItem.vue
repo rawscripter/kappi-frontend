@@ -92,7 +92,12 @@
             }"
             class="btn btn-primary shadow auction-btn"
           >
-            <strong>Licytuj</strong>
+            <strong>
+              {{
+                !offer.is_finished ? "Licytuj" : "Szczegóły zakończonej aukcji"
+              }}
+              Licytuj
+            </strong>
           </router-link>
 
           <div
@@ -131,8 +136,10 @@ export default {
     currentPrice: function () {
       // add , and space  to price
       return this.offer.current_price
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        ? this.offer.current_price
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        : "N/A";
     },
     offerFeatureImage: function () {
       if (this.offer.images.length > 0 && this.offer.images[0].path)
@@ -143,8 +150,7 @@ export default {
 };
 </script>
 
-
-<style >
+<style>
 .single-item__image img {
   height: 200px;
   object-fit: cover;
@@ -237,7 +243,7 @@ span.single-item-image-floading-text {
   margin-right: 10px;
 }
 .auction-btn {
-  width: 250px;
+  min-width: 250px;
   height: 45px;
   border-radius: 10px !important;
   display: flex !important;
@@ -287,5 +293,5 @@ span.single-item-image-floading-text {
     width: 100%;
   }
 }
-</style>>
- 
+</style>
+>

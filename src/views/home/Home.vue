@@ -35,6 +35,7 @@ import Pagination from "./utility/Pagination.vue";
 import SingleItem from "./item/SingleItem.vue";
 import { useStore } from "vuex";
 import { onMounted, ref, computed } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   name: "Home",
@@ -45,8 +46,23 @@ export default {
   },
   setup() {
     const store = useStore();
+    const route = useRoute();
+
     onMounted(() => {
-      store.dispatch("Offer/getCategories");
+      store.commit("Offer/setIsOffersLoading", true);
+      if (route.name == "special-offers") {
+        store.dispatch("Offer/getCategories").then(() => {
+          let offerID = route.params.offer;
+          store.dispatch("Offer/fetchSpecialOffers", {
+            page: 1,
+            offer: offerID,
+          });
+        });
+      } else {
+        store.dispatch("Offer/getCategories").then(() => {
+          store.dispatch("Offer/fetchOffers");
+        });
+      }
     });
 
     // offers

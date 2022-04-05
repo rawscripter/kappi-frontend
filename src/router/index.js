@@ -28,6 +28,12 @@ const routes = [
         children: [
             {
                 path: '/home',
+                name: 'home',
+                component: Home
+            },
+            {
+                path: '/special/:offer/offers',
+                name: 'special-offers',
                 component: Home
             },
             {
