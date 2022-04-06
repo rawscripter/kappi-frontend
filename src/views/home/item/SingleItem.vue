@@ -330,6 +330,9 @@ span.single-item-image-floading-text {
   .auction-btn {
     width: 100%;
   }
+
+  .action-btn {
+    margin-top: 1rem;
+  }
 }
 </style>
->
