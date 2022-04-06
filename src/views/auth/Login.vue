@@ -13,7 +13,7 @@
           </div>
           <div class="modal-body">
             <div class="login-modal-title">
-              <span class="text-blue">Witmy w </span> K A P P I
+              <span class="text-blue">Witamy w </span> K A P P I
             </div>
             <div class="login-modal-description">
               <p class="m-0">Dziękujemy, że z nami jesteś.</p>
@@ -53,7 +53,7 @@
                     v-model="password"
                     :type="showPassword ? 'text' : 'password'"
                     class="form-control"
-                    placeholder="Haslo"
+                    placeholder="Hasło"
                   />
                   <div
                     class="input-group-append"
@@ -84,8 +84,11 @@
                       class="custom-control-input"
                       id="customCheck1"
                     />
-                    <label class="custom-control-label" for="customCheck1">
-                      Zapamiętaj mnie
+                    <label
+                      class="custom-control-label text-muted"
+                      for="customCheck1"
+                    >
+                      <strong>Zapamiętaj mnie</strong>
                     </label>
                   </div>
                   <div class="forgot-password-area">
@@ -103,8 +106,8 @@
                 </button>
               </div>
 
-              <div class="form-bottom-content">
-                <p class="m-0">Nie masz jeszcze konta?</p>
+              <div class="form-bottom-content fs-15">
+                <p class="m-0 text-muted">Nie masz jeszcze konta?</p>
                 <p @click="openRegistrationModal()" class="text-blue cp">
                   <u><strong>Zarejestruj się</strong></u>
                 </p>

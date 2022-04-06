@@ -70,19 +70,26 @@
               :itemsToShow="4"
               :wrapAround="true"
             >
-              <slide v-for="(image, index) in offer.images" :key="index">
+              <slide
+                class="hide-on-mobile"
+                v-for="(image, index) in offer.images"
+                :key="index"
+                @click="changeSliderImage(index)"
+              >
                 <img :src="image.path" class="slide-image" alt="" />
               </slide>
 
               <template #addons>
-                <navigation />
+                <div class="hide-on-mobile">
+                  <navigation />
+                </div>
                 <pagination />
               </template>
             </carousel>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 right-half">
         <div v-if="isAuctionRunning" class="aution-running-sta">
           Aukcja trwa
         </div>
@@ -102,13 +109,13 @@
           <div class="items-list-description">
             <table class="item-details-table table table-borderless">
               <tr>
-                <td class="text-right"><strong>Agencja :</strong></td>
+                <td class="text-right">Agencja:</td>
                 <td class="text-left text-muted">
                   <div>{{ offer.agency_name }}</div>
                 </td>
               </tr>
               <tr>
-                <td class="text-right"><strong>Kategoria :</strong></td>
+                <td class="text-right">Kategoria:</td>
                 <td class="text-left text-muted">
                   <div>
                     {{ offer.offer_category_name }}
@@ -116,7 +123,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="text-right"><strong>Adres :</strong></td>
+                <td class="text-right">Adres:</td>
                 <td class="text-left text-muted">
                   <div>{{ offer.address }}</div>
                 </td>
@@ -191,10 +198,6 @@ export default {
 
     const slider = ref(null);
 
-    const activeSlider = computed(() => {
-      console.log(slider);
-    });
-
     const activeOfferImageIndex = ref(0);
     const activeOfferImage = computed(() => {
       if (
@@ -206,6 +209,10 @@ export default {
         return "/assets/img/no_image.png";
       }
     });
+
+    function changeSliderImage(index) {
+      activeOfferImageIndex.value = index;
+    }
 
     const isOffersLoading = computed(
       () => store.getters["Offer/isOffersLoading"]
@@ -222,18 +229,29 @@ export default {
     });
 
     const currentPrice = computed(() => {
-      if (offer.value.current_price) {
-        return offer.value.current_price
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      let price = 0;
+      if (
+        offer.value.current_price !== null &&
+        offer.value.current_price !== 0
+      ) {
+        price = offer.value.current_price;
+      } else {
+        price = offer.value.price_start;
       }
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     });
 
     const offerMinPrice = computed(() => {
-      if (offer.value.current_price) {
-        let minPrice = offer.value.current_price + offer.value.min_raise_amount;
-        return minPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      let price = 0;
+      if (
+        offer.value.current_price !== null &&
+        offer.value.current_price !== 0
+      ) {
+        price = offer.value.current_price + offer.value.min_raise_amount;
+      } else {
+        price = offer.value.price_start + offer.value.min_raise_amount;
       }
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     });
     const offerStartPrice = computed(() => {
       if (offer.value.price_start) {
@@ -261,9 +279,9 @@ export default {
       offerStartPrice,
       isOffersLoading,
       activeOfferImage,
-
       slider,
       activeOfferImageIndex,
+      changeSliderImage,
     };
   },
 };

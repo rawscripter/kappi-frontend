@@ -153,5 +153,5 @@ span.error-message {
   display: block;
   color: #f21616;
   font-weight: bold;
-  text-transform: capitalize;
+  text-transform: inherit;
 }

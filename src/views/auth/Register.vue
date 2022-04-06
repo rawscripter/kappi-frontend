@@ -59,7 +59,7 @@
                     :type="showPassword ? 'text' : 'password'"
                     class="form-control"
                     v-model="password"
-                    placeholder="Haslo"
+                    placeholder="Hasło"
                     required
                   />
                   <div
@@ -126,17 +126,19 @@
                       required
                     />
                     <label
-                      class="custom-control-label fs-13 text-muted"
+                      class="custom-control-label text-muted"
                       for="customCheck1"
                     >
-                      Akceptuję
-                      <span class="cp" @click="openTermsModal()">
-                        <u>Regulamin</u></span
-                      >
-                      i
-                      <span class="cp" @click="openPrivacyModal()">
-                        <u>Politykę prywatności</u>
-                      </span>
+                      <u>
+                        Akceptuję
+                        <span class="cp" @click="openTermsModal()">
+                          Regulamin
+                        </span>
+                        i
+                        <span class="cp" @click="openPrivacyModal()">
+                          Politykę prywatności
+                        </span>
+                      </u>
                     </label>
                   </div>
                 </div>
@@ -151,9 +153,9 @@
                 </button>
               </div>
 
-              <div class="form-bottom-content">
-                <p class="m-0 text-muted fs-13">Masz już konto?</p>
-                <p @click="openLoginModal" class="text-blue fs-13 cp">
+              <div class="form-bottom-content fs-15">
+                <p class="m-0 text-muted">Masz już konto?</p>
+                <p @click="openLoginModal" class="text-blue cp">
                   <u><strong>Zaloguj się</strong></u>
                 </p>
               </div>

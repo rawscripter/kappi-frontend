@@ -5,17 +5,15 @@
       class="item-details-table table table-borderless"
     >
       <tr>
-        <td class="text-right"><strong>Aukcja zakończona:</strong></td>
+        <td class="text-right">Aukcja zakończona:</td>
         <td class="text-left">
-          <span class="text-muted">
-            {{ moment(offer.date_end).format("ddd DD, YYYY, h:mm:ss A") }}
-          </span>
+          <span class="text-muted d-flex">{{ AuctionFinishDate }}</span>
         </td>
       </tr>
 
       <tr>
         <td class="text-right">
-          <span class="text-green"> <strong>Cena końcowa:</strong></span>
+          <span class="text-green p-0"> Cena końcowa:</span>
         </td>
         <td class="text-left">
           <h5 class="text-blue m-0">
@@ -26,7 +24,7 @@
 
       <tr v-if="isUserWinner">
         <td class="text-right">
-          <span class="text-green"> <strong>Zwycięzca :</strong></span>
+          <span class="text-green p-0"> Zwycięzca:</span>
         </td>
         <td class="text-left">
           <p class="text-blue m-0">
@@ -39,7 +37,7 @@
       </tr>
       <tr v-else>
         <td class="text-right">
-          <span class="text-green"> <strong>Zwycięzca :</strong></span>
+          <span class="text-green p-0"> Zwycięzca:</span>
         </td>
         <td class="text-left">
           <p class="text-blue m-0">
@@ -52,25 +50,25 @@
     <table v-else class="item-details-table table table-borderless">
       <tr>
         <td class="text-right">
-          <span class="text-red"> <strong>Aukcja zakończona:</strong></span>
+          <span class="text-red p-0"> Aukcja zakończona:</span>
         </td>
         <td class="text-left">
-          <span class="text-muted"
-            >{{ moment(offer.date_end).format("MMM DD, YYYY, h:mm:ss A") }}
-          </span>
+          <span class="text-muted d-flex">{{ AuctionFinishDate }} </span>
         </td>
       </tr>
       <tr>
         <td class="text-right">
-          <span class="text-red"> <strong>Ostatnia cena:</strong></span>
+          <span class="text-red p-0"> Ostatnia cena:</span>
         </td>
         <td class="text-left text-red">
-          <h4 class="mt-3 mb-2">
+          <h4 class="mt-3 mb-1">
             <strong>{{ offerMinimumPrice }} zł</strong>
           </h4>
 
-          <p class="m-0"><strong>Cena minimalna nie</strong></p>
-          <p class="m-0"><strong>Zastala asiagnieta</strong></p>
+          <p class="m-0 fs-13 pb-0 pt-0">
+            <strong>Cena minimalna nie </strong>
+          </p>
+          <p class="m-0 fs-13 pb-0 pt-0"><strong>została osiągnięta</strong></p>
         </td>
       </tr>
     </table>
@@ -80,7 +78,7 @@
         :to="{ name: 'special-offers', params: { offer: offer.id } }"
         class="btn btn-primary btn-block p-2 shadow"
       >
-        Inne oferty, które mogą Cię zainteresować:
+        Inne oferty, które mogą Cię zainteresować
       </router-link>
     </div>
   </div>
@@ -110,7 +108,7 @@ export default {
     const store = useStore();
     const user = computed(() => store.getters["User/user"]);
     const offerMinimumPrice = computed(() => {
-      return offer.price_min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return offer.price_start.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     });
 
     const offerCurrentPrice = computed(() => {
@@ -126,11 +124,50 @@ export default {
       return offer.winner_id === user.value.id;
     });
 
+    const AuctionFinishDate = computed(() => {
+      let dateTime = moment(offer.date_end).format("MMM DD, YYYY, H:mm:ss");
+
+      const polishMonthNames = [
+        "Sty",
+        "Lut",
+        "Mar",
+        "Kwi",
+        "Maj",
+        "Cze",
+        "Lip",
+        "Sie",
+        "Wrz",
+        "Paź",
+        "Lis",
+        "Gru",
+      ];
+      const EnglishMonthNames = [
+        "Jan",
+        "Fab",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      dateTime = dateTime.replace(
+        EnglishMonthNames[moment(offer.date_end).month()],
+        polishMonthNames[moment(offer.date_end).month()]
+      );
+      return dateTime;
+    });
+
     return {
       offerMinimumPrice,
       isAutionHasWinner,
       isUserWinner,
       offerCurrentPrice,
+      AuctionFinishDate,
     };
   },
 };

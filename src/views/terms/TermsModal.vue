@@ -11,19 +11,14 @@
         <div class="modal-content shadow-sm">
           <div class="modal-body">
             <div class="logo text-center">
-              <img
-                class="logo"
-                width="250"
-                src="/assets/kappi.png"
-                alt=""
-              />
+              <img class="logo" width="250" src="/assets/kappi.png" alt="" />
             </div>
 
             <div class="terms-contents mt-5">
               <Terms />
               <div class="terms-buttons d-flex justify-content-start">
                 <button
-                  @click="closeModal()"
+                  @click="rejectTerms()"
                   type="button"
                   class="btn btn-outline-black mr-3"
                 >
@@ -59,9 +54,15 @@ export default {
     function closeModal() {
       store.dispatch("User/setTermsModal", false);
     }
+
+    function rejectTerms() {
+      store.dispatch("User/setTermsModal", false);
+      store.dispatch("User/setRegistrationModal", false);
+    }
     return {
       showModal,
       closeModal,
+      rejectTerms,
     };
   },
 };

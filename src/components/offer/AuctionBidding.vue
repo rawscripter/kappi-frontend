@@ -2,40 +2,61 @@
   <div class="item-pricing-area mt-3">
     <table class="item-details-table table table-borderless">
       <tr>
-        <td class="text-right"><strong>Aktualna cena:</strong></td>
+        <td class="text-right">Aktualna cena:</td>
         <td class="text-left">
           <div class="d-flex justify-content-start align-items-center">
             <h5 class="text-blue m-0">
               <strong>{{ currentPrice }} zł</strong>
             </h5>
-            <div
-              @click="refreshOffer()"
-              class="btn btn-sm btn-default bg-white shadow refresh-btn d-flex"
-            >
-              Aktualizuj cenę
-              <img width="24px" src="/assets/icon/refresh.png" alt="" />
-            </div>
+            <span class="hide-on-mobile">
+              <div
+                @click="refreshOffer()"
+                class="
+                  btn btn-sm btn-default
+                  bg-white
+                  shadow
+                  refresh-btn
+                  d-flex
+                "
+              >
+                Aktualizuj cenę
+                <img width="24px" src="/assets/icon/refresh.png" alt="" />
+              </div>
+            </span>
           </div>
         </td>
       </tr>
+
       <tr>
-        <td class="text-right">
-          <strong>Ostatnia aktualizacja ceny:</strong>
-        </td>
+        <td class="text-right">Ostatnia aktualizacja ceny:</td>
         <td class="text-left">
           <div class="mt-3">
             <p class="m-0 text-muted">
-              {{ moment(lastRefreshedTime).format("h:mm:ss A") }}
+              {{ moment(lastRefreshedTime).format("H:mm:ss") }}
             </p>
           </div>
         </td>
       </tr>
 
       <tr>
-        <td class="text-right"></td>
-        <td class="text-left">
+        <td colspan="3">
+          <span class="hide-on-desktop">
+            <div
+              @click="refreshOffer()"
+              class="btn btn-sm btn-default bg-white shadow refresh-btn m-auto"
+            >
+              Aktualizuj cenę
+              <img width="24px" src="/assets/icon/refresh.png" alt="" />
+            </div>
+          </span>
+        </td>
+      </tr>
+
+      <tr class="pricing-from">
+        <td class="text-right hide-on-mobile"></td>
+        <td class="text-left" colspan="3">
           <div class="mt-3">
-            <form @submit.prevent="checkBid()" action="">
+            <form @submit.prevent="checkBid()" action="" class="auction-form">
               <div class="from-group">
                 <label for="" class="mb-2 fs-13"
                   >Minimalna wartość oferty:
@@ -49,7 +70,7 @@
                   required
                 />
               </div>
-              <div class="from-group mt-3">
+              <div class="from-group button-group mt-2">
                 <button type="submit" class="btn btn-block btn-primary sha">
                   Licytuj
                 </button>
@@ -78,7 +99,7 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import moment from "moment";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
@@ -86,6 +107,7 @@ import { useToast } from "vue-toastification";
 
 import ConfirmBidModal from "./modal/ConfirmBidModal.vue";
 import ErrorBidModal from "./modal/ErrorBidModal.vue";
+import { c } from "../../../dist/assets/vendor.7931a408";
 export default {
   components: { ConfirmBidModal, ErrorBidModal },
   props: {
@@ -129,7 +151,11 @@ export default {
     };
 
     const minimumBidPrice = computed(() => {
-      return offer.current_price + offer.min_raise_amount;
+      if (offer.current_price != null && offer.current_price != 0) {
+        return offer.current_price + offer.min_price_increment;
+      }
+
+      return offer.price_start + offer.min_raise_amount;
     });
 
     async function checkBid() {
@@ -172,6 +198,10 @@ export default {
           refreshOffer();
           toast.success("Oferta została złożona");
         }
+
+        if (bidResponse.data.status === "error") {
+          toast.error(bidResponse.data.message);
+        }
       } catch (e) {
         toast.error("Coś poszło nie tak. Proszę spróbować za jakiś czas");
       } finally {
@@ -188,6 +218,15 @@ export default {
       lastRefreshedTime.value = new Date();
       store.dispatch("Offer/getOfferDetails", offerID);
     }
+
+    onMounted(() => {
+      const interval = setInterval(() => {
+        refreshOffer();
+      }, 1000 * 600);
+      onUnmounted(() => {
+        clearInterval(interval);
+      });
+    });
 
     return {
       refreshOffer,

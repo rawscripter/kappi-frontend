@@ -44,7 +44,7 @@
           <div class="single-item__info-description-item">
             <font-awesome-icon :icon="['fas', 'calendar']" />
             <p class="single-item__info-description-item-text">
-              {{ moment(date_start).lang("fr").format("ddd DD") }}
+              {{ convertDateToPolish }}
             </p>
           </div>
 
@@ -56,7 +56,7 @@
             <p class="single-item__info-description-item-text">
               <CountDown :endDate="new Date(offer.date_end)">
                 <template v-slot="{ day, hour, min, sec }">
-                  {{ day }}D, {{ hour }}H : {{ min }}M : {{ sec }}S
+                  {{ day }}D, {{ hour }}G : {{ min }}M : {{ sec }}S
                 </template>
               </CountDown>
             </p>
@@ -96,7 +96,6 @@
               {{
                 !offer.is_finished ? "Licytuj" : "Szczegóły zakończonej aukcji"
               }}
-              Licytuj
             </strong>
           </router-link>
 
@@ -135,16 +134,55 @@ export default {
   computed: {
     currentPrice: function () {
       // add , and space  to price
-      return this.offer.current_price
-        ? this.offer.current_price
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-        : "N/A";
+      let price = 0;
+      if (this.offer.current_price !== null && this.offer.current_price !== 0) {
+        price = this.offer.current_price;
+      } else {
+        price = this.offer.price_start;
+      }
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     offerFeatureImage: function () {
       if (this.offer.images.length > 0 && this.offer.images[0].path)
         return this.offer.images[0].path;
       else return "/assets/img/no_image.png";
+    },
+    convertDateToPolish: function (date) {
+      let dateTime = moment(this.offer.date_start).lang("pl").format("MMM DD");
+      const polishMonthNames = [
+        "Sty",
+        "Lut",
+        "Mar",
+        "Kwi",
+        "Maj",
+        "Cze",
+        "Lip",
+        "Sie",
+        "Wrz",
+        "Paź",
+        "Lis",
+        "Gru",
+      ];
+      const EnglishMonthNames = [
+        "Jan",
+        "Fab",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      dateTime = dateTime.replace(
+        EnglishMonthNames[moment(this.offer.date_start).month()],
+        polishMonthNames[moment(this.offer.date_start).month()]
+      );
+      return dateTime;
+      // replace english month name to polis
     },
   },
 };

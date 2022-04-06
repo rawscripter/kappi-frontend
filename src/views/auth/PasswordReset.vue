@@ -10,12 +10,7 @@
         <div class="modal-content shadow-sm">
           <div class="modal-body">
             <div class="logo text-center">
-              <img
-                class="logo"
-                width="180"
-                src="/assets/kappi.png"
-                alt=""
-              />
+              <img class="logo" width="180" src="/assets/kappi.png" alt="" />
             </div>
             <div class="passwordReset-modal-title text-center mt-4">
               <strong>Zmień hasło</strong>
@@ -85,8 +80,8 @@
                     />
                   </div>
                 </div>
-                <span v-if="errors.new_password" class="error-message"
-                  >{{ errors.new_password ? errors.new_password[0] : "" }}
+                <span v-if="errors.password" class="error-message"
+                  >{{ errors.password ? errors.password[0] : "" }}
                 </span>
               </div>
 
@@ -116,6 +111,11 @@
                     />
                   </div>
                 </div>
+                <span v-if="errors.confirm_password" class="error-message"
+                  >{{
+                    errors.confirm_password ? errors.confirm_password[0] : ""
+                  }}
+                </span>
               </div>
 
               <div class="form-group">
