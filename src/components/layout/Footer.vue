@@ -75,7 +75,7 @@ export default {
       store.dispatch("User/setTermsModal", true);
     }
     function openPasswordResetModal() {
-      store.dispatch("User/setPasswordResetModal", true);
+      store.dispatch("User/setPasswordChangeModal", true);
     }
 
     return {

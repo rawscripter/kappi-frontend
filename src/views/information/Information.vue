@@ -112,6 +112,15 @@
           No video support.
         </video>
       </div>
+
+      <div class="mt-5">
+        <p class="text-muted text-center">
+          Stworzone przez YarMobile
+          <a class="kappi-link" target="_blank" href="https://yarmobile.com/pl/"
+            >www.yarmobile.com</a
+          >
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -142,5 +151,11 @@ img {
   width: 100%;
   height: 550px;
   object-fit: fill;
+}
+
+.kappi-link {
+  text-decoration: none;
+  color: rgb(96, 96, 96);
+  font-weight: 600;
 }
 </style>

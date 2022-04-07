@@ -10,7 +10,7 @@
       </router-view> -->
     </div>
     <Footer />
-    <PasswordReset />
+    <PasswordChange />
   </div>
 </template>
 
@@ -18,14 +18,14 @@
 import Footer from "./Footer.vue";
 import Header from "./Header.vue";
 import "../../styles/layout.css";
-import PasswordReset from "../../views/auth/PasswordReset.vue";
+import PasswordChange from "../../views/auth/PasswordChange.vue";
 import { useStore } from "vuex";
 import { onMounted } from "vue";
 export default {
   components: {
     Footer,
     Header,
-    PasswordReset,
+    PasswordChange,
   },
   setup() {
     const store = useStore();

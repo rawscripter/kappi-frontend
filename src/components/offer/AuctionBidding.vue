@@ -107,7 +107,6 @@ import { useToast } from "vue-toastification";
 
 import ConfirmBidModal from "./modal/ConfirmBidModal.vue";
 import ErrorBidModal from "./modal/ErrorBidModal.vue";
-import { c } from "../../../dist/assets/vendor.7931a408";
 export default {
   components: { ConfirmBidModal, ErrorBidModal },
   props: {
@@ -222,7 +221,7 @@ export default {
     onMounted(() => {
       const interval = setInterval(() => {
         refreshOffer();
-      }, 1000 * 600);
+      }, 1000 * 60);
       onUnmounted(() => {
         clearInterval(interval);
       });

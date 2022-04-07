@@ -26,8 +26,8 @@ export default {
   set_showRegistrationModal(state, payload) {
     state.showRegistrationModal = payload;
   },
-  set_showPasswordResetModal(state, payload) {
-    state.showPasswordResetModal = payload;
+  set_showPasswordChangeModal(state, payload) {
+    state.showPasswordChangeModal = payload;
   },
   set_showTermsModal(state, payload) {
     state.showTermsModal = payload;
@@ -37,6 +37,14 @@ export default {
   },
   set_isAuthReqLoading(state, payload) {
     state.isAuthReqLoading = payload;
-  }
+  },
+  set_showForgotPasswordModal(state, payload) {
+    state.showForgotPasswordModal = payload;
+  },
+
+  set_showPasswordResetModal(state, payload) {
+    state.showPasswordResetModal = payload;
+  },
+
 
 };

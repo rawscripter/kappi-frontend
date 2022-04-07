@@ -21,6 +21,39 @@
               class="passwordReset-form"
               action=""
             >
+              <div>
+                <label for="">Obecne hasło</label>
+                <div class="input-group custom-input-box">
+                  <input
+                    v-model="currentPassword"
+                    :type="showPassword1 ? 'text' : 'password'"
+                    class="form-control"
+                    placeholder="Obecne hasło"
+                    required
+                  />
+                  <div
+                    class="input-group-append"
+                    @click="showPassword1 = !showPassword1"
+                  >
+                    <font-awesome-icon
+                      v-if="!showPassword1"
+                      :icon="['far', 'eye']"
+                      class="text-muted"
+                    />
+                    <font-awesome-icon
+                      v-else
+                      class="text-muted"
+                      :icon="['far', 'eye-slash']"
+                    />
+                  </div>
+                </div>
+                <span v-if="errors.current_password" class="error-message"
+                  >{{
+                    errors.current_password ? errors.current_password[0] : ""
+                  }}
+                </span>
+              </div>
+
               <div class="mt-4">
                 <label for="">Nowe hasło</label>
                 <div class="input-group custom-input-box">
@@ -96,10 +129,6 @@
                 </button>
               </div>
 
-              <div v-if="errors.token" class="error-message mt-3 text-red">
-                <small>{{ errors.token ? errors.token[0] : "" }}</small>
-              </div>
-
               <div class="form-bottom-content text-center">
                 <p
                   @click="closeRegistrationModal()"
@@ -121,22 +150,20 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { useToast } from "vue-toastification";
-import { useRoute, useRouter } from "vue-router";
+
 export default {
   setup() {
     const store = useStore();
-    const route = useRoute();
-    const router = useRouter();
     const isAuthReqLoading = computed(() => store.state.User.isAuthReqLoading);
-
-    const showModal = computed(() => store.state.User.showPasswordResetModal);
+    const showModal = computed(() => store.state.User.showPasswordChangeModal);
     function closeRegistrationModal() {
-      store.dispatch("User/setPasswordResetModal", false);
+      store.dispatch("User/setPasswordChangeModal", false);
     }
     const showPassword1 = ref(false);
     const showPassword2 = ref(false);
     const showPassword3 = ref(false);
 
+    const currentPassword = ref("");
     const newPassword = ref("");
     const confirmPassword = ref("");
     const errors = ref({});
@@ -144,18 +171,16 @@ export default {
 
     function changePassword() {
       const payload = {
-        token: route.query.token,
-        email: route.query.email,
-        password: newPassword.value,
+        current_password: currentPassword.value,
+        new_password: newPassword.value,
         password_confirmation: confirmPassword.value,
       };
       store
-        .dispatch("User/resetPassword", payload)
+        .dispatch("User/changePassword", payload)
         .then(() => {
+          // show alert
           toast.success("Hasło zostało zmienione");
-          router.push("/");
           closeRegistrationModal();
-          store.dispatch("User/setLoginModal", true);
         })
         .catch((err) => {
           errors.value = err.response.data.errors;
@@ -169,6 +194,7 @@ export default {
       showPassword2,
       showPassword3,
       changePassword,
+      currentPassword,
       newPassword,
       confirmPassword,
       errors,

@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://127.0.0.1:8000/api/v1/client";
+const BASE_URL = "https://kappi.yarmobile.com.pl/api/v1/client";
 export default {
   login({ commit }, user) {
     commit("set_isAuthReqLoading", true);
@@ -57,12 +57,13 @@ export default {
     });
   },
 
-  resetPassword({ commit }, payload) {
+  changePassword({ commit }, payload) {
+    commit("set_isAuthReqLoading", true);
     return new Promise((resolve, reject) => {
       let token = localStorage.getItem("token");
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
       axios({
-        url: `${BASE_URL}/reset-password`,
+        url: `${BASE_URL}/change-password`,
         data: payload,
         method: "POST",
       })
@@ -77,7 +78,9 @@ export default {
         })
         .catch((err) => {
           reject(err);
-        });
+        }).finally(() => {
+          commit("set_isAuthReqLoading", false);
+        })
     });
   },
 
@@ -96,9 +99,10 @@ export default {
     });
   },
   forgotPassword({ commit }, payload) {
+    commit("set_isAuthReqLoading", true);
     return new Promise((resolve, reject) => {
       axios({
-        url: `${BASE_URL}/api/forgot-password`,
+        url: `${BASE_URL}/forgot-password`,
         data: payload,
         method: "POST",
       })
@@ -107,7 +111,27 @@ export default {
         })
         .catch((err) => {
           reject(err);
-        });
+        }).finally(() => {
+          commit("set_isAuthReqLoading", false);
+        })
+    });
+  },
+  resetPassword({ commit }, payload) {
+    commit("set_isAuthReqLoading", true);
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${BASE_URL}/reset-password`,
+        data: payload,
+        method: "POST",
+      })
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        }).finally(() => {
+          commit("set_isAuthReqLoading", false);
+        })
     });
   },
   logout({ commit }) {
@@ -139,13 +163,19 @@ export default {
   setRegistrationModal({ commit }, payload) {
     commit("set_showRegistrationModal", payload);
   },
-  setPasswordResetModal({ commit }, payload) {
-    commit("set_showPasswordResetModal", payload);
+  setPasswordChangeModal({ commit }, payload) {
+    commit("set_showPasswordChangeModal", payload);
   },
   setTermsModal({ commit }, payload) {
     commit("set_showTermsModal", payload);
   },
   setPrivacyModal({ commit }, payload) {
     commit("set_showPrivacyModal", payload);
-  }
+  },
+  setForgotPasswordModal({ commit }, payload) {
+    commit("set_showForgotPasswordModal", payload);
+  },
+  setPasswordResetModal({ commit }, payload) {
+    commit("set_showPasswordResetModal", payload);
+  },
 };

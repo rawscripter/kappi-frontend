@@ -3,8 +3,11 @@ export default {
   user: (state) => state.user,
   showLoginModal: (state) => state.showLoginModal,
   showRegistrationModal: (state) => state.showRegistrationModal,
-  showPasswordResetModal: (state) => state.showPasswordResetModal,
+  showPasswordChangeModal: (state) => state.showPasswordChangeModal,
+  showForgotPasswordModal: (state) => state.showForgotPasswordModal,
   showTermsModal: (state) => state.showTermsModal,
   showPrivacyModal: (state) => state.showPrivacyModal,
   isAuthReqLoading: (state) => state.isAuthReqLoading,
+  showPasswordResetModal: (state) => state.showPasswordResetModal,
+
 };

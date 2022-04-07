@@ -16,20 +16,30 @@
   </div>
   <Login></Login>
   <Register></Register>
+  <ForgotPassword></ForgotPassword>
+  <PasswordReset></PasswordReset>
 </template>
  <script>
 import Login from "./Login.vue";
 import Register from "./Register.vue";
+import ForgotPassword from "./ForgotPassword.vue";
+import PasswordReset from "./PasswordReset.vue";
 
 import { useStore } from "vuex";
-
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
 export default {
   setup() {
     const store = useStore();
-
+    const route = useRoute();
     function openLoginModal() {
       store.dispatch("User/setLoginModal", true);
     }
+    onMounted(() => {
+      if (route.query.token && route.query.token != "") {
+        store.dispatch("User/setPasswordResetModal", true);
+      }
+    });
     return {
       openLoginModal,
     };
@@ -37,6 +47,8 @@ export default {
   components: {
     Login,
     Register,
+    ForgotPassword,
+    PasswordReset,
   },
   mounted() {
     if (this.$store.state.User.token) {

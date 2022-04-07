@@ -92,7 +92,12 @@
                     </label>
                   </div>
                   <div class="forgot-password-area">
-                    <a href="#" class="text-dark">Nie pamiętasz hasła?</a>
+                    <a
+                      href="javascript:void(0)"
+                      @click="openForgotPasswordModal"
+                      class="text-dark"
+                      >Nie pamiętasz hasła?</a
+                    >
                   </div>
                 </div>
               </div>
@@ -161,6 +166,10 @@ export default {
 
     const showPassword = ref(false);
 
+    function openForgotPasswordModal() {
+      closeLoginModal();
+      store.dispatch("User/setForgotPasswordModal", true);
+    }
     return {
       showModal,
       closeLoginModal,
@@ -171,6 +180,7 @@ export default {
       errors,
       showPassword,
       isAuthReqLoading,
+      openForgotPasswordModal,
     };
   },
 };
