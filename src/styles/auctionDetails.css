@@ -179,6 +179,23 @@ table {
   cursor: pointer;
 }
 
+button.btn.btn-block.btn-primary.sha {
+  margin-top: 15px;
+}
+
+h3.item-heading {
+  font-size: 28px;
+}
+
+.item-description {
+  font-size: 16px;
+}
+
+.item-description {
+  text-align: justify;
+}
+
+
 
 @media (max-width: 768px) {
   .auction-timer {
@@ -209,39 +226,79 @@ table {
   }
 
   .refresh-btn {
-    width: 75%;
+    width: 220px;
     margin: 0 auto;
-    height: 45px !important;
+    height: 50px !important;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px !important;
     color: var(--blue);
     font-weight: bold;
     font-size: 16px;
+    border-radius: 12px;
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
   }
 
   td.text-right {
-    width: 50%;
+    width: 45%;
     font-weight: bold;
   }
 
   td.text-left {
-    width: 50%;
+    width: 55%;
   }
 
   form.auction-form {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
   }
 
   .from-group.button-group {
     display: flex;
     align-items: center !important;
     justify-content: center !important;
-    margin-top: 30px !important;
     margin-left: 5px;
   }
 
+  .aution-running-sta {
+    margin-right: 100px;
+  }
+
+  .item-details-area,
+  .aution-running-sta {
+    margin-left: 0px;
+  }
+
+  .from-group.button-group {
+    width: 110px;
+  }
+
+  button.btn.btn-block.btn-primary.sha {
+    width: 100% !important;
+  }
+
+  input.form-control.custom-input-box,
+  button.btn.btn-block.btn-primary.sha {
+    height: 50px;
+    margin-top: 0px;
+  }
+
+  h3.item-heading {
+    font-size: 28px;
+  }
+
+  .item-description {
+    font-size: 16px;
+  }
+
+  .shadow {
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 21%) !important;
+  }
+
+  .right-half {
+    margin-top: 30px;
+    padding: 15px;
+  }
 }

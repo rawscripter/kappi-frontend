@@ -92,7 +92,7 @@
                   <span v-if="isAuthReqLoading"
                     ><easy-spinner class="small-spinner" /> Przetwarzanie</span
                   >
-                  <span>Zapisz</span>
+                  <span v-else>Zapisz</span>
                 </button>
               </div>
 
@@ -158,7 +158,12 @@ export default {
           store.dispatch("User/setLoginModal", true);
         })
         .catch((err) => {
-          errors.value = err.response.data.errors;
+          errors.value = err.response.data.errors || {};
+          if (!errors.value.password) {
+            if (err.response.data.message) {
+              toast.error(err.response.data.message);
+            }
+          }
         });
     }
 

@@ -16,10 +16,12 @@
           </div>
           <div class="modal-body">
             <div class="forgot-password-modal-title">
-              <span class="text-blue">Zapomniałeś hasła w </span> K A P P I
+              <span class="text-blue">Zresetuj hasło</span>
             </div>
             <div class="register-modal-description">
-              <p class="m-0">Wysłano instrukcje resetowania</p>
+              <p class="m-0">
+                Wprowadź adres e-mail, by otrzymać link do zresetowania hasła.
+              </p>
             </div>
 
             <form
@@ -52,12 +54,12 @@
                   <span v-if="isAuthReqLoading"
                     ><easy-spinner class="small-spinner" /> Przetwarzanie</span
                   >
-                  <span v-else>Składać</span>
+                  <span v-else>Zatwierdź</span>
                 </button>
               </div>
 
               <div class="form-bottom-content fs-15">
-                <p class="m-0 text-muted">Masz już konto?</p>
+                <p class="m-0 text-muted">Wróć do logowania</p>
                 <p @click="openLoginModal" class="text-blue cp">
                   <u><strong>Zaloguj się</strong></u>
                 </p>

@@ -53,7 +53,12 @@
             v-if="offer.has_access"
           >
             <font-awesome-icon :icon="['fas', 'clock']" />
-            <p class="single-item__info-description-item-text">
+            <p
+              class="single-item__info-description-item-text d-inline-block"
+              id="disabled-wrapper"
+              v-b-tooltip.hover
+              title="czas pozostały do końca aukcji"
+            >
               <CountDown :endDate="new Date(offer.date_end)">
                 <template v-slot="{ day, hour, min, sec }">
                   {{ day }}D, {{ hour }}G : {{ min }}M : {{ sec }}S
@@ -102,8 +107,13 @@
           <div
             v-if="!offer.has_access"
             class="btn btn-primary shadow auction-btn"
+            @click="requestForAccess(offer)"
           >
-            <strong> Poproś o dostęp</strong>
+            <span v-if="isAccessButtonLoading"
+              ><easy-spinner class="small-spinner" />
+              <strong> Przetwarzanie</strong></span
+            >
+            <strong v-else> Poproś o dostęp</strong>
           </div>
         </div>
       </div>
@@ -117,7 +127,9 @@ import "moment/locale/fr";
 import "moment/locale/es";
 
 import CountDown from "./CountDown.vue";
-
+import { ref } from "vue";
+import { useStore } from "vuex";
+import { useToast } from "vue-toastification";
 export default {
   components: {
     CountDown,
@@ -131,6 +143,40 @@ export default {
   created: function () {
     this.moment = moment;
   },
+
+  setup() {
+    const isAccessButtonLoading = ref(false);
+    const store = useStore();
+    const toast = useToast();
+
+    function requestForAccess(offer) {
+      isAccessButtonLoading.value = true;
+      const payload = {
+        offer_id: offer.id,
+      };
+      store
+        .dispatch("Offer/requestForAccess", payload)
+        .then((result) => {
+          if (result.data.status === "success") {
+            toast.success("Wysłano prośbę o dostęp do oferty");
+          } else {
+            toast.error(result.data.message);
+          }
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        })
+        .finally(() => {
+          isAccessButtonLoading.value = false;
+        });
+    }
+
+    return {
+      requestForAccess,
+      isAccessButtonLoading,
+    };
+  },
+
   computed: {
     currentPrice: function () {
       // add , and space  to price

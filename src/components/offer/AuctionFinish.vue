@@ -5,7 +5,7 @@
       class="item-details-table table table-borderless"
     >
       <tr>
-        <td class="text-right">Aukcja zakończona:</td>
+        <td class="text-right text-red">Aukcję zakończono:</td>
         <td class="text-left">
           <span class="text-muted d-flex">{{ AuctionFinishDate }}</span>
         </td>
@@ -35,7 +35,7 @@
           </p>
         </td>
       </tr>
-      <tr v-else>
+      <tr v-if="!isUserWinner && offer.show_anonymous_mail == 1">
         <td class="text-right">
           <span class="text-green p-0"> Zwycięzca:</span>
         </td>
@@ -50,7 +50,7 @@
     <table v-else class="item-details-table table table-borderless">
       <tr>
         <td class="text-right">
-          <span class="text-red p-0"> Aukcja zakończona:</span>
+          <span class="text-red p-0"> Aukcję zakończono:</span>
         </td>
         <td class="text-left">
           <span class="text-muted d-flex">{{ AuctionFinishDate }} </span>

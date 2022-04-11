@@ -126,6 +126,22 @@ export default {
         });
     });
   },
+  requestForAccess({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      let token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      return axios
+        .post(`${BASE_URL}/offers/request/access`, payload)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+
+
   setCurrentCategory({ commit }, payload) {
 
     return new Promise((resolve) => {

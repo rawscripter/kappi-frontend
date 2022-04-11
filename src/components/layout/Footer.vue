@@ -44,7 +44,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 footer-right-area">
         <p class="fw-bold">Masz pytania? Jesteśmy tu dla Ciebie!</p>
         <ul class="right-footer-content">
           <li><font-awesome-icon :icon="['fas', 'phone']" />+48 253 789 155</li>
@@ -86,3 +86,4 @@ export default {
 };
 </script>
  
+

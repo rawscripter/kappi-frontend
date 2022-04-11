@@ -111,11 +111,6 @@
                     />
                   </div>
                 </div>
-                <span v-if="errors.confirm_password" class="error-message"
-                  >{{
-                    errors.confirm_password ? errors.confirm_password[0] : ""
-                  }}
-                </span>
               </div>
 
               <div class="form-group">
@@ -125,7 +120,7 @@
                   <span v-if="isAuthReqLoading"
                     ><easy-spinner class="small-spinner" /> Przetwarzanie</span
                   >
-                  <span>Zapisz</span>
+                  <span v-else>Zapisz</span>
                 </button>
               </div>
 
@@ -181,6 +176,10 @@ export default {
           // show alert
           toast.success("Hasło zostało zmienione");
           closeRegistrationModal();
+          currentPassword.value = "";
+          newPassword.value = "";
+          confirmPassword.value = "";
+          errors.value = {};
         })
         .catch((err) => {
           errors.value = err.response.data.errors;

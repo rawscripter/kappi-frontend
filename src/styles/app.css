@@ -213,6 +213,16 @@ td.text-right {
   font-weight: bold;
 }
 
+.middle-footer-content li a,
+.middle-footer-content li .text-dark {
+  color: var(--grey) !important;
+  font-weight: normal;
+}
+
+.footer-right-area {
+  margin-top: 35px !important;
+}
+
 @media (max-width: 768px) {
   .hide-on-desktop {
     display: block !important;
@@ -231,4 +241,56 @@ td.text-right {
     width: 50%;
   }
 
+  .middle-footer-content {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+    margin-left: 0px !important;
+    display: flex !important;
+    flex-wrap: wrap;
+
+  }
+
+  .middle-footer-content li {
+    flex: 50%;
+    margin-bottom: 10px;
+
+
+  }
+
+  .middle-footer-content li a,
+  .middle-footer-content li .text-dark {
+    color: var(--grey) !important;
+    font-weight: normal;
+  }
+}
+
+.tooltip-inner {
+  background-color: rgb(255, 255, 255) !important;
+  /* Set box color to red */
+  color: rgb(136, 136, 136) !important;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+  padding: 15px !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+  /* Set text color to black */
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: rgb(255, 255, 255) !important;
+  /* Set arrow color to red */
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: rgb(255, 255, 255) !important;
+  /* Set arrow color to red */
+}
+
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: rgb(255, 255, 255) !important;
+  /* Set arrow color to red */
+}
+
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: rgb(255, 255, 255) !important;
+  /* Set arrow color to red */
 }

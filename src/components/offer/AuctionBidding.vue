@@ -55,13 +55,12 @@
       <tr class="pricing-from">
         <td class="text-right hide-on-mobile"></td>
         <td class="text-left" colspan="3">
-          <div class="mt-3">
+          <div class="mt-3 p-0">
+            <label for="" class="form-title mb-2 fs-13">
+              <strong>Minimalna wartość oferty: {{ offerMinPrice }} zł</strong>
+            </label>
             <form @submit.prevent="checkBid()" action="" class="auction-form">
-              <div class="from-group">
-                <label for="" class="mb-2 fs-13"
-                  >Minimalna wartość oferty:
-                  <strong>{{ offerMinPrice }} zł</strong></label
-                >
+              <div class="from-group input-area">
                 <input
                   type="number"
                   placeholder="Twoja oferta"
@@ -70,7 +69,7 @@
                   required
                 />
               </div>
-              <div class="from-group button-group mt-2">
+              <div class="from-group button-group">
                 <button type="submit" class="btn btn-block btn-primary sha">
                   Licytuj
                 </button>
@@ -135,7 +134,7 @@ export default {
     const store = useStore();
     const route = useRoute();
     const offerID = route.params.id;
-    const lastRefreshedTime = ref(new Date());
+    let lastRefreshedTime = new Date();
     const toast = useToast();
 
     const biddingAmount = ref("");
@@ -150,10 +149,9 @@ export default {
     };
 
     const minimumBidPrice = computed(() => {
-      if (offer.current_price != null && offer.current_price != 0) {
-        return offer.current_price + offer.min_price_increment;
+      if (offer.current_price != null) {
+        return offer.current_price + offer.min_raise_amount;
       }
-
       return offer.price_start + offer.min_raise_amount;
     });
 
@@ -175,6 +173,7 @@ export default {
           showErrorBiddingModal.value = true;
         }
       } catch (e) {
+        refreshOffer();
         toast.error("Coś poszło nie tak. Proszę spróbować za jakiś czas");
       }
     }
@@ -209,12 +208,7 @@ export default {
     }
 
     function refreshOffer() {
-      lastRefreshedTime.value = new Date();
-      store.dispatch("Offer/getOfferDetails", offerID);
-    }
-
-    function refreshOffer() {
-      lastRefreshedTime.value = new Date();
+      lastRefreshedTime = new Date();
       store.dispatch("Offer/getOfferDetails", offerID);
     }
 
@@ -238,6 +232,7 @@ export default {
       closeErrorBiddingModal,
       showErrorBiddingModal,
       refreshOffer,
+      lastRefreshedTime,
     };
   },
 };

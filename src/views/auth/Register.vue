@@ -210,6 +210,9 @@ export default {
         .then(() => {
           toast.success("Rejestracja przebiegła pomyślnie");
           router.push("/home");
+          email.value = "";
+          password.value = "";
+          confirm_password.value = "";
         })
         .catch((err) => {
           errors.value = err.response.data.errors;
