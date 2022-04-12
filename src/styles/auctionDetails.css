@@ -300,5 +300,21 @@ h3.item-heading {
   .right-half {
     margin-top: 30px;
     padding: 15px;
+
   }
+
+  tr.pricing-from {
+    display: block;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background: white;
+    padding: 0px 20px 15px;
+    box-sizing: border-box;
+    width: 100%;
+    left: 0;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 21%) !important;
+  }
+
+
 }

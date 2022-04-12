@@ -59,7 +59,7 @@
               v-b-tooltip.hover
               title="czas pozostały do końca aukcji"
             >
-              <CountDown :endDate="new Date(offer.date_end)">
+              <CountDown :offer="offer">
                 <template v-slot="{ day, hour, min, sec }">
                   {{ day }}D, {{ hour }}G : {{ min }}M : {{ sec }}S
                 </template>

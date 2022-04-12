@@ -37,7 +37,7 @@
             >
               <div class="mb-0 text-muted mr-3 fs-13 d-flex">
                 Aukcja kończy się za: &nbsp;
-                <CountDown :endDate="new Date(offer.date_end)">
+                <CountDown :offer="offer">
                   <template v-slot="{ day, hour, min, sec }">
                     <span class="text-dark"
                       >{{ day }} dni, {{ hour }}:{{ min }}:{{ sec }}</span

@@ -93,6 +93,7 @@ export default {
         })
         .finally(() => {
           commit('setIsOffersLoading', false);
+          commit("updateLastRefreshedTime");
         }
         );
     });

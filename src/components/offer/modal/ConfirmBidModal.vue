@@ -37,7 +37,7 @@
             >
               <p class="mb-0 text-muted mr-3 fs-13 d-flex">
                 Aukcja kończy się za: &nbsp;
-                <CountDown :endDate="new Date(offer.date_end)">
+                <CountDown :offer="offer">
                   <template v-slot="{ day, hour, min, sec }">
                     <span class="text-dark"
                       >{{ day }} dni, {{ hour }}:{{ min }}:{{ sec }}</span
@@ -46,7 +46,9 @@
                 </CountDown>
               </p>
               <p class="mb-0 mr-3 fs-13"><strong>|</strong></p>
-              <p class="mb-0 ml-3 fs-13">{{ offer.total_offers }} Ofert</p>
+              <p class="mb-0 ml-3 fs-13">
+                {{ offer.total_offers }} {{ offerTotalText }}
+              </p>
             </div>
             <div
               class="
@@ -129,6 +131,17 @@ export default {
     },
     confrimAuctionBid() {
       this.$emit("confrimAuctionBid");
+    },
+  },
+  computed: {
+    offerTotalText() {
+      if (this.offer.total_offers === 1) {
+        return "Oferta";
+      } else if (this.offer.total_offers > 1 && this.offer.total_offers < 5) {
+        return "Oferty";
+      } else {
+        return "Ofert";
+      }
     },
   },
 };

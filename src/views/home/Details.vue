@@ -1,6 +1,6 @@
 <template>
   <div class="auction-details-page">
-    <div class="spinner" v-if="isOffersLoading">
+    <div class="spinner" v-if="isLoading">
       <easy-spinner class="large-spinner" />
     </div>
     <div v-else class="row">
@@ -24,7 +24,7 @@
                 }}
               </p>
 
-              <CountDown :endDate="new Date(offer.date_end)">
+              <CountDown :offer="offer">
                 <template v-slot="{ day, hour, min, sec }">
                   <div
                     class="d-flex justify-content-between align-items-center"
@@ -163,7 +163,7 @@
 </template>
 
  <script>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import CountDown from "./item/CountDown.vue";
@@ -214,18 +214,22 @@ export default {
       activeOfferImageIndex.value = index;
     }
 
-    const isOffersLoading = computed(
-      () => store.getters["Offer/isOffersLoading"]
-    );
+    const isLoading = ref(false);
 
     onMounted(() => {
-      store.dispatch("Offer/getOfferDetails", offerID).then((res) => {
-        const { status, message } = res.data;
-        if (status === "error") {
-          toast.error(message);
-          router.push("/home");
-        }
-      });
+      isLoading.value = true;
+      store
+        .dispatch("Offer/getOfferDetails", offerID)
+        .then((res) => {
+          const { status, message } = res.data;
+          if (status === "error") {
+            toast.error(message);
+            router.push("/home");
+          }
+        })
+        .finally(() => {
+          isLoading.value = false;
+        });
     });
 
     const currentPrice = computed(() => {
@@ -269,6 +273,19 @@ export default {
     });
     const isAutionHasWinner = ref(false);
 
+    function refreshOffer() {
+      store.dispatch("Offer/getOfferDetails", offerID);
+    }
+
+    onMounted(() => {
+      const interval = setInterval(() => {
+        refreshOffer();
+      }, 1000 * 60);
+      onUnmounted(() => {
+        clearInterval(interval);
+      });
+    });
+
     return {
       isAuctionRunning,
       isAuctionFinished,
@@ -277,7 +294,7 @@ export default {
       currentPrice,
       offerMinPrice,
       offerStartPrice,
-      isOffersLoading,
+      isLoading,
       activeOfferImage,
       slider,
       activeOfferImageIndex,

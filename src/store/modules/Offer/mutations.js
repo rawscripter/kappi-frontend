@@ -20,6 +20,9 @@ export default {
   },
   setOffersPagination: (state, pagination) => {
     state.offersPagination = pagination;
+  },
+  updateLastRefreshedTime: (state) => {
+    state.lastRefreshedTime = new Date();
   }
 
 };

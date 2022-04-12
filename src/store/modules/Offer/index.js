@@ -14,6 +14,7 @@ const state = {
     per_page: 10,
     total: 0,
   },
+  lastRefreshedTime: new Date()
 };
 
 export default {

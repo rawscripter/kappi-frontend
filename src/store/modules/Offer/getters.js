@@ -6,4 +6,5 @@ export default {
   offers: (state) => state.offers,
   currentOffer: (state) => state.currentOffer,
   offersPagination: (state) => state.offersPagination,
+  lastRefreshedTime: (state) => state.lastRefreshedTime,
 };

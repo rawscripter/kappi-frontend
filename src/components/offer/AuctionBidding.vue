@@ -129,12 +129,14 @@ export default {
     this.moment = moment;
   },
 
-  setup(props) {
-    const { offer } = props;
+  setup() {
+    const offer = computed(() => store.getters["Offer/currentOffer"]);
     const store = useStore();
     const route = useRoute();
     const offerID = route.params.id;
-    let lastRefreshedTime = new Date();
+    let lastRefreshedTime = computed(
+      () => store.getters["Offer/lastRefreshedTime"]
+    );
     const toast = useToast();
 
     const biddingAmount = ref("");
@@ -149,15 +151,15 @@ export default {
     };
 
     const minimumBidPrice = computed(() => {
-      if (offer.current_price != null) {
-        return offer.current_price + offer.min_raise_amount;
+      if (offer.value.current_price != null) {
+        return offer.value.current_price + offer.value.min_raise_amount;
       }
-      return offer.price_start + offer.min_raise_amount;
+      return offer.value.price_start + offer.value.min_raise_amount;
     });
 
     async function checkBid() {
       if (minimumBidPrice.value > biddingAmount.value) {
-        toast.error(`Minimalna wartość oferty to ${minimumBidPrice.value} zł`);
+        toast.error(`Minimalna wartość oferty: ${minimumBidPrice.value} zł`);
         return;
       }
       const payload = {
@@ -208,18 +210,8 @@ export default {
     }
 
     function refreshOffer() {
-      lastRefreshedTime = new Date();
       store.dispatch("Offer/getOfferDetails", offerID);
     }
-
-    onMounted(() => {
-      const interval = setInterval(() => {
-        refreshOffer();
-      }, 1000 * 60);
-      onUnmounted(() => {
-        clearInterval(interval);
-      });
-    });
 
     return {
       refreshOffer,
