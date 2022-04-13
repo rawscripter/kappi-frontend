@@ -242,7 +242,7 @@ export default {
       } else {
         price = offer.value.price_start;
       }
-      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     });
 
     const offerMinPrice = computed(() => {
@@ -255,13 +255,13 @@ export default {
       } else {
         price = offer.value.price_start + offer.value.min_raise_amount;
       }
-      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     });
     const offerStartPrice = computed(() => {
       if (offer.value.price_start) {
         return offer.value.price_start
           .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+          .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
       }
     });
 

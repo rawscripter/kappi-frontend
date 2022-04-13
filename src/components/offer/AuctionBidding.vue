@@ -66,6 +66,8 @@
                   placeholder="Twoja oferta"
                   class="form-control custom-input-box"
                   v-model="biddingAmount"
+                  oninvalid="this.setCustomValidity('Podaj kwotę')"
+                  onvalid="this.setCustomValidity('')"
                   required
                 />
               </div>

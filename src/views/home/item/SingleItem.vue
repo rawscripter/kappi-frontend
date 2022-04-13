@@ -186,7 +186,7 @@ export default {
       } else {
         price = this.offer.price_start;
       }
-      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     },
     offerFeatureImage: function () {
       if (this.offer.images.length > 0 && this.offer.images[0].path)

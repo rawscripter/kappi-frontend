@@ -22,7 +22,7 @@
 
             <div class="autction-descriptions mt-3 mb-3">
               <h4 class="text-red">
-                <strong>{{ biddingPrice }} zł</strong>
+                <strong>{{ bidPrice }} zł</strong>
               </h4>
             </div>
             <div
@@ -135,6 +135,11 @@ export default {
     },
     confrimAuctionBid() {
       this.$emit("confrimAuctionBid");
+    },
+  },
+  computed: {
+    bidPrice() {
+      return this.biddingPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     },
   },
 };

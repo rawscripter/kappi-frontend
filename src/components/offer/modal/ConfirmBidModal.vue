@@ -22,7 +22,7 @@
 
             <div class="autction-descriptions mt-3 mb-3">
               <h4 class="text-blue">
-                <strong>{{ biddingPrice }} zł</strong>
+                <strong>{{ bidPrice }} zł</strong>
               </h4>
             </div>
             <div
@@ -66,7 +66,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <p class="mb-0 mr-3"><strong>Twoja oferta:</strong></p>
                 <h4 class="text-blue m-0">
-                  <strong>{{ biddingPrice }} zł</strong>
+                  <strong>{{ bidPrice }} zł</strong>
                 </h4>
               </div>
 
@@ -142,6 +142,10 @@ export default {
       } else {
         return "Ofert";
       }
+    },
+
+    bidPrice() {
+      return this.biddingPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     },
   },
 };

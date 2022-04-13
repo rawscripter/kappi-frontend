@@ -108,13 +108,13 @@ export default {
     const store = useStore();
     const user = computed(() => store.getters["User/user"]);
     const offerMinimumPrice = computed(() => {
-      return offer.price_start.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return offer.price_start.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     });
 
     const offerCurrentPrice = computed(() => {
       return offer.current_price
         .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     });
 
     const isAutionHasWinner = computed(() => {
