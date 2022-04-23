@@ -25,32 +25,35 @@ export default {
     };
   },
   computed: {
+    timerDate() {
+      if (!this.offer.is_started) {
+        return new Date(this.offer.date_start.replace(/ /g, "T"));
+      }
+      return new Date(this.offer.date_end.replace(/ /g, "T"));
+    },
+
     day() {
       if (!this.offer.date_end) return 0;
-      let endDate = new Date(this.offer.date_end.replace(/ /g, "T"));
-      if (this.now.getTime() > endDate) return 0;
-      let d = Math.trunc((endDate - this.now) / (1000 * 60 * 60 * 24));
+      if (this.now.getTime() > this.timerDate) return 0;
+      let d = Math.trunc((this.timerDate - this.now) / (1000 * 60 * 60 * 24));
       return d > 9 ? d : "0" + d;
     },
     hour() {
       if (!this.offer.date_end) return 0;
-      let endDate = new Date(this.offer.date_end.replace(/ /g, "T"));
-      if (this.now.getTime() > endDate) return 0;
-      let h = Math.trunc((endDate - this.now) / 1000 / 3600) % 24;
+      if (this.now.getTime() > this.timerDate) return 0;
+      let h = Math.trunc((this.timerDate - this.now) / 1000 / 3600) % 24;
       return h > 9 ? h : "0" + h;
     },
     min() {
       if (!this.offer.date_end) return 0;
-      let endDate = new Date(this.offer.date_end.replace(/ /g, "T"));
-      if (this.now.getTime() > endDate) return 0;
-      let m = Math.trunc((endDate - this.now) / 1000 / 60) % 60;
+      if (this.now.getTime() > this.timerDate) return 0;
+      let m = Math.trunc((this.timerDate - this.now) / 1000 / 60) % 60;
       return m > 9 ? m : "0" + m;
     },
     sec() {
       if (!this.offer.date_end) return 0;
-      let endDate = new Date(this.offer.date_end.replace(/ /g, "T"));
-      if (this.now.getTime() > endDate) return 0;
-      let s = Math.trunc((endDate - this.now) / 1000) % 60;
+      if (this.now.getTime() > this.timerDate) return 0;
+      let s = Math.trunc((this.timerDate - this.now) / 1000) % 60;
       return s > 9 ? s : "0" + s;
     },
   },

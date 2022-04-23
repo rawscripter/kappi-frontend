@@ -20,7 +20,7 @@
                     ? "Aukcja kończy się za"
                     : isAuctionFinished
                     ? "Aukcja zakończona"
-                    : "Aukcja kończy się za"
+                    : "Aukcja zaczyna się za"
                 }}
               </p>
 
@@ -43,7 +43,11 @@
                     </div>
                     <div class="timer-text bg-white text-dark">
                       <span class="time"> {{ min }}</span>
-                      <span class="text">Minut</span>
+                      <span class="text" v-if="min == 1">Minuta</span>
+                      <span class="text" v-else-if="min > 1 && min < 5"
+                        >Minuty</span
+                      >
+                      <span class="text" v-else>Minut</span>
                     </div>
                     <div class="timer-text bg-white text-dark">
                       <span class="time">
@@ -283,6 +287,25 @@ export default {
       }, 1000 * 60);
       onUnmounted(() => {
         clearInterval(interval);
+      });
+
+      // refreshOffer when offer date_start changes
+      const offerStartInterval = setInterval(() => {
+        // check if current time is after offer date_start
+        // if (isAuctionRunning.value ) return;
+        // if (!offer.value.is_started) {
+        if (offer.value.date_start) {
+          let timeStart = new Date(offer.value.date_start.replace(/ /g, "T"));
+          let now = new Date();
+          if (now.getTime() > timeStart.getTime()) {
+            refreshOffer();
+          }
+          // }
+        }
+      }, 1500);
+
+      onUnmounted(() => {
+        clearInterval(offerStartInterval);
       });
     });
 

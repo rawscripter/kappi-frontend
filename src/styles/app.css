@@ -296,3 +296,7 @@ td.text-right {
   border-right-color: rgb(255, 255, 255) !important;
   /* Set arrow color to red */
 }
+
+.btn[disabled] {
+  pointer-events: auto !important;
+}
