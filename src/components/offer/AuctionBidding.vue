@@ -52,7 +52,7 @@
         </td>
       </tr>
 
-      <tr class="pricing-from">
+      <tr class="pricing-from" v-show="showAuctionFrom">
         <td class="text-right hide-on-mobile"></td>
         <td class="text-left" colspan="3">
           <div class="mt-3 p-0">
@@ -161,6 +161,10 @@ export default {
     });
 
     async function checkBid() {
+      if (isNaN(biddingAmount.value)) {
+        toast.error("Podaj kwotę");
+        return;
+      }
       if (minimumBidPrice.value > biddingAmount.value) {
         toast.error(`Minimalna wartość oferty: ${minimumBidPrice.value} zł`);
         return;
@@ -222,6 +226,31 @@ export default {
       store.dispatch("Offer/getOfferDetails", offerID);
     }
 
+    onMounted(() => {
+      hideAuctionFromOnBottomScroll();
+    });
+
+    const showAuctionFrom = ref(true);
+
+    function hideAuctionFromOnBottomScroll() {
+      // check device is mobile or not
+      const screen_width = document.documentElement.clientWidth;
+      if (screen_width < 800) {
+        window.onscroll = () => {
+          let footerHeight =
+            document.getElementById("footer").offsetHeight - 50;
+          if (
+            window.innerHeight + window.scrollY + footerHeight >=
+            document.body.offsetHeight
+          ) {
+            showAuctionFrom.value = false;
+          } else {
+            showAuctionFrom.value = true;
+          }
+        };
+      }
+    }
+
     return {
       refreshOffer,
       checkBid,
@@ -235,6 +264,7 @@ export default {
       refreshOffer,
       lastRefreshedTime,
       minimumBidPrice,
+      showAuctionFrom,
     };
   },
 };
