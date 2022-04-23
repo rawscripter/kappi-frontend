@@ -1,14 +1,39 @@
 <template>
   <div class="single-item shadow d-flex">
     <div class="single-item__image">
-      <img :src="offerFeatureImage" class="shadow" alt="" />
+      <router-link
+        :to="{
+          name: 'auction-details',
+          params: {
+            id: offer.id,
+          },
+          query: {
+            t: new Date().getTime(),
+          },
+        }"
+        class="single-item__info-title-bold m-0"
+      >
+        <img :src="offerFeatureImage" class="shadow" alt=""
+      /></router-link>
       <span class="single-item-image-floading-text">{{
         offer.offer_category_name
       }}</span>
     </div>
     <div class="single-item__info">
       <div class="single-item__info-title" v-if="offer.has_access">
-        <p class="single-item__info-title-bold m-0">{{ offer.name }}</p>
+        <router-link
+          :to="{
+            name: 'auction-details',
+            params: {
+              id: offer.id,
+            },
+            query: {
+              t: new Date().getTime(),
+            },
+          }"
+          class="single-item__info-title-bold m-0"
+          >{{ offer.name }}</router-link
+        >
         <p class="single-item__info-title-muted m-0">
           By {{ offer.agency_name }}
         </p>
@@ -57,7 +82,11 @@
               class="single-item__info-description-item-text d-inline-block"
               id="disabled-wrapper"
               v-b-tooltip.hover
-              title="czas pozostały do końca aukcji"
+              :title="
+                !offer.is_started
+                  ? 'czas pozostały do rozpoczęcia aukcji'
+                  : 'czas pozostały do końca aukcji'
+              "
             >
               <CountDown :offer="offer">
                 <template v-slot="{ day, hour, min, sec }">
@@ -333,6 +362,7 @@ span.single-item-image-floading-text {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
+  color: #fff !important;
 }
 
 @media (max-width: 768px) {
@@ -380,5 +410,10 @@ span.single-item-image-floading-text {
   .action-btn {
     margin-top: 1rem;
   }
+}
+
+a {
+  text-decoration: none !important;
+  color: inherit !important;
 }
 </style>

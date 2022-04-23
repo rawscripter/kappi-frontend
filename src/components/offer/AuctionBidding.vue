@@ -66,6 +66,9 @@
                   placeholder="Twoja oferta"
                   class="form-control custom-input-box"
                   v-model="biddingAmount"
+                  required
+                  oninvalid="this.setCustomValidity('Podaj kwotę')"
+                  oninput="this.setCustomValidity('')"
                 />
               </div>
               <div class="from-group button-group">
@@ -92,6 +95,7 @@
       @closeModal="closeErrorBiddingModal"
       @refreshOffer="refreshOffer"
       :offer="offer"
+      :minimumBiddingPrice="minimumBidPrice"
     ></ErrorBidModal>
   </div>
 </template>
@@ -171,6 +175,7 @@ export default {
           showConfirmBiddingModal.value = true;
         }
         if (response.data.status === "error") {
+          refreshOffer();
           showErrorBiddingModal.value = true;
         }
       } catch (e) {
@@ -199,7 +204,12 @@ export default {
         }
 
         if (bidResponse.data.status === "error") {
-          toast.error(bidResponse.data.message);
+          if (bidResponse.data.isInvalidBid) {
+            refreshOffer();
+            showErrorBiddingModal.value = true;
+          } else {
+            toast.error(bidResponse.data.message);
+          }
         }
       } catch (e) {
         toast.error("Coś poszło nie tak. Proszę spróbować za jakiś czas");
@@ -224,6 +234,7 @@ export default {
       showErrorBiddingModal,
       refreshOffer,
       lastRefreshedTime,
+      minimumBidPrice,
     };
   },
 };

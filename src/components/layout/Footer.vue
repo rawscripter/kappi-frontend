@@ -52,11 +52,16 @@
           <p class="fw-bold">Masz pytania? Jesteśmy tu dla Ciebie!</p>
           <ul class="right-footer-content">
             <li>
-              <font-awesome-icon :icon="['fas', 'phone']" />+48 253 789 155
+              <font-awesome-icon :icon="['fas', 'phone']" /><a
+                href="tel:+48253789155"
+                >+48 253 789 155</a
+              >
             </li>
             <li>
               <font-awesome-icon :icon="['fas', 'envelope']" />
-              kappiofficial2255@gmail.com
+              <a href="mailto:kappiofficial2255@gmail.com"
+                >kappiofficial2255@gmail.com</a
+              >
             </li>
             <li>
               <font-awesome-icon :icon="['fas', 'location-pin']" /> 4517

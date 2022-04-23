@@ -64,11 +64,11 @@
               <div class="">
                 <p class="mb-0 text-red fs-13">
                   <strong
-                    >Bieżąca oferta została przelicytowana przez innego
-                    użytkownika.</strong
-                  >
+                    >Wprowadzona kwota jest za niska. Minimalna wartość oferty:
+                    {{ minBidPrice }} zł
+                  </strong>
                 </p>
-                <p class="mb-0 fs-13">
+                <p class="mb-0 fs-13 mt-2">
                   <strong>Zaproponuj wyższą cenę. </strong>
                 </p>
               </div>
@@ -117,6 +117,10 @@ export default {
       type: String,
       default: "",
     },
+    minimumBiddingPrice: {
+      type: String,
+      default: "",
+    },
     offer: {
       type: Object,
       required: true,
@@ -140,6 +144,11 @@ export default {
   computed: {
     bidPrice() {
       return this.biddingPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    },
+    minBidPrice() {
+      return this.minimumBiddingPrice
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     },
   },
 };

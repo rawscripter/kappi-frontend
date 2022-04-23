@@ -62,7 +62,7 @@
         </td>
         <td class="text-left text-red">
           <h4 class="mt-3 mb-1">
-            <strong>{{ offerMinimumPrice }} zł</strong>
+            <strong>{{ offerCurrentPrice }} zł</strong>
           </h4>
 
           <p class="m-0 fs-13 pb-0 pt-0">

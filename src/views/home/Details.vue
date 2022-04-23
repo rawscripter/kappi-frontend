@@ -136,7 +136,7 @@
           >
             <table class="item-details-table table table-borderless">
               <tr>
-                <td class="text-right"><strong>Cena wywolawcza:</strong></td>
+                <td class="text-right">Cena wywoławcza:</td>
                 <td class="text-left">
                   <h5 class="text-blue m-0">
                     <strong>{{ offerStartPrice }} zł</strong>

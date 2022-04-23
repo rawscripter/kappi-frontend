@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "https://kappi.yarmobile.com.pl/api/v1/client";
+const BASE_URL = "http://127.0.0.1:8000/api/v1/client";
 export default {
   getCategories({ commit, dispatch, state }) {
 
@@ -82,6 +82,7 @@ export default {
           const { status } = response.data;
           if (status === "success") {
             commit("setCurrentOffer", response.data.data);
+            commit("updateLastRefreshedTime");
           }
           if (status === "error") {
             commit("setCurrentOffer", {});
@@ -93,7 +94,7 @@ export default {
         })
         .finally(() => {
           commit('setIsOffersLoading', false);
-          commit("updateLastRefreshedTime");
+
         }
         );
     });

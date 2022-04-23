@@ -40,12 +40,14 @@
   text-decoration: none;
 }
 
-.right-footer-content {
+.right-footer-content,
+.right-footer-content a {
   padding: 0;
   margin: 0;
   list-style: none;
   font-size: 13px;
   color: var(--grey);
+  text-decoration: none;
 }
 
 .right-footer-content li {

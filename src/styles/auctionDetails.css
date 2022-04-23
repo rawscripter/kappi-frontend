@@ -315,6 +315,8 @@ h3.item-heading {
     left: 0;
     box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 21%) !important;
   }
+}
 
-
+a.btn {
+  color: #fff !important;
 }
