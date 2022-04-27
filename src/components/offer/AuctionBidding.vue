@@ -28,6 +28,22 @@
       </tr>
 
       <tr>
+        <td class="text-right">Zaproponowana przez:</td>
+        <td class="text-left">
+          <div class="mt-3">
+            <p class="m-0 text-muted">
+              <span v-if="isUserWinner">Ciebie</span>
+              <span
+                v-else-if="!isUserWinner && offer.show_anonymous_mail == 1"
+                >{{ offer.winner_email }}</span
+              >
+              <span v-else>innego licytującego</span>
+            </p>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
         <td class="text-right">Ostatnia aktualizacja ceny:</td>
         <td class="text-left">
           <div class="mt-3">
@@ -52,7 +68,7 @@
         </td>
       </tr>
 
-      <tr class="pricing-from" v-show="showAuctionFrom">
+      <tr class="pricing-from">
         <td class="text-right hide-on-mobile"></td>
         <td class="text-left" colspan="3">
           <div class="mt-3 p-0">
@@ -93,7 +109,7 @@
       :biddingPrice="biddingAmount"
       :showModal="showErrorBiddingModal"
       @closeModal="closeErrorBiddingModal"
-      @refreshOffer="refreshOffer"
+      @refreshOffer="refreshOffer()"
       :offer="offer"
       :minimumBiddingPrice="minimumBidPrice"
     ></ErrorBidModal>
@@ -134,6 +150,8 @@ export default {
 
   setup() {
     const offer = computed(() => store.getters["Offer/currentOffer"]);
+    const user = computed(() => store.getters["User/user"]);
+
     const store = useStore();
     const route = useRoute();
     const offerID = route.params.id;
@@ -154,6 +172,10 @@ export default {
     };
 
     const minimumBidPrice = computed(() => {
+      if (offer.value.total_offers == 0) {
+        return offer.value.price_start;
+      }
+
       if (offer.value.current_price != null) {
         return offer.value.current_price + offer.value.min_raise_amount;
       }
@@ -187,6 +209,11 @@ export default {
         toast.error("Coś poszło nie tak. Proszę spróbować za jakiś czas");
       }
     }
+
+    const isUserWinner = computed(() => {
+      return offer.value.winner_id === user.value.id;
+    });
+
     const isBidding = ref(false);
 
     async function confrimAuctionBid() {
@@ -203,6 +230,7 @@ export default {
         if (bidResponse.data.status === "success") {
           showConfirmBiddingModal.value = false;
           isBidding.value = false;
+          biddingAmount.value = "";
           refreshOffer();
           toast.success("Oferta została złożona");
         }
@@ -225,31 +253,15 @@ export default {
     function refreshOffer() {
       store.dispatch("Offer/getOfferDetails", offerID);
     }
-
     onMounted(() => {
-      hideAuctionFromOnBottomScroll();
-    });
-
-    const showAuctionFrom = ref(true);
-
-    function hideAuctionFromOnBottomScroll() {
-      // check device is mobile or not
-      const screen_width = document.documentElement.clientWidth;
-      if (screen_width < 800) {
-        window.onscroll = () => {
-          let footerHeight =
-            document.getElementById("footer").offsetHeight - 50;
-          if (
-            window.innerHeight + window.scrollY + footerHeight >=
-            document.body.offsetHeight
-          ) {
-            showAuctionFrom.value = false;
-          } else {
-            showAuctionFrom.value = true;
-          }
-        };
+      // if device is mobile add some space
+      if (window.innerWidth < 768) {
+        document.getElementById("footer").style.marginBottom = "120px";
       }
-    }
+    });
+    onUnmounted(() => {
+      document.getElementById("footer").style.marginBottom = "0px";
+    });
 
     return {
       refreshOffer,
@@ -261,10 +273,9 @@ export default {
       isBidding,
       closeErrorBiddingModal,
       showErrorBiddingModal,
-      refreshOffer,
       lastRefreshedTime,
       minimumBidPrice,
-      showAuctionFrom,
+      isUserWinner,
     };
   },
 };

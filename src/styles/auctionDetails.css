@@ -320,3 +320,10 @@ h3.item-heading {
 a.btn {
   color: #fff !important;
 }
+
+
+@media (max-width: 768px) {
+  .auction-details-page {
+    padding: 150px 0 10px;
+  }
+}

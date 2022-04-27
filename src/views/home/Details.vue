@@ -7,11 +7,22 @@
       <div class="col-md-6">
         <div class="carosel-area">
           <div class="image-and-timer-area">
-            <img
-              :src="activeOfferImage"
-              class="shadow main-image"
-              :alt="offer.name"
-            />
+            <carousel
+              v-if="offer.images && offer.images.length > 0"
+              class="main-image-carosel"
+              :mouseDrag="true"
+              :touchDrag="true"
+              :itemsToShow="1"
+              v-model="activeOfferImageIndex"
+              :snapAlign="'center'"
+              :perPage="1"
+              :wrapAround="true"
+              perPageCustom="[[768, 1], [1024, 1]]"
+            >
+              <slide v-for="(image, index) in offer.images" :key="index">
+                <img :src="image.path" class="main-image" alt="" />
+              </slide>
+            </carousel>
 
             <div class="auction-timer bg-blue">
               <p>
@@ -203,16 +214,6 @@ export default {
     const slider = ref(null);
 
     const activeOfferImageIndex = ref(0);
-    const activeOfferImage = computed(() => {
-      if (
-        offer.value.images &&
-        offer.value.images[activeOfferImageIndex.value]
-      ) {
-        return offer.value.images[activeOfferImageIndex.value].path;
-      } else {
-        return "/assets/img/no_image.png";
-      }
-    });
 
     function changeSliderImage(index) {
       activeOfferImageIndex.value = index;
@@ -251,14 +252,20 @@ export default {
 
     const offerMinPrice = computed(() => {
       let price = 0;
-      if (
-        offer.value.current_price !== null &&
-        offer.value.current_price !== 0
-      ) {
-        price = offer.value.current_price + offer.value.min_raise_amount;
+
+      if (offer.value.total_offers == 0) {
+        price = offer.value.price_start;
       } else {
-        price = offer.value.price_start + offer.value.min_raise_amount;
+        if (
+          offer.value.current_price !== null &&
+          offer.value.current_price !== 0
+        ) {
+          price = offer.value.current_price + offer.value.min_raise_amount;
+        } else {
+          price = offer.value.price_start + offer.value.min_raise_amount;
+        }
       }
+
       return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     });
     const offerStartPrice = computed(() => {
@@ -292,7 +299,8 @@ export default {
       // refreshOffer when offer date_start changes
       const offerStartInterval = setInterval(() => {
         // check if current time is after offer date_start
-        // if (isAuctionRunning.value ) return;
+        if (isAuctionRunning.value) return;
+        if (isAuctionFinished.value) return;
         // if (!offer.value.is_started) {
         if (offer.value.date_start) {
           let timeStart = new Date(offer.value.date_start.replace(/ /g, "T"));
@@ -318,7 +326,6 @@ export default {
       offerMinPrice,
       offerStartPrice,
       isLoading,
-      activeOfferImage,
       slider,
       activeOfferImageIndex,
       changeSliderImage,

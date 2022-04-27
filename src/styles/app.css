@@ -300,3 +300,20 @@ td.text-right {
 .btn[disabled] {
   pointer-events: auto !important;
 }
+
+.main-image-carosel {
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+}
+
+.main-image-carosel ol.carousel__track {
+  /* display: unset !important; */
+  justify-content: unset !important;
+  align-items: unset !important;
+}
+
+
+@media (max-width: 768px) {
+  .main-image-carosel ol.carousel__track {
+    transform: translateX(0px) !important;
+  }
+}

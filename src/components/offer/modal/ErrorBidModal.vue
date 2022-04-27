@@ -136,6 +136,7 @@ export default {
     },
     refreshOffer() {
       this.$emit("refreshOffer");
+      this.closeModal();
     },
     confrimAuctionBid() {
       this.$emit("confrimAuctionBid");
