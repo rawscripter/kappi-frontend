@@ -27,7 +27,7 @@
         </td>
       </tr>
 
-      <tr>
+      <tr v-if="isAutionHasWinner">
         <td class="text-right">Zaproponowana przez:</td>
         <td class="text-left">
           <div class="mt-3">
@@ -214,6 +214,10 @@ export default {
       return offer.value.winner_id === user.value.id;
     });
 
+    const isAutionHasWinner = computed(() => {
+      return offer.value.winner_id !== null;
+    });
+
     const isBidding = ref(false);
 
     async function confrimAuctionBid() {
@@ -276,6 +280,7 @@ export default {
       lastRefreshedTime,
       minimumBidPrice,
       isUserWinner,
+      isAutionHasWinner,
     };
   },
 };
