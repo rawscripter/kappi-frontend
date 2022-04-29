@@ -27,15 +27,15 @@
         </td>
       </tr>
 
-      <tr v-if="isAutionHasWinner">
+      <tr v-if="isAutionHasHighestBidder">
         <td class="text-right">Zaproponowana przez:</td>
         <td class="text-left">
           <div class="mt-3">
             <p class="m-0 text-muted">
-              <span v-if="isUserWinner">Ciebie</span>
+              <span v-if="isUserHighestBidder">Ciebie</span>
               <span
-                v-else-if="!isUserWinner && offer.show_anonymous_mail == 1"
-                >{{ offer.winner_email }}</span
+                v-else-if="!isUserHighestBidder && offer.show_anonymous_mail == 1"
+                >{{ offer.highest_bidder_email }}</span
               >
               <span v-else>innego licytującego</span>
             </p>
@@ -203,6 +203,7 @@ export default {
         if (response.data.status === "error") {
           refreshOffer();
           showErrorBiddingModal.value = true;
+          showConfirmBiddingModal.value = false;
         }
       } catch (e) {
         refreshOffer();
@@ -210,11 +211,11 @@ export default {
       }
     }
 
-    const isUserWinner = computed(() => {
-      return offer.value.winner_id === user.value.id;
+    const isUserHighestBidder = computed(() => {
+      return offer.value.highest_bidder_id === user.value.id;
     });
 
-    const isAutionHasWinner = computed(() => {
+    const isAutionHasHighestBidder = computed(() => {
       return offer.value.winner_id !== null;
     });
 
@@ -279,8 +280,8 @@ export default {
       showErrorBiddingModal,
       lastRefreshedTime,
       minimumBidPrice,
-      isUserWinner,
-      isAutionHasWinner,
+      isUserHighestBidder,
+      isAutionHasHighestBidder,
     };
   },
 };
