@@ -30,7 +30,7 @@
       <tr v-if="isAutionHasHighestBidder">
         <td class="text-right">Zaproponowana przez:</td>
         <td class="text-left">
-          <div class="mt-3">
+          <div >
             <p class="m-0 text-muted">
               <span v-if="isUserHighestBidder">Ciebie</span>
               <span
@@ -216,7 +216,7 @@ export default {
     });
 
     const isAutionHasHighestBidder = computed(() => {
-      return offer.value.winner_id !== null;
+      return offer.value.highest_bidder_id !== null;
     });
 
     const isBidding = ref(false);
