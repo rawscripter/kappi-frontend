@@ -10,6 +10,7 @@
             <carousel
               v-if="offer.images && offer.images.length > 0"
               class="main-image-carosel"
+              :class="{'multiple-slide': offer.images.length > 1}"
               :mouseDrag="true"
               :touchDrag="true"
               :itemsToShow="1"
@@ -291,7 +292,7 @@ export default {
     onMounted(() => {
       const interval = setInterval(() => {
         refreshOffer();
-      }, 1000 * 60);
+      }, 1000 * 30);
       onUnmounted(() => {
         clearInterval(interval);
       });
@@ -310,7 +311,7 @@ export default {
           }
           // }
         }
-      }, 1500);
+      }, 1000);
 
       onUnmounted(() => {
         clearInterval(offerStartInterval);

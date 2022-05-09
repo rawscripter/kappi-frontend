@@ -310,10 +310,15 @@ td.text-right {
   justify-content: unset !important;
   align-items: unset !important;
 }
-
+.main-image-carosel.multiple-slide .carousel__slide{
+  transform:translate(-525px);
+}
 
 @media (max-width: 768px) {
   .main-image-carosel ol.carousel__track {
     transform: translateX(0px) !important;
   }
+    .main-image-carosel.multiple-slide .carousel__slide {
+      transform: unset;
+    }
 }
