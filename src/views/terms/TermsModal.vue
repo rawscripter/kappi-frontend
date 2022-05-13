@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, watch } from "vue";
 import { useStore } from "vuex";
 import Terms from "./Terms.vue";
 export default {
@@ -59,6 +59,12 @@ export default {
       store.dispatch("User/setTermsModal", false);
       store.dispatch("User/setRegistrationModal", false);
     }
+    // watch showModal
+    watch(showModal, (val) => {
+      if (val) {
+        store.dispatch("User/terms");
+      }
+    });
 
     return {
       showModal,

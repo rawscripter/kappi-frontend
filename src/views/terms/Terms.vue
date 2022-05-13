@@ -9,12 +9,16 @@
  <script>
 import "/src/styles/privacy.css";
 
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 export default {
   setup() {
     const store = useStore();
     const terms = computed(() => store.state.User.terms);
+
+    onMounted(() => {
+      store.dispatch("User/terms");
+    });
 
     return {
       terms,

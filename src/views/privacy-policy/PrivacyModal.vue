@@ -14,12 +14,7 @@
           </div>
           <div class="modal-body">
             <div class="logo text-center">
-              <img
-                class="logo"
-                width="250"
-                src="/assets/kappi.png"
-                alt=""
-              />
+              <img class="logo" width="250" src="/assets/kappi.png" alt="" />
             </div>
 
             <div class="terms-contents mt-5">
@@ -33,7 +28,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, watch } from "vue";
 import { useStore } from "vuex";
 import PrivacyPolicy from "./PrivacyPolicy.vue";
 export default {
@@ -46,6 +41,13 @@ export default {
     function closeModal() {
       store.dispatch("User/setPrivacyModal", false);
     }
+    // watch showModal
+    watch(showModal, (val) => {
+      if (val) {
+        store.dispatch("User/policy");
+      }
+    });
+
     return {
       showModal,
       closeModal,
