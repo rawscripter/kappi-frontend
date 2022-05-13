@@ -14,7 +14,12 @@
           </div>
           <div class="modal-body">
             <div class="logo text-center">
-              <img class="logo" width="250" src="/assets/kappi.png" alt="" />
+              <img
+                class="logo"
+                width="250"
+                src="/assets/kappi.png"
+                alt="KAPPI"
+              />
             </div>
 
             <div class="terms-contents mt-5">
