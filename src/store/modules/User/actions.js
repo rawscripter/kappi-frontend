@@ -157,6 +157,30 @@ export default {
         });
     });
   },
+  terms({ commit }) {
+    return new Promise((resolve, reject) => {
+      return axios
+        .get(`${BASE_URL}/terms`)
+        .then((response) => {
+          commit("set_terms", response.data.data);
+        })
+        .catch(() => {
+          commit("set_terms", {});
+        });
+    });
+  },
+  policy({ commit }) {
+    return new Promise((resolve, reject) => {
+      return axios
+        .get(`${BASE_URL}/policy`)
+        .then((response) => {
+          commit("set_policy", response.data.data);
+        })
+        .catch(() => {
+          commit("set_teset_policyrms", {});
+        });
+    });
+  },
   setLoginModal({ commit }, payload) {
     commit("set_showLoginModal", payload);
   },

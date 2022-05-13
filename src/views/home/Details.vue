@@ -335,6 +335,6 @@ export default {
 };
 </script>  
 
- <style scoped>
+<style scoped>
 @import url("/src/styles/auctionDetails.css");
 </style>

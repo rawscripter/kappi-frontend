@@ -45,6 +45,12 @@ export default {
   set_showPasswordResetModal(state, payload) {
     state.showPasswordResetModal = payload;
   },
+  set_terms(state, payload) {
+    state.terms = payload;
+  },
+  set_policy(state, payload) {
+    state.policy = payload;
+  }
 
 
 };

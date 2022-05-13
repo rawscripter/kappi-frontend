@@ -20,6 +20,8 @@ const state = {
   showPrivacyModal: false,
   showTermsModal: false,
   isAuthReqLoading: false,
+  terms: {},
+  policy: {},
 };
 
 export default {

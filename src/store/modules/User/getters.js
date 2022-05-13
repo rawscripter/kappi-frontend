@@ -9,5 +9,6 @@ export default {
   showPrivacyModal: (state) => state.showPrivacyModal,
   isAuthReqLoading: (state) => state.isAuthReqLoading,
   showPasswordResetModal: (state) => state.showPasswordResetModal,
-
+  terms: (state) => state.terms,
+  policy: (state) => state.policy,
 };

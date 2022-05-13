@@ -59,6 +59,7 @@ export default {
       store.dispatch("User/setTermsModal", false);
       store.dispatch("User/setRegistrationModal", false);
     }
+
     return {
       showModal,
       closeModal,
