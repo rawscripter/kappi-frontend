@@ -13,7 +13,7 @@
         }"
         class="single-item__info-title-bold m-0"
       >
-        <img :src="offerFeatureImage" class="shadow" alt=""
+        <img :src="offerFeatureImage" class="shadow" alt="KAPPI"
       /></router-link>
       <span class="single-item-image-floading-text">{{
         offer.offer_category_name
@@ -105,7 +105,7 @@
       >
         <div class="action-discription" v-if="offer.has_access">
           <div class="mr-3">
-            <img width="35" src="/assets/icon/Chart.png" alt="" />
+            <img width="35" src="/assets/icon/Chart.png" alt="KAPPI" />
           </div>
           <p class="m-0">
             Aktualna cena

@@ -3,7 +3,7 @@
     <footer class="app-footer">
       <div class="row">
         <div class="col-md-4">
-          <img class="footer-logo" src="/assets/kappi.png" alt="" />
+          <img class="footer-logo" src="/assets/kappi.png" alt="KAPPI" />
           <div class="footer-desc">
             KAPPI to nowatorska platforma umożliwiająca zawieranie transakcji na
             rynku nieruchomości.
@@ -53,20 +53,20 @@
           <ul class="right-footer-content">
             <li>
               <font-awesome-icon :icon="['fas', 'phone']" /><a
-                href="tel:+48253789155"
-                >+48 253 789 155</a
+                href="tel:+48731935645 "
+                >+48 731 935 645 </a
               >
             </li>
             <li>
               <font-awesome-icon :icon="['fas', 'envelope']" />
-              <a href="mailto:kappiofficial2255@gmail.com"
-                >kappiofficial2255@gmail.com</a
+              <a href="mailto:info@kappi.pl"
+                >info@kappi.pl</a
               >
             </li>
-            <li>
+            <!-- <li>
               <font-awesome-icon :icon="['fas', 'location-pin']" /> 4517
               Washington Ave, Machester, Kentucky 39495
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -100,5 +100,3 @@ export default {
   },
 };
 </script>
- 
-

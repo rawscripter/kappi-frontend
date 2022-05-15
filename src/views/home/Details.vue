@@ -10,7 +10,7 @@
             <carousel
               v-if="offer.images && offer.images.length > 0"
               class="main-image-carosel"
-              :class="{'multiple-slide': offer.images.length > 1}"
+              :class="{ 'multiple-slide': offer.images.length > 1 }"
               :mouseDrag="true"
               :touchDrag="true"
               :itemsToShow="1"
@@ -21,7 +21,7 @@
               perPageCustom="[[768, 1], [1024, 1]]"
             >
               <slide v-for="(image, index) in offer.images" :key="index">
-                <img :src="image.path" class="main-image" alt="" />
+                <img :src="image.path" class="main-image" alt="KAPPI" />
               </slide>
             </carousel>
 
@@ -92,7 +92,7 @@
                 :key="index"
                 @click="changeSliderImage(index)"
               >
-                <img :src="image.path" class="slide-image" alt="" />
+                <img :src="image.path" class="slide-image" alt="KAPPI" />
               </slide>
 
               <template #addons>

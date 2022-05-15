@@ -21,7 +21,7 @@
       </p>
 
       <div class="mb-5">
-        <img class="max-100" src="/assets/img/information.jpg" alt="" />
+        <img class="max-100" src="/assets/img/information.jpg" alt="KAPPI" />
       </div>
 
       <div class="mb-5">
@@ -30,7 +30,7 @@
             <img
               class="max-400 shadow p-1"
               src="/assets/img/auctions.png"
-              alt=""
+              alt="KAPPI"
             />
           </div>
           <div class="col-md-7">
@@ -100,7 +100,7 @@
             <img
               class="max-400 shadow p-3"
               src="/assets/img/auction-details.png"
-              alt=""
+              alt="KAPPI"
             />
           </div>
         </div>

@@ -20,7 +20,7 @@
                 "
               >
                 Aktualizuj cenę
-                <img width="24px" src="/assets/icon/refresh.png" alt="" />
+                <img width="24px" src="/assets/icon/refresh.png" alt="KAPPI" />
               </div>
             </span>
           </div>
@@ -30,11 +30,13 @@
       <tr v-if="isAutionHasHighestBidder">
         <td class="text-right">Zaproponowana przez:</td>
         <td class="text-left">
-          <div >
+          <div>
             <p class="m-0 text-muted">
               <span v-if="isUserHighestBidder">Ciebie</span>
               <span
-                v-else-if="!isUserHighestBidder && offer.show_anonymous_mail == 1"
+                v-else-if="
+                  !isUserHighestBidder && offer.show_anonymous_mail == 1
+                "
                 >{{ offer.highest_bidder_email }}</span
               >
               <span v-else>innego licytującego</span>
@@ -62,7 +64,7 @@
               class="btn btn-sm btn-default bg-white shadow refresh-btn m-auto"
             >
               Aktualizuj cenę
-              <img width="24px" src="/assets/icon/refresh.png" alt="" />
+              <img width="24px" src="/assets/icon/refresh.png" alt="KAPPI" />
             </div>
           </span>
         </td>
