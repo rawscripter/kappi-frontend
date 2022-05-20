@@ -416,7 +416,7 @@
  <script scop>
 </script>
 
-<style>
+<style scoped>
 img {
   max-width: 100%;
 }
