@@ -18,6 +18,7 @@ import "vue-toastification/dist/index.css";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 import easySpinner from 'vue-easy-spinner';
+import VueImg from 'v-img';
 
 const options = {
     // You can set your default options here
@@ -27,7 +28,7 @@ createApp(App)
     .use(BootstrapVue3)
     .use(store)
     .use(router)
-    .component("font-awesome-icon", FontAwesomeIcon)
+     .component("font-awesome-icon", FontAwesomeIcon)
     .use(VueAxios, axios)
     .use(Toast, options)
     .use(easySpinner, {

@@ -66,7 +66,7 @@
             <h5 class="mb-2">
               <strong>W jaki sposób złożyć ofertę? </strong>
             </h5>
-            <p>
+            <p class="line-height-35">
               Jeśli wybrałeś już interesującą Cię aukcję z listy, możesz zacząć
               licytować!
             </p>
@@ -455,6 +455,10 @@ p,
 div {
   font-size: 17px;
   line-height: 30px;
+  text-align: justify;
+}
+.line-height-35 {
+  line-height: 35px;
 }
 .custom-mt-5 {
   margin-top: 45px !important;
@@ -463,5 +467,14 @@ div {
 a.mail {
   color: #3f7ff0 !important;
   text-decoration: underline !important;
+}
+
+@media (max-width: 800px) {
+  img {
+    margin: 30px 0;
+  }
+  .custom-mt-5 {
+    margin-top: 25px !important;
+  }
 }
 </style>
