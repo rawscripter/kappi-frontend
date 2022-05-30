@@ -8,7 +8,7 @@
             <h5 class="text-blue m-0">
               <strong>{{ currentPrice }} zł</strong>
             </h5>
-            <span class="hide-on-mobile">
+            <!-- <span class="hide-on-mobile">
               <div
                 @click="refreshOffer()"
                 class="
@@ -22,7 +22,7 @@
                 Aktualizuj cenę
                 <img width="24px" src="/assets/icon/refresh.png" alt="KAPPI" />
               </div>
-            </span>
+            </span> -->
           </div>
         </td>
       </tr>
@@ -55,7 +55,7 @@
           </div>
         </td>
       </tr>
-
+      <!--
       <tr>
         <td colspan="3">
           <span class="hide-on-desktop">
@@ -68,7 +68,7 @@
             </div>
           </span>
         </td>
-      </tr>
+      </tr> -->
 
       <tr class="pricing-from">
         <td class="text-right hide-on-mobile"></td>

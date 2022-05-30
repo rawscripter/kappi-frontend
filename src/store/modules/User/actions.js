@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "https://kappi.yarmobile.com.pl/api/v1/client";
+const BASE_URL = "https://admin.kappi.pl/api/v1/client";
 export default {
   login({ commit }, user) {
     commit("set_isAuthReqLoading", true);
