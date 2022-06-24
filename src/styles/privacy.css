@@ -2,3 +2,8 @@
     margin-top: 80px;
     margin-bottom: 100px;
 }
+p{
+    box-sizing: border-box;
+    max-width: 100% !important;
+    margin-right: 0px !important;
+}

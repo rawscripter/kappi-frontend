@@ -1,6 +1,6 @@
 <template>
   <div class="terms-page">
-    <h2 class="mb-4">
+    <h2 class="mb-4 mt-5">
       <strong>{{ terms.name }}</strong>
     </h2>
     <div v-html="terms.description"></div>
