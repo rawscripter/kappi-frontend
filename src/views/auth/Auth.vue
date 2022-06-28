@@ -21,9 +21,7 @@
 
   <div class="cookies js-cookie" v-if="!isCookiesAccepted">
     <p>
-      KAPPI używa cookies, aby zapewnić najwyższą jakość usług. Korzystając ze
-      strony bez zmiany przeglądarki, wyrażasz zgodę na otrzymywanie cookies
-      zgodnie z Polityką Prywatności.
+      KAPPI używa cookies, aby zapewnić najwyższą jakość uslug. Korzystając ze strony bez zmiany ustawień przeglądarki, wyrażasz zgodę na otrzymywanie cookies zgodnie z Polityką Prywatności.
     </p>
     <div @click="acceptCookie" class="cookies__close js-cookieClose">
       <i class="visually-hidden">Close</i>
